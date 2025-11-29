@@ -415,6 +415,186 @@
             color: var(--text-primary);
         }
 
+        /* Hotel Cards */
+        .hotels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .hotel-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+
+        .hotel-card:hover {
+            border-color: var(--accent);
+        }
+
+        .hotel-card-image {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            background: var(--bg-secondary);
+        }
+
+        .hotel-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .hotel-badge {
+            position: absolute;
+            padding: 4px 8px;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 2px;
+        }
+
+        .hotel-badge.verified {
+            top: 12px;
+            left: 12px;
+            background: #F59E0B;
+            color: #000;
+        }
+
+        .hotel-badge.seeking-ugc {
+            top: 12px;
+            right: 12px;
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        .hotel-card-content {
+            padding: 16px;
+        }
+
+        .hotel-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .hotel-card-header h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0;
+            color: var(--text-primary);
+        }
+
+        .category-tag {
+            padding: 4px 8px;
+            font-size: 12px;
+            font-weight: 500;
+            border-radius: 2px;
+            white-space: nowrap;
+        }
+
+        .category-tag.luxury {
+            background: rgba(245, 158, 11, 0.15);
+            color: #F59E0B;
+        }
+
+        .category-tag.boutique {
+            background: rgba(59, 130, 246, 0.15);
+            color: #3B82F6;
+        }
+
+        .hotel-location {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin: 0 0 8px 0;
+        }
+
+        .hotel-description {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin: 0 0 16px 0;
+            line-height: 1.5;
+        }
+
+        .hotel-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .active-requests {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 8px 16px;
+            border-radius: 2px;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background: var(--border);
+        }
+
+        /* Filter Tabs */
+        .filter-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            padding: 8px 16px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-tab:hover {
+            border-color: var(--accent);
+            color: var(--text-primary);
+        }
+
+        .filter-tab.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        /* Section with header */
+        .section-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .section-header-row h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .nav-links {
@@ -499,7 +679,7 @@
             <div class="stat-label" data-i18n="stats.collaborations">Genomförda samarbeten</div>
         </div>
         <div class="stat-card">
-            <div class="stat-value">€4.2M</div>
+            <div class="stat-value">$4.2M</div>
             <div class="stat-label" data-i18n="stats.value">Totalt dealgagnvärde</div>
         </div>
     </section>
@@ -559,10 +739,98 @@
         </div>
     </section>
 
+    <!-- Explore Hotels -->
+    <section class="section">
+        <div class="section-header-row">
+            <h2 data-i18n="exploreHotels.title">Utforska hotell</h2>
+            <a href="#" class="btn btn-outline" data-i18n="viewAll">Visa alla</a>
+        </div>
+
+        <!-- Filter tabs -->
+        <div class="filter-tabs">
+            <button class="filter-tab active" data-i18n="filter.all">Alla</button>
+            <button class="filter-tab" data-i18n="filter.luxury">Luxury</button>
+            <button class="filter-tab" data-i18n="filter.boutique">Boutique</button>
+            <button class="filter-tab" data-i18n="filter.budget">Budget</button>
+            <button class="filter-tab" data-i18n="filter.chain">Chain</button>
+        </div>
+
+        <div class="hotels-grid">
+            <!-- Grand Hôtel Stockholm -->
+            <div class="hotel-card">
+                <div class="hotel-card-image">
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=600&fit=crop"
+                         alt="Grand Hôtel Stockholm"
+                         loading="lazy">
+                    <span class="hotel-badge verified">★</span>
+                    <span class="hotel-badge seeking-ugc" data-i18n="seekingUgc">Seeking UGC</span>
+                </div>
+                <div class="hotel-card-content">
+                    <div class="hotel-card-header">
+                        <h3>Grand Hôtel Stockholm</h3>
+                        <span class="category-tag luxury" data-i18n="filter.luxury">Luxury</span>
+                    </div>
+                    <p class="hotel-location">Stockholm • 278 rum • ★★★★★</p>
+                    <p class="hotel-description" data-i18n="hotel001.desc">Stockholms ikoniska lyxhotell sedan 1874, beläget vid vattnet mittemot Kungliga Slottet.</p>
+                    <div class="hotel-card-footer">
+                        <span class="active-requests">3 <span data-i18n="activeRequests">aktiva förfrågningar</span></span>
+                        <a href="profile.html?type=hotel&id=hotel_sthlm_001" class="btn-secondary" data-i18n="viewProfile">Visa profil</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ett Hem -->
+            <div class="hotel-card">
+                <div class="hotel-card-image">
+                    <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800&h=600&fit=crop"
+                         alt="Ett Hem"
+                         loading="lazy">
+                    <span class="hotel-badge verified">★</span>
+                    <span class="hotel-badge seeking-ugc" data-i18n="seekingUgc">Seeking UGC</span>
+                </div>
+                <div class="hotel-card-content">
+                    <div class="hotel-card-header">
+                        <h3>Ett Hem</h3>
+                        <span class="category-tag boutique" data-i18n="filter.boutique">Boutique</span>
+                    </div>
+                    <p class="hotel-location">Stockholm • 25 rum • ★★★★★</p>
+                    <p class="hotel-description" data-i18n="hotel002.desc">Skandinaviens mest omtalade boutiquehotell. Design av Ilse Crawford.</p>
+                    <div class="hotel-card-footer">
+                        <span class="active-requests">1 <span data-i18n="activeRequests">aktiva förfrågningar</span></span>
+                        <a href="profile.html?type=hotel&id=hotel_sthlm_002" class="btn-secondary" data-i18n="viewProfile">Visa profil</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bank Hotel -->
+            <div class="hotel-card">
+                <div class="hotel-card-image">
+                    <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800&h=600&fit=crop"
+                         alt="Bank Hotel"
+                         loading="lazy">
+                    <span class="hotel-badge verified">★</span>
+                    <span class="hotel-badge seeking-ugc" data-i18n="seekingUgc">Seeking UGC</span>
+                </div>
+                <div class="hotel-card-content">
+                    <div class="hotel-card-header">
+                        <h3>Bank Hotel</h3>
+                        <span class="category-tag boutique" data-i18n="filter.boutique">Boutique</span>
+                    </div>
+                    <p class="hotel-location">Stockholm • 115 rum • ★★★★★</p>
+                    <p class="hotel-description" data-i18n="hotel003.desc">Art Deco-inspirerat boutiquehotell i en historisk bankbyggnad.</p>
+                    <div class="hotel-card-footer">
+                        <span class="active-requests">2 <span data-i18n="activeRequests">aktiva förfrågningar</span></span>
+                        <a href="profile.html?type=hotel&id=hotel_sthlm_003" class="btn-secondary" data-i18n="viewProfile">Visa profil</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-inner">
-            <div class="footer-text">© 2024 STAYFINDR. <span data-i18n="footer.rights">Alla rättigheter förbehållna.</span></div>
+            <div class="footer-text">© 2025 STAYFINDR. <span data-i18n="footer.rights">Alla rättigheter förbehållna.</span></div>
             <div class="footer-links">
                 <a href="#" data-i18n="footer.terms">Villkor</a>
                 <a href="#" data-i18n="footer.privacy">Integritet</a>
@@ -635,6 +903,29 @@
                     terms: 'Villkor',
                     privacy: 'Integritet',
                     contact: 'Kontakt'
+                },
+                exploreHotels: {
+                    title: 'Utforska hotell'
+                },
+                viewAll: 'Visa alla',
+                filter: {
+                    all: 'Alla',
+                    luxury: 'Luxury',
+                    boutique: 'Boutique',
+                    budget: 'Budget',
+                    chain: 'Chain'
+                },
+                seekingUgc: 'Söker UGC',
+                activeRequests: 'aktiva förfrågningar',
+                viewProfile: 'Visa profil',
+                hotel001: {
+                    desc: 'Stockholms ikoniska lyxhotell sedan 1874, beläget vid vattnet mittemot Kungliga Slottet.'
+                },
+                hotel002: {
+                    desc: 'Skandinaviens mest omtalade boutiquehotell. Design av Ilse Crawford.'
+                },
+                hotel003: {
+                    desc: 'Art Deco-inspirerat boutiquehotell i en historisk bankbyggnad.'
                 }
             },
             en: {
@@ -698,6 +989,29 @@
                     terms: 'Terms',
                     privacy: 'Privacy',
                     contact: 'Contact'
+                },
+                exploreHotels: {
+                    title: 'Explore hotels'
+                },
+                viewAll: 'View all',
+                filter: {
+                    all: 'All',
+                    luxury: 'Luxury',
+                    boutique: 'Boutique',
+                    budget: 'Budget',
+                    chain: 'Chain'
+                },
+                seekingUgc: 'Seeking UGC',
+                activeRequests: 'active requests',
+                viewProfile: 'View profile',
+                hotel001: {
+                    desc: "Stockholm's iconic luxury hotel since 1874, located on the waterfront opposite the Royal Palace."
+                },
+                hotel002: {
+                    desc: "Scandinavia's most talked-about boutique hotel. Designed by Ilse Crawford."
+                },
+                hotel003: {
+                    desc: 'Art Deco-inspired boutique hotel in a historic bank building.'
                 }
             }
         };
