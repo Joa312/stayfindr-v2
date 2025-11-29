@@ -1,12 +1,35 @@
-
 <!DOCTYPE html>
-<html lang="sv">
+<html lang="sv" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STAYFINDR - Hitta bästa hotellpriset i Europa</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <title>STAYFINDR - Marketplace för Hotell & Influencers</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F9FAFB;
+            --text-primary: #111827;
+            --text-secondary: #6B7280;
+            --border: #E5E7EB;
+            --accent: #111827;
+            --accent-hover: #374151;
+            --success: #10B981;
+            --warning: #F59E0B;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #111827;
+            --bg-secondary: #1F2937;
+            --text-primary: #F9FAFB;
+            --text-secondary: #9CA3AF;
+            --border: #374151;
+            --accent: #F9FAFB;
+            --accent-hover: #E5E7EB;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -14,1583 +37,727 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
             min-height: 100vh;
-            padding: 20px;
+            line-height: 1.5;
         }
 
-        .container {
-            max-width: 1400px;
+        /* Header */
+        .header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            max-width: 1200px;
             margin: 0 auto;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .lang-select {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 8px 12px;
+            font-size: 13px;
+            font-family: inherit;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        .theme-toggle {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 2px;
+            font-size: 14px;
+            font-weight: 500;
+            font-family: inherit;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+        }
+
+        .btn-ghost:hover {
+            color: var(--text-primary);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            border: 1px solid var(--accent);
+            color: var(--bg-primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            border-color: var(--accent-hover);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--bg-secondary);
         }
 
         /* Hero Section */
         .hero {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 24px;
             text-align: center;
-            color: white;
-            margin-bottom: 40px;
-            animation: fadeIn 0.8s ease-in;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 15px;
-            background: linear-gradient(45deg, #fff, #ffd700);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+            line-height: 1.1;
         }
 
-        .hero .tagline {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            opacity: 0.95;
+        .hero p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 40px;
         }
 
-        .hero .subtitle {
-            font-size: 1.1rem;
-            opacity: 0.85;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        /* Benefits Bar */
-        .benefits-bar {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 30px;
+        .hero-buttons {
             display: flex;
-            justify-content: space-around;
+            gap: 16px;
+            justify-content: center;
             flex-wrap: wrap;
-            gap: 20px;
         }
 
-        .benefit-item {
+        .hero-buttons .btn {
+            padding: 14px 28px;
+            font-size: 15px;
+        }
+
+        /* Stats */
+        .stats {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 24px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .stat-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 24px;
             text-align: center;
-            color: white;
-            flex: 1;
-            min-width: 200px;
         }
 
-        .benefit-icon {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-
-        .benefit-text {
-            font-size: 0.95rem;
-            font-weight: 600;
-        }
-
-        .benefit-subtext {
-            font-size: 0.85rem;
-            opacity: 0.8;
-            margin-top: 5px;
-        }
-
-        /* Search Panel */
-        .search-panel {
-            background: white;
-            border-radius: 25px;
-            padding: 40px;
-            margin-bottom: 30px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        }
-
-        .search-panel h2 {
-            color: #2c3e50;
-            margin-bottom: 25px;
-            font-size: 1.8rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .search-form {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group label {
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #2c3e50;
-            font-size: 0.9rem;
-        }
-
-        .form-group select,
-        .form-group input {
-            padding: 14px;
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            font-size: 16px;
-            transition: all 0.3s;
-            background: white;
-        }
-
-        .form-group select:focus,
-        .form-group input:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .search-btn {
-            grid-column: 1 / -1;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            padding: 18px 40px;
-            border-radius: 12px;
-            font-size: 1.1rem;
+        .stat-value {
+            font-size: 32px;
             font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+            color: var(--text-primary);
+            margin-bottom: 4px;
         }
 
-        .search-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.6);
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
         }
 
-        .search-btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            transform: none;
+        /* How it works */
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 24px;
         }
 
-        /* Price Comparison Toggle */
-        .comparison-toggle {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 15px;
-            margin-top: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
         }
 
-        .toggle-label {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 600;
-            color: #2c3e50;
-        }
-
-        .toggle-switch {
-            width: 60px;
-            height: 30px;
-            background: #2ecc71;
-            border-radius: 15px;
-            position: relative;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .toggle-switch::after {
-            content: '';
-            position: absolute;
-            width: 26px;
-            height: 26px;
-            background: white;
-            border-radius: 50%;
-            top: 2px;
-            right: 2px;
-            transition: all 0.3s;
-        }
-
-        /* Results Section */
-        .results-section {
-            display: grid;
-            grid-template-columns: 1fr 400px;
-            gap: 30px;
-            min-height: 600px;
-        }
-
-        #map {
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            height: 600px;
-        }
-
-        .results-panel {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            overflow-y: auto;
-            max-height: 600px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .results-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #f0f0f0;
-        }
-
-        .results-count {
-            font-size: 1.2rem;
+        .section-header h2 {
+            font-size: 32px;
             font-weight: 700;
-            color: #2c3e50;
-        }
-
-        .sort-dropdown {
-            padding: 8px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            background: white;
-        }
-
-        .sort-dropdown:hover {
-            border-color: #667eea;
-        }
-
-        .sort-dropdown:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        /* Sort indicator */
-        .sort-active-indicator {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            margin-left: 10px;
-            animation: fadeIn 0.3s;
-        }
-
-        /* Hotel Card */
-        .hotel-card {
-            background: white;
-            border: 2px solid #f0f0f0;
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-
-        .hotel-card:hover {
-            border-color: #667eea;
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
-            transform: translateY(-2px);
-        }
-
-        /* Hotel Images Gallery */
-        .hotel-images {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 8px;
-            margin-bottom: 15px;
-            border-radius: 12px;
-            overflow: hidden;
-            height: 200px;
-        }
-
-        .hotel-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s;
-            cursor: pointer;
-        }
-
-        .hotel-image:hover {
-            transform: scale(1.05);
-        }
-
-        .main-image {
-            grid-row: 1 / 3;
-        }
-
-        .hotel-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 15px;
-        }
-
-        .hotel-name {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #2c3e50;
-            margin-bottom: 5px;
-        }
-
-        .hotel-location {
-            font-size: 0.9rem;
-            color: #7f8c8d;
-            margin-bottom: 8px;
-        }
-
-        .hotel-rating {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            color: #f39c12;
-            font-size: 0.9rem;
-        }
-
-        .best-price-badge {
-            background: linear-gradient(135deg, #2ecc71, #27ae60);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
-            white-space: nowrap;
-        }
-
-        .position-badge {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-            white-space: nowrap;
-        }
-
-        .position-badge.gold {
-            background: linear-gradient(135deg, #f1c40f, #f39c12);
-            box-shadow: 0 4px 15px rgba(241, 196, 15, 0.3);
-        }
-
-        .position-badge.silver {
-            background: linear-gradient(135deg, #95a5a6, #7f8c8d);
-            box-shadow: 0 4px 15px rgba(149, 165, 166, 0.3);
-        }
-
-        .position-badge.bronze {
-            background: linear-gradient(135deg, #e67e22, #d35400);
-            box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3);
-        }
-
-        /* Price Comparison Grid */
-        .price-comparison {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 15px;
-            margin: 15px 0;
-        }
-
-        .comparison-title {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #7f8c8d;
+            color: var(--text-primary);
             margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
-        .price-grid {
+        .section-header p {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+
+        .steps-grid {
             display: grid;
-            gap: 10px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
         }
 
-        .price-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px;
-            background: white;
-            border-radius: 8px;
-            border: 2px solid transparent;
-            transition: all 0.3s;
+        .step-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 32px 24px;
         }
 
-        .price-row.best-deal {
-            border-color: #2ecc71;
-            background: linear-gradient(90deg, rgba(46, 204, 113, 0.1), white);
-        }
-
-        .platform-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .platform-logo {
-            width: 28px;
-            height: 28px;
-            border-radius: 6px;
-            background: #667eea;
+        .step-number {
+            width: 32px;
+            height: 32px;
+            background: var(--accent);
+            color: var(--bg-primary);
+            border-radius: 2px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 700;
-            color: white;
-            font-size: 0.7rem;
-        }
-
-        .platform-logo.booking { background: #003580; }
-        .platform-logo.hotels { background: #d32f2f; }
-        .platform-logo.expedia { background: #ffb700; color: #003580; }
-
-        .platform-name {
+            font-size: 14px;
             font-weight: 600;
-            color: #2c3e50;
-            font-size: 0.95rem;
+            margin-bottom: 16px;
         }
 
-        .price-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .price-amount {
-            font-size: 1.3rem;
-            font-weight: 800;
-            color: #2c3e50;
-        }
-
-        .price-difference {
-            font-size: 0.85rem;
-            color: #e74c3c;
+        .step-card h3 {
+            font-size: 18px;
             font-weight: 600;
-        }
-
-        .price-difference.saving {
-            color: #2ecc71;
-        }
-
-        /* Savings Summary */
-        .savings-summary {
-            background: linear-gradient(135deg, #2ecc71, #27ae60);
-            color: white;
-            padding: 15px;
-            border-radius: 12px;
-            margin-top: 15px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            box-shadow: 0 6px 20px rgba(46, 204, 113, 0.3);
-        }
-
-        .savings-icon {
-            font-size: 2rem;
-        }
-
-        .savings-text {
-            flex: 1;
-        }
-
-        .savings-amount {
-            font-size: 1.5rem;
-            font-weight: 800;
-            margin-bottom: 5px;
-        }
-
-        .savings-description {
-            font-size: 0.9rem;
-            opacity: 0.95;
-        }
-
-        /* Book Button */
-        .book-button {
-            width: 100%;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .book-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-        }
-
-        /* Loading State */
-        .loading {
-            text-align: center;
-            padding: 60px 20px;
-            color: #7f8c8d;
-        }
-
-        .loading-spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid #f0f0f0;
-            border-top-color: #667eea;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Smart Tips Section */
-        .smart-tips {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 25px;
-            margin-top: 30px;
-            color: white;
-        }
-
-        .smart-tips h3 {
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .tips-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-        }
-
-        .tip-card {
-            background: rgba(255, 255, 255, 0.15);
-            padding: 15px;
-            border-radius: 12px;
-            backdrop-filter: blur(5px);
-        }
-
-        .tip-icon {
-            font-size: 1.5rem;
+            color: var(--text-primary);
             margin-bottom: 8px;
         }
 
-        .tip-text {
-            font-size: 0.9rem;
-            line-height: 1.4;
+        .step-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
         }
 
-        /* Mobile Responsive */
+        /* Two columns section */
+        .two-col {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .role-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 40px;
+        }
+
+        .role-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .role-card h3 {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .role-card p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .role-features {
+            list-style: none;
+            margin-bottom: 24px;
+        }
+
+        .role-features li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .role-features li:last-child {
+            border-bottom: none;
+        }
+
+        .check-icon {
+            color: var(--success);
+            font-size: 16px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-primary);
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-links a {
+            font-size: 14px;
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
             .hero h1 {
-                font-size: 2.2rem;
+                font-size: 32px;
             }
 
-            .hero .tagline {
-                font-size: 1.1rem;
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
             }
 
-            .search-panel {
-                padding: 25px;
-            }
-
-            .search-form {
+            .steps-grid,
+            .two-col {
                 grid-template-columns: 1fr;
             }
 
-            .results-section {
-                grid-template-columns: 1fr;
-            }
-
-            #map {
-                height: 350px;
-                order: 2;
-            }
-
-            .results-panel {
-                order: 1;
-                max-height: none;
-            }
-
-            .benefits-bar {
+            .footer-inner {
                 flex-direction: column;
-            }
-
-            .price-info {
-                flex-direction: column;
-                align-items: flex-end;
-                gap: 5px;
-            }
-
-            .hotel-images {
-                height: 180px;
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .main-image {
-                grid-column: 1 / 3;
-                grid-row: 1;
+                gap: 20px;
+                text-align: center;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Hero Section -->
-        <div class="hero">
-            <h1>🏨 STAYFINDR</h1>
-            <p class="tagline">Hitta bästa hotellpriset i Europa – Automatiskt</p>
-            <p class="subtitle">Vi jämför priser från Booking.com, Hotels.com och Expedia så du sparar tid och pengar</p>
-        </div>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="index.html" class="logo">STAYFINDR</a>
 
-        <!-- Benefits Bar -->
-        <div class="benefits-bar">
-            <div class="benefit-item">
-                <div class="benefit-icon">💰</div>
-                <div class="benefit-text">Spara i genomsnitt €47</div>
-                <div class="benefit-subtext">per bokning</div>
-            </div>
-            <div class="benefit-item">
-                <div class="benefit-icon">⚡</div>
-                <div class="benefit-text">3 sekunder jämförelse</div>
-                <div class="benefit-subtext">istället för 15 minuter</div>
-            </div>
-            <div class="benefit-item">
-                <div class="benefit-icon">🎯</div>
-                <div class="benefit-text">100% transparens</div>
-                <div class="benefit-subtext">alla avgifter inkluderade</div>
-            </div>
-            <div class="benefit-item">
-                <div class="benefit-icon">🌍</div>
-                <div class="benefit-text">29 Europeiska städer</div>
-                <div class="benefit-subtext">från Stockholm till Santorini</div>
-            </div>
-        </div>
+            <nav class="nav">
+                <ul class="nav-links">
+                    <li><a href="#" data-i18n="nav.hotels">Hotell</a></li>
+                    <li><a href="#" data-i18n="nav.influencers">Influencers</a></li>
+                    <li><a href="#" data-i18n="nav.howItWorks">Hur det fungerar</a></li>
+                    <li><a href="#" data-i18n="nav.pricing">Priser</a></li>
+                </ul>
+            </nav>
 
-        <!-- Search Panel -->
-        <div class="search-panel">
-            <h2>
-                <span>🔍</span>
-                <span>Sök och jämför hotellpriser</span>
-            </h2>
-
-            <form id="searchForm" class="search-form">
-                <div class="form-group">
-                    <label for="city">📍 Stad</label>
-                    <select id="city">
-                        <option value="stockholm">Stockholm, Sverige</option>
-                        <option value="paris">Paris, Frankrike</option>
-                        <option value="london">London, Storbritannien</option>
-                        <option value="amsterdam">Amsterdam, Nederländerna</option>
-                        <option value="barcelona">Barcelona, Spanien</option>
-                        <option value="rome">Rom, Italien</option>
-                        <option value="berlin">Berlin, Tyskland</option>
-                        <option value="copenhagen">Köpenhamn, Danmark</option>
-                        <option value="vienna">Wien, Österrike</option>
-                        <option value="prague">Prag, Tjeckien</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="checkin">📅 Incheckning</label>
-                    <input type="date" id="checkin" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="checkout">📅 Utcheckning</label>
-                    <input type="date" id="checkout" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="roomType">🛏️ Rumstyp</label>
-                    <select id="roomType">
-                        <option value="single">Enkelrum (1 gäst)</option>
-                        <option value="double" selected>Dubbelrum (2 gäster)</option>
-                        <option value="family">Familjerum (3-4 gäster)</option>
-                        <option value="junior_suite">Junior Suite (2 gäster)</option>
-                        <option value="suite">Suite/Lägenhet (2-4 gäster)</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="guests">👥 Antal gäster</label>
-                    <select id="guests">
-                        <option value="1">1 Gäst</option>
-                        <option value="2" selected>2 Gäster</option>
-                        <option value="3">3 Gäster</option>
-                        <option value="4">4 Gäster</option>
-                    </select>
-                </div>
-
-                <button type="submit" class="search-btn" id="searchBtn">
-                    🔍 Jämför priser från 3 plattformar
+            <div class="header-actions">
+                <select class="lang-select" id="langSelect">
+                    <option value="sv">SV</option>
+                    <option value="en">EN</option>
+                </select>
+                <button class="theme-toggle" id="themeToggle" title="Byt tema">
+                    <span id="themeIcon">☀️</span>
                 </button>
-            </form>
-
-            <div class="comparison-toggle">
-                <div class="toggle-label">
-                    <span>💡</span>
-                    <span>Smart prisjämförelse aktiverad</span>
-                </div>
-                <div class="toggle-switch"></div>
+                <a href="#" class="btn btn-ghost" data-i18n="nav.login">Logga in</a>
+                <a href="#" class="btn btn-primary" data-i18n="nav.getStarted">Kom igång</a>
             </div>
         </div>
+    </header>
 
-        <!-- Results Section -->
-        <div class="results-section">
-            <div id="map"></div>
-            
-            <div class="results-panel">
-                <div class="results-header">
-                    <div class="results-count" id="resultsCount">
-                        Klicka på "Jämför priser" för att börja
-                    </div>
-                    <select class="sort-dropdown" id="sortBy">
-                        <option value="best_price">Bästa pris</option>
-                        <option value="rating">Högst betyg</option>
-                        <option value="savings">Störst besparing</option>
-                    </select>
-                </div>
-
-                <div id="hotelsList">
-                    <div class="loading">
-                        <p style="font-size: 1.2rem; margin-bottom: 20px;">✨ Välkommen till STAYFINDR!</p>
-                        <p>Så här använder du appen:</p>
-                        <ol style="text-align: left; max-width: 400px; margin: 20px auto; line-height: 1.8;">
-                            <li><strong>Välj destination</strong> – 29 europeiska städer</li>
-                            <li><strong>Ange datum</strong> – incheckning & utcheckning</li>
-                            <li><strong>Välj rumstyp</strong> – från enkelrum till suite</li>
-                            <li><strong>Klicka jämför</strong> – vi söker på 3 plattformar</li>
-                            <li><strong>Se bästa priset</strong> – markerat med grön badge</li>
-                            <li><strong>Spara pengar</strong> – se exakt hur mycket du sparar</li>
-                        </ol>
-                    </div>
-                </div>
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-inner">
+            <span class="hero-badge" data-i18n="hero.badge">Marketplace för hotell & influencers</span>
+            <h1 data-i18n="hero.title">Koppla samman hotell med rätt influencers</h1>
+            <p data-i18n="hero.subtitle">STAYFINDR gör det enkelt för hotell att hitta kvalificerade influencers och för influencers att hitta autentiska samarbeten.</p>
+            <div class="hero-buttons">
+                <a href="hotel-dashboard.html" class="btn btn-primary" data-i18n="hero.hotelBtn">Jag är hotell</a>
+                <a href="influencer-dashboard.html" class="btn btn-outline" data-i18n="hero.influencerBtn">Jag är influencer</a>
             </div>
         </div>
+    </section>
 
-        <!-- Smart Tips Section -->
-        <div class="smart-tips">
-            <h3>
-                <span>💡</span>
-                <span>Så sparar du ännu mer pengar</span>
-            </h3>
-            <div class="tips-grid">
-                <div class="tip-card">
-                    <div class="tip-icon">📅</div>
-                    <div class="tip-text">Boka 2-3 månader i förväg för bästa priser på populära destinationer</div>
-                </div>
-                <div class="tip-card">
-                    <div class="tip-icon">🔔</div>
-                    <div class="tip-text">Testa olika datum – ibland sparar du €50+ genom att byta en dag</div>
-                </div>
-                <div class="tip-card">
-                    <div class="tip-icon">⭐</div>
-                    <div class="tip-text">Hotell utanför centrum kan vara 30-40% billigare med bra kommunikationer</div>
-                </div>
-                <div class="tip-card">
-                    <div class="tip-icon">🎯</div>
-                    <div class="tip-text">STAYFINDR visar alltid totalpris inkl. alla avgifter – inga överraskningar</div>
-                </div>
+    <!-- Stats -->
+    <section class="stats">
+        <div class="stat-card">
+            <div class="stat-value">2,400+</div>
+            <div class="stat-label" data-i18n="stats.hotels">Registrerade hotell</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">8,500+</div>
+            <div class="stat-label" data-i18n="stats.influencers">Aktiva influencers</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">15,000+</div>
+            <div class="stat-label" data-i18n="stats.collaborations">Genomförda samarbeten</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">€4.2M</div>
+            <div class="stat-label" data-i18n="stats.value">Totalt dealgagnvärde</div>
+        </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="section">
+        <div class="section-header">
+            <h2 data-i18n="howItWorks.title">Så fungerar det</h2>
+            <p data-i18n="howItWorks.subtitle">Tre enkla steg till ett lyckat samarbete</p>
+        </div>
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <h3 data-i18n="howItWorks.step1.title">Skapa profil</h3>
+                <p data-i18n="howItWorks.step1.desc">Registrera dig som hotell eller influencer. Fyll i din profil med relevant information och portfolio.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <h3 data-i18n="howItWorks.step2.title">Hitta matchningar</h3>
+                <p data-i18n="howItWorks.step2.desc">Vår algoritm matchar hotell med influencers baserat på nisch, målgrupp och preferenser.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <h3 data-i18n="howItWorks.step3.title">Samarbeta</h3>
+                <p data-i18n="howItWorks.step3.desc">Kommunicera direkt, bestäm villkor och genomför ert samarbete. Vi hanterar allt administrativt.</p>
             </div>
         </div>
-    </div>
+    </section>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- Role cards -->
+    <section class="section">
+        <div class="two-col">
+            <div class="role-card">
+                <div class="role-icon">🏨</div>
+                <h3 data-i18n="forHotels.title">För hotell</h3>
+                <p data-i18n="forHotels.desc">Nå nya gäster genom autentiska influencer-samarbeten. Hitta rätt profiler för er målgrupp.</p>
+                <ul class="role-features">
+                    <li><span class="check-icon">✓</span> <span data-i18n="forHotels.feature1">Filtrera influencers på nisch och följare</span></li>
+                    <li><span class="check-icon">✓</span> <span data-i18n="forHotels.feature2">Publicera content requests</span></li>
+                    <li><span class="check-icon">✓</span> <span data-i18n="forHotels.feature3">Hantera alla samarbeten på ett ställe</span></li>
+                    <li><span class="check-icon">✓</span> <span data-i18n="forHotels.feature4">Verifiera influencer-statistik</span></li>
+                </ul>
+                <a href="hotel-dashboard.html" class="btn btn-primary" data-i18n="forHotels.cta">Registrera hotell</a>
+            </div>
+            <div class="role-card">
+                <div class="role-icon">📸</div>
+                <h3 data-i18n="forInfluencers.title">För influencers</h3>
+                <p data-i18n="forInfluencers.desc">Hitta spännande hotellsamarbeten som passar din profil. Bygg din portfolio och tjäna pengar.</p>
+                <ul class="role-features">
+                    <li><span class="check-icon">✓</span> <span data-i18n="forInfluencers.feature1">Bläddra bland hotellförfrågningar</span></li>
+                    <li><span class="check-icon">✓</span> <span data-i18n="forInfluencers.feature2">Skicka förslag direkt till hotell</span></li>
+                    <li><span class="check-icon">✓</span> <span data-i18n="forInfluencers.feature3">Få ranking baserat på prestationer</span></li>
+                    <li><span class="check-icon">✓</span> <span data-i18n="forInfluencers.feature4">Säker betalningshantering</span></li>
+                </ul>
+                <a href="influencer-dashboard.html" class="btn btn-primary" data-i18n="forInfluencers.cta">Registrera dig</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-text">© 2024 STAYFINDR. <span data-i18n="footer.rights">Alla rättigheter förbehållna.</span></div>
+            <div class="footer-links">
+                <a href="#" data-i18n="footer.terms">Villkor</a>
+                <a href="#" data-i18n="footer.privacy">Integritet</a>
+                <a href="#" data-i18n="footer.contact">Kontakt</a>
+            </div>
+        </div>
+    </footer>
+
     <script>
-        let map;
-        let currentMarkers = [];
-
-        // Mock hotel data for different cities with room types and images
-        const mockHotels = {
-            stockholm: [
-                {
-                    name: "Hotel Diplomat Stockholm",
-                    location: "Strandvägen, Stockholm centrum",
-                    rating: 4.7,
-                    coordinates: [59.3326, 18.0840],
-                    images: [
-                        "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=400",
-                        "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=400",
-                        "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400"
-                    ],
-                    roomTypes: {
-                        single: { bookingPrice: 105, hotelsComPrice: 125, expediaPrice: 115 },
-                        double: { bookingPrice: 145, hotelsComPrice: 168, expediaPrice: 152 },
-                        family: { bookingPrice: 210, hotelsComPrice: 245, expediaPrice: 225 },
-                        junior_suite: { bookingPrice: 195, hotelsComPrice: 225, expediaPrice: 208 },
-                        suite: { bookingPrice: 285, hotelsComPrice: 325, expediaPrice: 305 }
+        // Translations
+        const translations = {
+            sv: {
+                nav: {
+                    hotels: 'Hotell',
+                    influencers: 'Influencers',
+                    howItWorks: 'Hur det fungerar',
+                    pricing: 'Priser',
+                    login: 'Logga in',
+                    getStarted: 'Kom igång'
+                },
+                hero: {
+                    badge: 'Marketplace för hotell & influencers',
+                    title: 'Koppla samman hotell med rätt influencers',
+                    subtitle: 'STAYFINDR gör det enkelt för hotell att hitta kvalificerade influencers och för influencers att hitta autentiska samarbeten.',
+                    hotelBtn: 'Jag är hotell',
+                    influencerBtn: 'Jag är influencer'
+                },
+                stats: {
+                    hotels: 'Registrerade hotell',
+                    influencers: 'Aktiva influencers',
+                    collaborations: 'Genomförda samarbeten',
+                    value: 'Totalt dealvärde'
+                },
+                howItWorks: {
+                    title: 'Så fungerar det',
+                    subtitle: 'Tre enkla steg till ett lyckat samarbete',
+                    step1: {
+                        title: 'Skapa profil',
+                        desc: 'Registrera dig som hotell eller influencer. Fyll i din profil med relevant information och portfolio.'
+                    },
+                    step2: {
+                        title: 'Hitta matchningar',
+                        desc: 'Vår algoritm matchar hotell med influencers baserat på nisch, målgrupp och preferenser.'
+                    },
+                    step3: {
+                        title: 'Samarbeta',
+                        desc: 'Kommunicera direkt, bestäm villkor och genomför ert samarbete. Vi hanterar allt administrativt.'
                     }
                 },
-                {
-                    name: "Scandic Continental",
-                    location: "Vasagatan, T-Centralen",
-                    rating: 4.3,
-                    coordinates: [59.3308, 18.0590],
-                    images: [
-                        "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400",
-                        "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=400",
-                        "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=400"
-                    ],
-                    roomTypes: {
-                        single: { bookingPrice: 88, hotelsComPrice: 105, expediaPrice: 95 },
-                        double: { bookingPrice: 118, hotelsComPrice: 135, expediaPrice: 125 },
-                        family: { bookingPrice: 175, hotelsComPrice: 198, expediaPrice: 185 },
-                        junior_suite: { bookingPrice: 165, hotelsComPrice: 188, expediaPrice: 175 },
-                        suite: { bookingPrice: 235, hotelsComPrice: 268, expediaPrice: 248 }
-                    }
+                forHotels: {
+                    title: 'För hotell',
+                    desc: 'Nå nya gäster genom autentiska influencer-samarbeten. Hitta rätt profiler för er målgrupp.',
+                    feature1: 'Filtrera influencers på nisch och följare',
+                    feature2: 'Publicera content requests',
+                    feature3: 'Hantera alla samarbeten på ett ställe',
+                    feature4: 'Verifiera influencer-statistik',
+                    cta: 'Registrera hotell'
                 },
-                {
-                    name: "Grand Hôtel Stockholm",
-                    location: "Södra Blasieholmshamnen",
-                    rating: 4.8,
-                    coordinates: [59.3304, 18.0748],
-                    images: [
-                        "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=400",
-                        "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=400",
-                        "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=400"
-                    ],
-                    roomTypes: {
-                        single: { bookingPrice: 245, hotelsComPrice: 285, expediaPrice: 265 },
-                        double: { bookingPrice: 298, hotelsComPrice: 325, expediaPrice: 312 },
-                        family: { bookingPrice: 425, hotelsComPrice: 478, expediaPrice: 448 },
-                        junior_suite: { bookingPrice: 385, hotelsComPrice: 445, expediaPrice: 415 },
-                        suite: { bookingPrice: 550, hotelsComPrice: 625, expediaPrice: 585 }
-                    }
+                forInfluencers: {
+                    title: 'För influencers',
+                    desc: 'Hitta spännande hotellsamarbeten som passar din profil. Bygg din portfolio och tjäna pengar.',
+                    feature1: 'Bläddra bland hotellförfrågningar',
+                    feature2: 'Skicka förslag direkt till hotell',
+                    feature3: 'Få ranking baserat på prestationer',
+                    feature4: 'Säker betalningshantering',
+                    cta: 'Registrera dig'
                 },
-                {
-                    name: "Hotel Frantz",
-                    location: "Vasastan",
-                    rating: 4.5,
-                    coordinates: [59.3428, 18.0516],
-                    images: [
-                        "https://images.unsplash.com/photo-1590490359683-658d3d23f972?w=400",
-                        "https://images.unsplash.com/photo-1595576508898-0ad5c879a061?w=400",
-                        "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=400"
-                    ],
-                    roomTypes: {
-                        single: { bookingPrice: 75, hotelsComPrice: 90, expediaPrice: 82 },
-                        double: { bookingPrice: 95, hotelsComPrice: 112, expediaPrice: 105 },
-                        family: { bookingPrice: 145, hotelsComPrice: 168, expediaPrice: 155 },
-                        junior_suite: { bookingPrice: 135, hotelsComPrice: 155, expediaPrice: 145 },
-                        suite: { bookingPrice: 195, hotelsComPrice: 225, expediaPrice: 208 }
-                    }
-                },
-                {
-                    name: "At Six Hotel",
-                    location: "Brunkebergstorg, Norrmalm",
-                    rating: 4.6,
-                    coordinates: [59.3318, 18.0632],
-                    images: [
-                        "https://images.unsplash.com/photo-1596436889106-be35e843f974?w=400",
-                        "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400",
-                        "https://images.unsplash.com/photo-1591088398332-8a7791972843?w=400"
-                    ],
-                    roomTypes: {
-                        single: { bookingPrice: 125, hotelsComPrice: 148, expediaPrice: 135 },
-                        double: { bookingPrice: 168, hotelsComPrice: 195, expediaPrice: 180 },
-                        family: { bookingPrice: 245, hotelsComPrice: 285, expediaPrice: 265 },
-                        junior_suite: { bookingPrice: 225, hotelsComPrice: 258, expediaPrice: 240 },
-                        suite: { bookingPrice: 325, hotelsComPrice: 375, expediaPrice: 348 }
-                    }
-                },
-                {
-                    name: "Hotel Rival",
-                    location: "Södermalm, Mariatorget",
-                    rating: 4.4,
-                    coordinates: [59.3168, 18.0633],
-                    images: [
-                        "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=400",
-                        "https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?w=400",
-                        "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400"
-                    ],
-                    roomTypes: {
-                        single: { bookingPrice: 92, hotelsComPrice: 110, expediaPrice: 102 },
-                        double: { bookingPrice: 128, hotelsComPrice: 148, expediaPrice: 138 },
-                        family: { bookingPrice: 188, hotelsComPrice: 218, expediaPrice: 205 },
-                        junior_suite: { bookingPrice: 175, hotelsComPrice: 202, expediaPrice: 188 },
-                        suite: { bookingPrice: 258, hotelsComPrice: 298, expediaPrice: 275 }
-                    }
+                footer: {
+                    rights: 'Alla rättigheter förbehållna.',
+                    terms: 'Villkor',
+                    privacy: 'Integritet',
+                    contact: 'Kontakt'
                 }
-            ],
-            paris: [
-                {
-                    name: "Hotel Brighton",
-                    location: "Rue de Rivoli, Paris 1er",
-                    rating: 4.6,
-                    coordinates: [48.8631, 2.3301],
-                    roomTypes: {
-                        single: { bookingPrice: 135, hotelsComPrice: 158, expediaPrice: 145 },
-                        double: { bookingPrice: 185, hotelsComPrice: 210, expediaPrice: 198 },
-                        family: { bookingPrice: 268, hotelsComPrice: 305, expediaPrice: 285 },
-                        junior_suite: { bookingPrice: 245, hotelsComPrice: 278, expediaPrice: 260 },
-                        suite: { bookingPrice: 345, hotelsComPrice: 395, expediaPrice: 368 }
+            },
+            en: {
+                nav: {
+                    hotels: 'Hotels',
+                    influencers: 'Influencers',
+                    howItWorks: 'How it works',
+                    pricing: 'Pricing',
+                    login: 'Log in',
+                    getStarted: 'Get started'
+                },
+                hero: {
+                    badge: 'Marketplace for hotels & influencers',
+                    title: 'Connect hotels with the right influencers',
+                    subtitle: 'STAYFINDR makes it easy for hotels to find qualified influencers and for influencers to find authentic collaborations.',
+                    hotelBtn: "I'm a hotel",
+                    influencerBtn: "I'm an influencer"
+                },
+                stats: {
+                    hotels: 'Registered hotels',
+                    influencers: 'Active influencers',
+                    collaborations: 'Completed collaborations',
+                    value: 'Total deal value'
+                },
+                howItWorks: {
+                    title: 'How it works',
+                    subtitle: 'Three simple steps to a successful collaboration',
+                    step1: {
+                        title: 'Create profile',
+                        desc: 'Register as a hotel or influencer. Fill in your profile with relevant information and portfolio.'
+                    },
+                    step2: {
+                        title: 'Find matches',
+                        desc: 'Our algorithm matches hotels with influencers based on niche, audience and preferences.'
+                    },
+                    step3: {
+                        title: 'Collaborate',
+                        desc: 'Communicate directly, set terms and carry out your collaboration. We handle all administration.'
                     }
                 },
-                {
-                    name: "Hotel du Louvre",
-                    location: "Place André Malraux",
-                    rating: 4.8,
-                    coordinates: [48.8629, 2.3356],
-                    roomTypes: {
-                        single: { bookingPrice: 268, hotelsComPrice: 308, expediaPrice: 285 },
-                        double: { bookingPrice: 325, hotelsComPrice: 365, expediaPrice: 342 },
-                        family: { bookingPrice: 465, hotelsComPrice: 525, expediaPrice: 490 },
-                        junior_suite: { bookingPrice: 425, hotelsComPrice: 485, expediaPrice: 455 },
-                        suite: { bookingPrice: 595, hotelsComPrice: 675, expediaPrice: 630 }
-                    }
+                forHotels: {
+                    title: 'For hotels',
+                    desc: 'Reach new guests through authentic influencer collaborations. Find the right profiles for your target audience.',
+                    feature1: 'Filter influencers by niche and followers',
+                    feature2: 'Publish content requests',
+                    feature3: 'Manage all collaborations in one place',
+                    feature4: 'Verify influencer statistics',
+                    cta: 'Register hotel'
                 },
-                {
-                    name: "Hotel Victoires Opéra",
-                    location: "2e arrondissement",
-                    rating: 4.4,
-                    coordinates: [48.8686, 2.3412],
-                    roomTypes: {
-                        single: { bookingPrice: 105, hotelsComPrice: 125, expediaPrice: 115 },
-                        double: { bookingPrice: 142, hotelsComPrice: 165, expediaPrice: 155 },
-                        family: { bookingPrice: 205, hotelsComPrice: 235, expediaPrice: 220 },
-                        junior_suite: { bookingPrice: 185, hotelsComPrice: 212, expediaPrice: 198 },
-                        suite: { bookingPrice: 265, hotelsComPrice: 305, expediaPrice: 285 }
-                    }
+                forInfluencers: {
+                    title: 'For influencers',
+                    desc: 'Find exciting hotel collaborations that fit your profile. Build your portfolio and earn money.',
+                    feature1: 'Browse hotel requests',
+                    feature2: 'Send proposals directly to hotels',
+                    feature3: 'Get ranking based on performance',
+                    feature4: 'Secure payment handling',
+                    cta: 'Register'
                 },
-                {
-                    name: "Hotel Le Marais",
-                    location: "Marais District",
-                    rating: 4.3,
-                    coordinates: [48.8564, 2.3626],
-                    roomTypes: {
-                        single: { bookingPrice: 85, hotelsComPrice: 102, expediaPrice: 95 },
-                        double: { bookingPrice: 108, hotelsComPrice: 128, expediaPrice: 118 },
-                        family: { bookingPrice: 165, hotelsComPrice: 190, expediaPrice: 178 },
-                        junior_suite: { bookingPrice: 148, hotelsComPrice: 172, expediaPrice: 160 },
-                        suite: { bookingPrice: 215, hotelsComPrice: 248, expediaPrice: 230 }
-                    }
-                },
-                {
-                    name: "Hotel Marignan Champs-Élysées",
-                    location: "Avenue des Champs-Élysées",
-                    rating: 4.7,
-                    coordinates: [48.8698, 2.3088],
-                    roomTypes: {
-                        single: { bookingPrice: 195, hotelsComPrice: 225, expediaPrice: 208 },
-                        double: { bookingPrice: 258, hotelsComPrice: 295, expediaPrice: 275 },
-                        family: { bookingPrice: 368, hotelsComPrice: 425, expediaPrice: 395 },
-                        junior_suite: { bookingPrice: 325, hotelsComPrice: 375, expediaPrice: 348 },
-                        suite: { bookingPrice: 485, hotelsComPrice: 558, expediaPrice: 515 }
-                    }
-                },
-                {
-                    name: "Hotel Moderne Saint Germain",
-                    location: "Saint-Germain-des-Prés",
-                    rating: 4.2,
-                    coordinates: [48.8534, 2.3364],
-                    roomTypes: {
-                        single: { bookingPrice: 95, hotelsComPrice: 115, expediaPrice: 105 },
-                        double: { bookingPrice: 125, hotelsComPrice: 145, expediaPrice: 135 },
-                        family: { bookingPrice: 185, hotelsComPrice: 215, expediaPrice: 200 },
-                        junior_suite: { bookingPrice: 168, hotelsComPrice: 195, expediaPrice: 180 },
-                        suite: { bookingPrice: 245, hotelsComPrice: 285, expediaPrice: 265 }
-                    }
+                footer: {
+                    rights: 'All rights reserved.',
+                    terms: 'Terms',
+                    privacy: 'Privacy',
+                    contact: 'Contact'
                 }
-            ],
-            london: [
-                {
-                    name: "The Savoy",
-                    location: "Strand, Westminster",
-                    rating: 4.9,
-                    coordinates: [51.5101, -0.1204],
-                    roomTypes: {
-                        single: { bookingPrice: 368, hotelsComPrice: 425, expediaPrice: 395 },
-                        double: { bookingPrice: 425, hotelsComPrice: 485, expediaPrice: 455 },
-                        family: { bookingPrice: 598, hotelsComPrice: 685, expediaPrice: 635 },
-                        junior_suite: { bookingPrice: 525, hotelsComPrice: 598, expediaPrice: 558 },
-                        suite: { bookingPrice: 745, hotelsComPrice: 858, expediaPrice: 795 }
-                    }
-                },
-                {
-                    name: "Premier Inn London Tower Bridge",
-                    location: "Tower Bridge Road",
-                    rating: 4.5,
-                    coordinates: [51.5055, -0.0754],
-                    roomTypes: {
-                        single: { bookingPrice: 105, hotelsComPrice: 125, expediaPrice: 115 },
-                        double: { bookingPrice: 135, hotelsComPrice: 158, expediaPrice: 145 },
-                        family: { bookingPrice: 198, hotelsComPrice: 228, expediaPrice: 212 },
-                        junior_suite: { bookingPrice: 175, hotelsComPrice: 202, expediaPrice: 188 },
-                        suite: { bookingPrice: 258, hotelsComPrice: 298, expediaPrice: 275 }
-                    }
-                },
-                {
-                    name: "Hub by Premier Inn Covent Garden",
-                    location: "Covent Garden",
-                    rating: 4.4,
-                    coordinates: [51.5123, -0.1244],
-                    roomTypes: {
-                        single: { bookingPrice: 78, hotelsComPrice: 95, expediaPrice: 88 },
-                        double: { bookingPrice: 98, hotelsComPrice: 118, expediaPrice: 108 },
-                        family: { bookingPrice: 152, hotelsComPrice: 178, expediaPrice: 165 },
-                        junior_suite: { bookingPrice: 138, hotelsComPrice: 162, expediaPrice: 150 },
-                        suite: { bookingPrice: 205, hotelsComPrice: 238, expediaPrice: 220 }
-                    }
-                },
-                {
-                    name: "Travelodge London Central City Road",
-                    location: "City Road, Shoreditch",
-                    rating: 4.1,
-                    coordinates: [51.5269, -0.0867],
-                    roomTypes: {
-                        single: { bookingPrice: 62, hotelsComPrice: 78, expediaPrice: 72 },
-                        double: { bookingPrice: 75, hotelsComPrice: 92, expediaPrice: 85 },
-                        family: { bookingPrice: 125, hotelsComPrice: 148, expediaPrice: 138 },
-                        junior_suite: { bookingPrice: 112, hotelsComPrice: 132, expediaPrice: 122 },
-                        suite: { bookingPrice: 168, hotelsComPrice: 198, expediaPrice: 182 }
-                    }
-                },
-                {
-                    name: "The Hoxton Shoreditch",
-                    location: "Shoreditch, Old Street",
-                    rating: 4.6,
-                    coordinates: [51.5262, -0.0794],
-                    roomTypes: {
-                        single: { bookingPrice: 115, hotelsComPrice: 138, expediaPrice: 125 },
-                        double: { bookingPrice: 148, hotelsComPrice: 175, expediaPrice: 162 },
-                        family: { bookingPrice: 225, hotelsComPrice: 262, expediaPrice: 242 },
-                        junior_suite: { bookingPrice: 198, hotelsComPrice: 232, expediaPrice: 215 },
-                        suite: { bookingPrice: 298, hotelsComPrice: 348, expediaPrice: 322 }
-                    }
-                },
-                {
-                    name: "Citizen M Tower of London",
-                    location: "Trinity Square",
-                    rating: 4.3,
-                    coordinates: [51.5098, -0.0761],
-                    roomTypes: {
-                        single: { bookingPrice: 92, hotelsComPrice: 112, expediaPrice: 102 },
-                        double: { bookingPrice: 118, hotelsComPrice: 142, expediaPrice: 128 },
-                        family: { bookingPrice: 178, hotelsComPrice: 208, expediaPrice: 192 },
-                        junior_suite: { bookingPrice: 158, hotelsComPrice: 185, expediaPrice: 172 },
-                        suite: { bookingPrice: 235, hotelsComPrice: 275, expediaPrice: 255 }
-                    }
-                }
-            ],
-            barcelona: [
-                {
-                    name: "Hotel 1898",
-                    location: "La Rambla",
-                    rating: 4.6,
-                    coordinates: [41.3800, 2.1724],
-                    bookingPrice: 165,
-                    hotelsComPrice: 189,
-                    expediaPrice: 175
-                },
-                {
-                    name: "Catalonia Ramblas",
-                    location: "Ciutat Vella",
-                    rating: 4.3,
-                    coordinates: [41.3818, 2.1706],
-                    bookingPrice: 112,
-                    hotelsComPrice: 132,
-                    expediaPrice: 122
-                }
-            ],
-            rome: [
-                {
-                    name: "Hotel Artemide",
-                    location: "Via Nazionale",
-                    rating: 4.5,
-                    coordinates: [41.8991, 12.4950],
-                    bookingPrice: 148,
-                    hotelsComPrice: 172,
-                    expediaPrice: 160
-                },
-                {
-                    name: "Hotel Quirinale",
-                    location: "Near Termini Station",
-                    rating: 4.4,
-                    coordinates: [41.9008, 12.4954],
-                    bookingPrice: 128,
-                    hotelsComPrice: 148,
-                    expediaPrice: 138
-                }
-            ],
-            amsterdam: [
-                {
-                    name: "NH Collection Amsterdam Doelen",
-                    location: "Nieuwe Doelenstraat",
-                    rating: 4.5,
-                    coordinates: [52.3686, 4.8973],
-                    bookingPrice: 155,
-                    hotelsComPrice: 178,
-                    expediaPrice: 165
-                },
-                {
-                    name: "Hotel Sebastian's",
-                    location: "Keizersgracht",
-                    rating: 4.6,
-                    coordinates: [52.3662, 4.8838],
-                    bookingPrice: 135,
-                    hotelsComPrice: 158,
-                    expediaPrice: 145
-                }
-            ],
-            berlin: [
-                {
-                    name: "Hotel Adlon Kempinski",
-                    location: "Unter den Linden",
-                    rating: 4.8,
-                    coordinates: [52.5161, 13.3809],
-                    bookingPrice: 285,
-                    hotelsComPrice: 325,
-                    expediaPrice: 305
-                },
-                {
-                    name: "NH Collection Berlin Mitte",
-                    location: "Leipziger Strasse",
-                    rating: 4.4,
-                    coordinates: [52.5104, 13.3910],
-                    bookingPrice: 125,
-                    hotelsComPrice: 145,
-                    expediaPrice: 135
-                }
-            ],
-            copenhagen: [
-                {
-                    name: "Hotel d'Angleterre",
-                    location: "Kongens Nytorv",
-                    rating: 4.7,
-                    coordinates: [55.6805, 12.5858],
-                    bookingPrice: 298,
-                    hotelsComPrice: 342,
-                    expediaPrice: 318
-                },
-                {
-                    name: "Copenhagen Island Hotel",
-                    location: "Kalvebod Brygge",
-                    rating: 4.3,
-                    coordinates: [55.6667, 12.5724],
-                    bookingPrice: 142,
-                    hotelsComPrice: 165,
-                    expediaPrice: 155
-                }
-            ],
-            vienna: [
-                {
-                    name: "Hotel Sacher Wien",
-                    location: "Philharmonikerstrasse",
-                    rating: 4.8,
-                    coordinates: [48.2038, 16.3696],
-                    bookingPrice: 385,
-                    hotelsComPrice: 445,
-                    expediaPrice: 415
-                },
-                {
-                    name: "Hotel Am Parkring",
-                    location: "Parkring",
-                    rating: 4.4,
-                    coordinates: [48.2048, 16.3798],
-                    bookingPrice: 135,
-                    hotelsComPrice: 158,
-                    expediaPrice: 145
-                }
-            ],
-            prague: [
-                {
-                    name: "Four Seasons Hotel Prague",
-                    location: "Veleslavínova",
-                    rating: 4.9,
-                    coordinates: [50.0875, 14.4142],
-                    bookingPrice: 325,
-                    hotelsComPrice: 375,
-                    expediaPrice: 348
-                },
-                {
-                    name: "Hotel Kings Court",
-                    location: "U Obecního domu",
-                    rating: 4.6,
-                    coordinates: [50.0889, 14.4281],
-                    bookingPrice: 155,
-                    hotelsComPrice: 182,
-                    expediaPrice: 168
-                }
-            ]
+            }
         };
 
-        // Initialize map safely
-        function initMap() {
-            try {
-                if (typeof L === 'undefined') {
-                    console.log('Leaflet not loaded yet, waiting...');
-                    setTimeout(initMap, 100);
-                    return;
+        // Get nested value from object using dot notation
+        function getNestedValue(obj, path) {
+            return path.split('.').reduce((acc, part) => acc && acc[part], obj);
+        }
+
+        // Apply translations
+        function applyTranslations(lang) {
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                const translation = getNestedValue(translations[lang], key);
+                if (translation) {
+                    el.textContent = translation;
                 }
-                
-                map = L.map('map').setView([59.3293, 18.0686], 6);
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '© OpenStreetMap contributors'
-                }).addTo(map);
-                console.log('✅ Map initialized successfully');
-            } catch (error) {
-                console.error('Map initialization error:', error);
-                setTimeout(initMap, 100);
-            }
-        }
-
-        // Set default dates
-        function setDefaultDates() {
-            const today = new Date();
-            const tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
-            
-            document.getElementById('checkin').value = today.toISOString().split('T')[0];
-            document.getElementById('checkout').value = tomorrow.toISOString().split('T')[0];
-        }
-
-        // Smart guest updating based on room type
-        document.getElementById('roomType').addEventListener('change', function() {
-            const roomType = this.value;
-            const guestsSelect = document.getElementById('guests');
-            
-            switch(roomType) {
-                case 'single':
-                    guestsSelect.value = '1';
-                    break;
-                case 'double':
-                case 'junior_suite':
-                    guestsSelect.value = '2';
-                    break;
-                case 'family':
-                    guestsSelect.value = '4';
-                    break;
-                case 'suite':
-                    guestsSelect.value = '3';
-                    break;
-            }
-        });
-
-        // Search hotels with mock data
-        async function searchHotels() {
-            const city = document.getElementById('city').value;
-            const checkin = document.getElementById('checkin').value;
-            const checkout = document.getElementById('checkout').value;
-            const roomType = document.getElementById('roomType').value;
-            const guests = document.getElementById('guests').value;
-
-            const searchBtn = document.getElementById('searchBtn');
-            const hotelsList = document.getElementById('hotelsList');
-            const resultsCount = document.getElementById('resultsCount');
-
-            searchBtn.disabled = true;
-            searchBtn.innerHTML = '⏳ Söker på 3 plattformar...';
-            hotelsList.innerHTML = `
-                <div class="loading">
-                    <div class="loading-spinner"></div>
-                    <p style="font-size: 1.1rem; margin-bottom: 10px;">🔍 Jämför priser för ${getRoomTypeName(roomType)}...</p>
-                    <p>Vi söker samtidigt på:</p>
-                    <p style="margin-top: 10px;">✓ Booking.com<br>✓ Hotels.com<br>✓ Expedia</p>
-                </div>
-            `;
-
-            // Simulate API delay
-            await new Promise(resolve => setTimeout(resolve, 2000));
-
-            const cityName = document.getElementById('city').selectedOptions[0].text;
-            const hotels = mockHotels[city] || mockHotels.stockholm;
-
-            // Store results for sorting
-            currentSearchResults = {
-                hotels: hotels,
-                cityName: cityName,
-                checkin: checkin,
-                checkout: checkout,
-                roomType: roomType
-            };
-
-            displayHotelsWithComparison(hotels, cityName, checkin, checkout, roomType);
-            updateMap(hotels, roomType);
-            resultsCount.innerHTML = `🎯 ${hotels.length} hotell hittade i ${cityName} - ${getRoomTypeName(roomType)}`;
-
-            searchBtn.disabled = false;
-            searchBtn.innerHTML = '🔍 Jämför priser från 3 plattformar';
-        }
-
-        // Get room type display name
-        function getRoomTypeName(roomType) {
-            const names = {
-                single: 'Enkelrum',
-                double: 'Dubbelrum',
-                family: 'Familjerum',
-                junior_suite: 'Junior Suite',
-                suite: 'Suite/Lägenhet'
-            };
-            return names[roomType] || 'Dubbelrum';
-        }
-
-        // Display hotels with price comparison
-        function displayHotelsWithComparison(hotels, cityName, checkin, checkout, roomType) {
-            const hotelsList = document.getElementById('hotelsList');
-            const sortBy = document.getElementById('sortBy').value;
-            
-            // Calculate number of nights
-            const checkinDate = new Date(checkin);
-            const checkoutDate = new Date(checkout);
-            const nights = Math.max(1, Math.ceil((checkoutDate - checkinDate) / (1000 * 60 * 60 * 24)));
-            
-            let html = '';
-            hotels.forEach((hotel, index) => {
-                // Get prices for selected room type
-                const prices = hotel.roomTypes[roomType];
-                const bookingPrice = prices.bookingPrice;
-                const hotelsComPrice = prices.hotelsComPrice;
-                const expediaPrice = prices.expediaPrice;
-                const savings = Math.round((hotelsComPrice - bookingPrice) * nights);
-
-                // Determine badge based on position and sort type
-                let badge = '';
-                let badgeClass = 'best-price-badge';
-                
-                if (index === 0) {
-                    badgeClass = 'position-badge gold';
-                    if (sortBy === 'best_price') badge = '🥇 Lägsta pris';
-                    else if (sortBy === 'rating') badge = '🥇 Högst betyg';
-                    else if (sortBy === 'savings') badge = '🥇 Störst besparing';
-                    else badge = '✓ Bästa pris';
-                } else if (index === 1) {
-                    badgeClass = 'position-badge silver';
-                    if (sortBy === 'best_price') badge = '🥈 2:a plats';
-                    else if (sortBy === 'rating') badge = '🥈 2:a plats';
-                    else if (sortBy === 'savings') badge = '🥈 2:a plats';
-                    else badge = '✓ Bästa pris';
-                } else if (index === 2) {
-                    badgeClass = 'position-badge bronze';
-                    if (sortBy === 'best_price') badge = '🥉 3:e plats';
-                    else if (sortBy === 'rating') badge = '🥉 3:e plats';
-                    else if (sortBy === 'savings') badge = '🥉 3:e plats';
-                    else badge = '✓ Bästa pris';
-                } else {
-                    badgeClass = 'position-badge';
-                    badge = `#${index + 1}`;
-                }
-
-                html += `
-                    <div class="hotel-card" style="animation: fadeIn 0.3s ease-in ${index * 0.05}s both;">
-                        <div class="hotel-images">
-                            <img src="${hotel.images[0]}" alt="${hotel.name} - Room" class="hotel-image main-image">
-                            <img src="${hotel.images[1]}" alt="${hotel.name} - Bathroom" class="hotel-image">
-                            <img src="${hotel.images[2]}" alt="${hotel.name} - Ambiance" class="hotel-image">
-                        </div>
-
-                        <div class="hotel-header">
-                            <div>
-                                <div class="hotel-name">${hotel.name}</div>
-                                <div class="hotel-location">📍 ${hotel.location}</div>
-                                <div class="hotel-rating">
-                                    ${'⭐'.repeat(Math.floor(hotel.rating))} ${hotel.rating}/5
-                                </div>
-                            </div>
-                            <div class="${badgeClass}">
-                                <span>${badge}</span>
-                            </div>
-                        </div>
-
-                        <div class="price-comparison">
-                            <div class="comparison-title">
-                                <span>💰</span>
-                                <span>Prisjämförelse - ${getRoomTypeName(roomType)} (per natt)</span>
-                            </div>
-                            <div class="price-grid">
-                                <div class="price-row best-deal">
-                                    <div class="platform-info">
-                                        <div class="platform-logo booking">B</div>
-                                        <div class="platform-name">Booking.com</div>
-                                    </div>
-                                    <div class="price-info">
-                                        <div class="price-amount">€${bookingPrice}</div>
-                                        <div class="price-difference saving">✓ Bäst</div>
-                                    </div>
-                                </div>
-                                <div class="price-row">
-                                    <div class="platform-info">
-                                        <div class="platform-logo hotels">H</div>
-                                        <div class="platform-name">Hotels.com</div>
-                                    </div>
-                                    <div class="price-info">
-                                        <div class="price-amount">€${hotelsComPrice}</div>
-                                        <div class="price-difference">+€${hotelsComPrice - bookingPrice}</div>
-                                    </div>
-                                </div>
-                                <div class="price-row">
-                                    <div class="platform-info">
-                                        <div class="platform-logo expedia">E</div>
-                                        <div class="platform-name">Expedia</div>
-                                    </div>
-                                    <div class="price-info">
-                                        <div class="price-amount">€${expediaPrice}</div>
-                                        <div class="price-difference">+€${expediaPrice - bookingPrice}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="savings-summary">
-                            <div class="savings-icon">🎉</div>
-                            <div class="savings-text">
-                                <div class="savings-amount">Spara €${savings}</div>
-                                <div class="savings-description">
-                                    genom att boka ${getRoomTypeName(roomType)} via Booking.com (${nights} ${nights === 1 ? 'natt' : 'nätter'})
-                                </div>
-                            </div>
-                        </div>
-
-                        <button class="book-button" onclick="alert('I den riktiga appen går denna knapp direkt till Booking.com med förfyllda datum och ${getRoomTypeName(roomType)}!')">
-                            <span>Boka ${getRoomTypeName(roomType)} på Booking.com</span>
-                            <span>→</span>
-                        </button>
-                    </div>
-                `;
             });
-
-            hotelsList.innerHTML = html;
         }
 
-        // Update map with hotel markers
-        function updateMap(hotels, roomType) {
-            currentMarkers.forEach(marker => map.removeLayer(marker));
-            currentMarkers = [];
-
-            if (hotels.length > 0) {
-                const center = hotels[0].coordinates;
-                map.setView(center, 12);
-
-                hotels.forEach((hotel) => {
-                    const prices = hotel.roomTypes[roomType];
-                    const marker = L.marker(hotel.coordinates)
-                        .addTo(map)
-                        .bindPopup(`
-                            <b>${hotel.name}</b><br>
-                            ${getRoomTypeName(roomType)}<br>
-                            €${prices.bookingPrice}/natt<br>
-                            ⭐ ${hotel.rating}/5<br>
-                            <strong>Bästa pris: Booking.com</strong>
-                        `);
-                    currentMarkers.push(marker);
-                });
-            }
+        // Theme toggle
+        function initTheme() {
+            const saved = localStorage.getItem('stayfindr-theme') || 'light';
+            document.documentElement.setAttribute('data-theme', saved);
+            updateThemeIcon(saved);
         }
 
-        // Store current search results for sorting
-        let currentSearchResults = {
-            hotels: [],
-            cityName: '',
-            checkin: '',
-            checkout: '',
-            roomType: 'double'
-        };
-
-        // Sort hotels based on selected criteria
-        function sortHotels() {
-            const sortBy = document.getElementById('sortBy').value;
-            const roomType = currentSearchResults.roomType;
-            
-            if (currentSearchResults.hotels.length === 0) return;
-
-            let sortedHotels = [...currentSearchResults.hotels];
-            let sortMessage = '';
-
-            switch(sortBy) {
-                case 'best_price':
-                    sortedHotels.sort((a, b) => {
-                        return a.roomTypes[roomType].bookingPrice - b.roomTypes[roomType].bookingPrice;
-                    });
-                    sortMessage = '💰 Sorterat: Billigaste först';
-                    break;
-                case 'rating':
-                    sortedHotels.sort((a, b) => {
-                        return b.rating - a.rating;
-                    });
-                    sortMessage = '⭐ Sorterat: Högst betyg först';
-                    break;
-                case 'savings':
-                    sortedHotels.sort((a, b) => {
-                        const checkinDate = new Date(currentSearchResults.checkin);
-                        const checkoutDate = new Date(currentSearchResults.checkout);
-                        const nights = Math.max(1, Math.ceil((checkoutDate - checkinDate) / (1000 * 60 * 60 * 24)));
-                        
-                        const savingsA = (a.roomTypes[roomType].hotelsComPrice - a.roomTypes[roomType].bookingPrice) * nights;
-                        const savingsB = (b.roomTypes[roomType].hotelsComPrice - b.roomTypes[roomType].bookingPrice) * nights;
-                        return savingsB - savingsA;
-                    });
-                    sortMessage = '🎉 Sorterat: Störst besparing först';
-                    break;
-            }
-
-            // Show visual feedback
-            const resultsCount = document.getElementById('resultsCount');
-            resultsCount.innerHTML = `🎯 ${sortedHotels.length} hotell - ${getRoomTypeName(roomType)} <span class="sort-active-indicator">${sortMessage}</span>`;
-
-            displayHotelsWithComparison(
-                sortedHotels, 
-                currentSearchResults.cityName, 
-                currentSearchResults.checkin, 
-                currentSearchResults.checkout, 
-                currentSearchResults.roomType
-            );
-
-            // Add brief animation to show change
-            const hotelsList = document.getElementById('hotelsList');
-            hotelsList.style.opacity = '0.5';
-            setTimeout(() => {
-                hotelsList.style.opacity = '1';
-            }, 150);
+        function updateThemeIcon(theme) {
+            const icon = document.getElementById('themeIcon');
+            icon.textContent = theme === 'light' ? '☀️' : '🌙';
         }
 
-        // Form submission
-        document.getElementById('searchForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            searchHotels();
-        });
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('stayfindr-theme', next);
+            updateThemeIcon(next);
+        }
 
-        // Sort dropdown change
-        document.getElementById('sortBy').addEventListener('change', function() {
-            sortHotels();
-        });
+        // Language
+        function initLang() {
+            const saved = localStorage.getItem('stayfindr-lang') || 'sv';
+            document.getElementById('langSelect').value = saved;
+            applyTranslations(saved);
+        }
+
+        function changeLang(lang) {
+            localStorage.setItem('stayfindr-lang', lang);
+            applyTranslations(lang);
+        }
+
+        // Event listeners
+        document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+        document.getElementById('langSelect').addEventListener('change', (e) => changeLang(e.target.value));
 
         // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            initMap();
-            setDefaultDates();
-        });
+        initTheme();
+        initLang();
     </script>
 </body>
 </html>

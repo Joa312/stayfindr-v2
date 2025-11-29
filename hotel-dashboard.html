@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="sv" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Dashboard - STAYFINDR</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F9FAFB;
+            --text-primary: #111827;
+            --text-secondary: #6B7280;
+            --border: #E5E7EB;
+            --accent: #111827;
+            --accent-hover: #374151;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #111827;
+            --bg-secondary: #1F2937;
+            --text-primary: #F9FAFB;
+            --text-secondary: #9CA3AF;
+            --border: #374151;
+            --accent: #F9FAFB;
+            --accent-hover: #E5E7EB;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .hotel-name {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding-left: 24px;
+            border-left: 1px solid var(--border);
+        }
+
+        .hotel-avatar {
+            width: 32px;
+            height: 32px;
+            background: var(--accent);
+            color: var(--bg-primary);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .hotel-info span {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .lang-select {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 8px 12px;
+            font-size: 13px;
+            font-family: inherit;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        .theme-toggle {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 2px;
+            font-size: 14px;
+            font-weight: 500;
+            font-family: inherit;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+        }
+
+        .btn-ghost:hover {
+            color: var(--text-primary);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            border: 1px solid var(--accent);
+            color: var(--bg-primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            border-color: var(--accent-hover);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--bg-secondary);
+        }
+
+        /* Layout */
+        .layout {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: calc(100vh - 65px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 240px;
+            background: var(--bg-primary);
+            border-right: 1px solid var(--border);
+            padding: 24px 0;
+            flex-shrink: 0;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 24px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .sidebar-nav a:hover {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        .sidebar-nav a.active {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border-right: 2px solid var(--accent);
+        }
+
+        .sidebar-nav .nav-icon {
+            font-size: 18px;
+        }
+
+        /* Main Content */
+        .main {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .page-subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 20px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .stat-change {
+            font-size: 12px;
+            color: var(--success);
+            margin-top: 4px;
+        }
+
+        .stat-change.negative {
+            color: var(--error);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            margin-bottom: 24px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .card-body {
+            padding: 0;
+        }
+
+        /* Table */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th,
+        .table td {
+            padding: 14px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .table th {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: var(--bg-secondary);
+        }
+
+        .table td {
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        .table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .table tr:hover td {
+            background: var(--bg-secondary);
+        }
+
+        /* Status Badge */
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 2px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-active {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .status-pending {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .status-closed {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+        }
+
+        /* Influencer Row */
+        .influencer-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .influencer-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 2px;
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .influencer-info {
+            flex: 1;
+        }
+
+        .influencer-name {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .influencer-meta {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Empty State */
+        .empty-state {
+            padding: 48px 24px;
+            text-align: center;
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .empty-state-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .empty-state-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Click action */
+        .clickable {
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar {
+                display: none;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hotel-name {
+                display: none;
+            }
+
+            .table th:nth-child(3),
+            .table td:nth-child(3) {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <div class="header-left">
+                <a href="index.html" class="logo">STAYFINDR</a>
+                <div class="hotel-name">
+                    <div class="hotel-avatar">GH</div>
+                    <div class="hotel-info">
+                        <span>Grand Hotel Stockholm</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <select class="lang-select" id="langSelect">
+                    <option value="sv">SV</option>
+                    <option value="en">EN</option>
+                </select>
+                <button class="theme-toggle" id="themeToggle" title="Byt tema">
+                    <span id="themeIcon">☀️</span>
+                </button>
+                <a href="index.html" class="btn btn-ghost" data-i18n="nav.logout">Logga ut</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Layout -->
+    <div class="layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <nav>
+                <ul class="sidebar-nav">
+                    <li>
+                        <a href="#" class="active" data-i18n-title="sidebar.overview">
+                            <span class="nav-icon">📊</span>
+                            <span data-i18n="sidebar.overview">Översikt</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-i18n-title="sidebar.requests">
+                            <span class="nav-icon">📋</span>
+                            <span data-i18n="sidebar.requests">Mina förfrågningar</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-i18n-title="sidebar.influencers">
+                            <span class="nav-icon">👥</span>
+                            <span data-i18n="sidebar.influencers">Influencers</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="profile.html?type=hotel" data-i18n-title="sidebar.settings">
+                            <span class="nav-icon">⚙️</span>
+                            <span data-i18n="sidebar.settings">Inställningar</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main">
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title" data-i18n="dashboard.title">Dashboard</h1>
+                    <p class="page-subtitle" data-i18n="dashboard.subtitle">Välkommen tillbaka, Grand Hotel Stockholm</p>
+                </div>
+                <button class="btn btn-primary" data-i18n="dashboard.newRequest">+ Skapa ny förfrågan</button>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label" data-i18n="stats.activeRequests">Aktiva förfrågningar</div>
+                    <div class="stat-value">5</div>
+                    <div class="stat-change">+2 <span data-i18n="stats.thisMonth">denna månad</span></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label" data-i18n="stats.ongoingCollabs">Pågående samarbeten</div>
+                    <div class="stat-value">3</div>
+                    <div class="stat-change">+1 <span data-i18n="stats.thisWeek">denna vecka</span></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label" data-i18n="stats.completedDeals">Genomförda deals</div>
+                    <div class="stat-value">24</div>
+                    <div class="stat-change">+8 <span data-i18n="stats.thisYear">i år</span></div>
+                </div>
+            </div>
+
+            <!-- My Content Requests -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title" data-i18n="requests.title">Mina content requests</h2>
+                    <a href="#" class="btn btn-outline btn-sm" data-i18n="requests.viewAll">Visa alla</a>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th data-i18n="table.title">Titel</th>
+                                <th data-i18n="table.status">Status</th>
+                                <th data-i18n="table.applications">Ansökningar</th>
+                                <th data-i18n="table.created">Skapad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="clickable">
+                                <td>
+                                    <strong>Sommarkampanj 2024</strong>
+                                    <div style="font-size: 12px; color: var(--text-secondary);">Lifestyle & Resor</div>
+                                </td>
+                                <td><span class="status status-active" data-i18n="status.active">Aktiv</span></td>
+                                <td>12</td>
+                                <td>2024-01-15</td>
+                            </tr>
+                            <tr class="clickable">
+                                <td>
+                                    <strong>Spa & Wellness Content</strong>
+                                    <div style="font-size: 12px; color: var(--text-secondary);">Wellness & Hälsa</div>
+                                </td>
+                                <td><span class="status status-active" data-i18n="status.active">Aktiv</span></td>
+                                <td>8</td>
+                                <td>2024-01-10</td>
+                            </tr>
+                            <tr class="clickable">
+                                <td>
+                                    <strong>Restaurang Review</strong>
+                                    <div style="font-size: 12px; color: var(--text-secondary);">Mat & Dryck</div>
+                                </td>
+                                <td><span class="status status-pending" data-i18n="status.pending">Granskas</span></td>
+                                <td>5</td>
+                                <td>2024-01-08</td>
+                            </tr>
+                            <tr class="clickable">
+                                <td>
+                                    <strong>Julkampanj 2023</strong>
+                                    <div style="font-size: 12px; color: var(--text-secondary);">Lifestyle</div>
+                                </td>
+                                <td><span class="status status-closed" data-i18n="status.closed">Avslutad</span></td>
+                                <td>15</td>
+                                <td>2023-11-20</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Incoming Proposals -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title" data-i18n="proposals.title">Inkomna förslag från influencers</h2>
+                    <a href="#" class="btn btn-outline btn-sm" data-i18n="proposals.viewAll">Visa alla</a>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th data-i18n="table.influencer">Influencer</th>
+                                <th data-i18n="table.niche">Nisch</th>
+                                <th data-i18n="table.followers">Följare</th>
+                                <th data-i18n="table.action">Åtgärd</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="influencer-row">
+                                        <div class="influencer-avatar">📸</div>
+                                        <div class="influencer-info">
+                                            <div class="influencer-name">Emma Lindqvist</div>
+                                            <div class="influencer-meta">@emmalindqvist</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Lifestyle & Resor</td>
+                                <td>125K</td>
+                                <td>
+                                    <a href="profile.html?type=influencer" class="btn btn-outline btn-sm" data-i18n="action.view">Visa</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="influencer-row">
+                                        <div class="influencer-avatar">🎥</div>
+                                        <div class="influencer-info">
+                                            <div class="influencer-name">Marcus Berg</div>
+                                            <div class="influencer-meta">@marcusberg</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Mat & Dryck</td>
+                                <td>89K</td>
+                                <td>
+                                    <a href="profile.html?type=influencer" class="btn btn-outline btn-sm" data-i18n="action.view">Visa</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="influencer-row">
+                                        <div class="influencer-avatar">✨</div>
+                                        <div class="influencer-info">
+                                            <div class="influencer-name">Sofia Andersson</div>
+                                            <div class="influencer-meta">@sofiaandersson</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Wellness & Hälsa</td>
+                                <td>210K</td>
+                                <td>
+                                    <a href="profile.html?type=influencer" class="btn btn-outline btn-sm" data-i18n="action.view">Visa</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Translations
+        const translations = {
+            sv: {
+                nav: { logout: 'Logga ut' },
+                sidebar: {
+                    overview: 'Översikt',
+                    requests: 'Mina förfrågningar',
+                    influencers: 'Influencers',
+                    settings: 'Inställningar'
+                },
+                dashboard: {
+                    title: 'Dashboard',
+                    subtitle: 'Välkommen tillbaka, Grand Hotel Stockholm',
+                    newRequest: '+ Skapa ny förfrågan'
+                },
+                stats: {
+                    activeRequests: 'Aktiva förfrågningar',
+                    ongoingCollabs: 'Pågående samarbeten',
+                    completedDeals: 'Genomförda deals',
+                    thisMonth: 'denna månad',
+                    thisWeek: 'denna vecka',
+                    thisYear: 'i år'
+                },
+                requests: {
+                    title: 'Mina content requests',
+                    viewAll: 'Visa alla'
+                },
+                proposals: {
+                    title: 'Inkomna förslag från influencers',
+                    viewAll: 'Visa alla'
+                },
+                table: {
+                    title: 'Titel',
+                    status: 'Status',
+                    applications: 'Ansökningar',
+                    created: 'Skapad',
+                    influencer: 'Influencer',
+                    niche: 'Nisch',
+                    followers: 'Följare',
+                    action: 'Åtgärd'
+                },
+                status: {
+                    active: 'Aktiv',
+                    pending: 'Granskas',
+                    closed: 'Avslutad'
+                },
+                action: {
+                    view: 'Visa'
+                }
+            },
+            en: {
+                nav: { logout: 'Log out' },
+                sidebar: {
+                    overview: 'Overview',
+                    requests: 'My requests',
+                    influencers: 'Influencers',
+                    settings: 'Settings'
+                },
+                dashboard: {
+                    title: 'Dashboard',
+                    subtitle: 'Welcome back, Grand Hotel Stockholm',
+                    newRequest: '+ Create new request'
+                },
+                stats: {
+                    activeRequests: 'Active requests',
+                    ongoingCollabs: 'Ongoing collaborations',
+                    completedDeals: 'Completed deals',
+                    thisMonth: 'this month',
+                    thisWeek: 'this week',
+                    thisYear: 'this year'
+                },
+                requests: {
+                    title: 'My content requests',
+                    viewAll: 'View all'
+                },
+                proposals: {
+                    title: 'Incoming proposals from influencers',
+                    viewAll: 'View all'
+                },
+                table: {
+                    title: 'Title',
+                    status: 'Status',
+                    applications: 'Applications',
+                    created: 'Created',
+                    influencer: 'Influencer',
+                    niche: 'Niche',
+                    followers: 'Followers',
+                    action: 'Action'
+                },
+                status: {
+                    active: 'Active',
+                    pending: 'Pending',
+                    closed: 'Closed'
+                },
+                action: {
+                    view: 'View'
+                }
+            }
+        };
+
+        function getNestedValue(obj, path) {
+            return path.split('.').reduce((acc, part) => acc && acc[part], obj);
+        }
+
+        function applyTranslations(lang) {
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                const translation = getNestedValue(translations[lang], key);
+                if (translation) {
+                    el.textContent = translation;
+                }
+            });
+        }
+
+        function initTheme() {
+            const saved = localStorage.getItem('stayfindr-theme') || 'light';
+            document.documentElement.setAttribute('data-theme', saved);
+            updateThemeIcon(saved);
+        }
+
+        function updateThemeIcon(theme) {
+            const icon = document.getElementById('themeIcon');
+            icon.textContent = theme === 'light' ? '☀️' : '🌙';
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('stayfindr-theme', next);
+            updateThemeIcon(next);
+        }
+
+        function initLang() {
+            const saved = localStorage.getItem('stayfindr-lang') || 'sv';
+            document.getElementById('langSelect').value = saved;
+            applyTranslations(saved);
+        }
+
+        function changeLang(lang) {
+            localStorage.setItem('stayfindr-lang', lang);
+            applyTranslations(lang);
+        }
+
+        document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+        document.getElementById('langSelect').addEventListener('change', (e) => changeLang(e.target.value));
+
+        initTheme();
+        initLang();
+    </script>
+</body>
+</html>
