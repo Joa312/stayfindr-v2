@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="sv" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil - STAYFINDR</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F9FAFB;
+            --text-primary: #111827;
+            --text-secondary: #6B7280;
+            --border: #E5E7EB;
+            --accent: #111827;
+            --accent-hover: #374151;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #111827;
+            --bg-secondary: #1F2937;
+            --text-primary: #F9FAFB;
+            --text-secondary: #9CA3AF;
+            --border: #374151;
+            --accent: #F9FAFB;
+            --accent-hover: #E5E7EB;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .back-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .lang-select {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 8px 12px;
+            font-size: 13px;
+            font-family: inherit;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        .theme-toggle {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 2px;
+            font-size: 14px;
+            font-weight: 500;
+            font-family: inherit;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            border: 1px solid var(--accent);
+            color: var(--bg-primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            border-color: var(--accent-hover);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--bg-secondary);
+        }
+
+        /* Profile Container */
+        .profile-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        /* Cover Section */
+        .cover-section {
+            position: relative;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        .cover-image {
+            height: 200px;
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+        }
+
+        .profile-header {
+            padding: 24px;
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            background: var(--bg-secondary);
+            border: 3px solid var(--bg-primary);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin-top: -60px;
+            flex-shrink: 0;
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-name {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-handle {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .profile-bio {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .profile-meta {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .profile-actions {
+            display: flex;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 2px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-gold {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+
+        .badge-segment {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+        }
+
+        /* Stats Row */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-box {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* Content Cards */
+        .card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            margin-bottom: 24px;
+        }
+
+        .card-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        /* Tags */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            padding: 6px 12px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* Portfolio Grid */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .portfolio-item {
+            aspect-ratio: 1;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .portfolio-item:hover {
+            border-color: var(--accent);
+        }
+
+        /* Requests List */
+        .request-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .request-item:last-child {
+            border-bottom: none;
+        }
+
+        .request-info h4 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .request-info p {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .request-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 2px;
+            font-size: 12px;
+            font-weight: 500;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        /* Availability */
+        .availability {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 2px;
+        }
+
+        .availability-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+        }
+
+        .availability-text {
+            font-size: 14px;
+            color: var(--success);
+            font-weight: 500;
+        }
+
+        /* Brand Assets */
+        .brand-assets-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.2s;
+        }
+
+        .brand-assets-link:hover {
+            border-color: var(--accent);
+        }
+
+        .brand-assets-icon {
+            font-size: 24px;
+        }
+
+        .brand-assets-info h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .brand-assets-info p {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .profile-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .profile-avatar {
+                margin-top: -50px;
+            }
+
+            .profile-meta {
+                justify-content: center;
+            }
+
+            .profile-actions {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .stats-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <div class="header-left">
+                <a href="#" class="back-btn" id="backBtn">← <span data-i18n="nav.back">Tillbaka</span></a>
+                <a href="index.html" class="logo">STAYFINDR</a>
+            </div>
+
+            <div class="header-actions">
+                <select class="lang-select" id="langSelect">
+                    <option value="sv">SV</option>
+                    <option value="en">EN</option>
+                </select>
+                <button class="theme-toggle" id="themeToggle" title="Byt tema">
+                    <span id="themeIcon">☀️</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Profile Container -->
+    <div class="profile-container">
+        <!-- Hotel Profile -->
+        <div id="hotelProfile" style="display: none;">
+            <div class="cover-section">
+                <div class="cover-image">🏨</div>
+                <div class="profile-header">
+                    <div class="profile-avatar">GH</div>
+                    <div class="profile-info">
+                        <h1 class="profile-name">
+                            Grand Hotel Stockholm
+                            <span class="badge badge-segment">Luxury</span>
+                        </h1>
+                        <p class="profile-handle">Stockholm, Sverige</p>
+                        <p class="profile-bio" data-i18n="hotel.bio">Stockholms mest ikoniska hotell sedan 1874. Vi erbjuder en unik kombination av historisk elegans och modern lyx, beläget vid vattnet med utsikt över Kungliga slottet.</p>
+                        <div class="profile-meta">
+                            <span class="meta-item">📍 Södra Blasieholmshamnen 8</span>
+                            <span class="meta-item">⭐ 4.8 rating</span>
+                            <span class="meta-item">🏷️ Luxury Segment</span>
+                        </div>
+                    </div>
+                    <div class="profile-actions">
+                        <button class="btn btn-primary" data-i18n="hotel.contact">Kontakta</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-row">
+                <div class="stat-box">
+                    <div class="stat-value">5</div>
+                    <div class="stat-label" data-i18n="hotel.activeRequests">Aktiva förfrågningar</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">24</div>
+                    <div class="stat-label" data-i18n="hotel.completedCollabs">Genomförda samarbeten</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">4.9</div>
+                    <div class="stat-label" data-i18n="hotel.avgRating">Snittbetyg från influencers</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">349</div>
+                    <div class="stat-label" data-i18n="hotel.rooms">Rum</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title" data-i18n="hotel.activeRequestsTitle">Aktiva content requests</h2>
+                </div>
+                <div class="card-body">
+                    <div class="request-item">
+                        <div class="request-info">
+                            <h4>Sommarkampanj 2024</h4>
+                            <p>Lifestyle & Resor • 12 ansökningar</p>
+                        </div>
+                        <span class="request-status" data-i18n="status.active">Aktiv</span>
+                    </div>
+                    <div class="request-item">
+                        <div class="request-info">
+                            <h4>Spa & Wellness Content</h4>
+                            <p>Wellness & Hälsa • 8 ansökningar</p>
+                        </div>
+                        <span class="request-status" data-i18n="status.active">Aktiv</span>
+                    </div>
+                    <div class="request-item">
+                        <div class="request-info">
+                            <h4>Restaurang Review</h4>
+                            <p>Mat & Dryck • 5 ansökningar</p>
+                        </div>
+                        <span class="request-status" data-i18n="status.active">Aktiv</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title" data-i18n="hotel.brandAssets">Brand Assets</h2>
+                </div>
+                <div class="card-body">
+                    <a href="#" class="brand-assets-link">
+                        <span class="brand-assets-icon">📁</span>
+                        <div class="brand-assets-info">
+                            <h4 data-i18n="hotel.downloadAssets">Ladda ner brand kit</h4>
+                            <p data-i18n="hotel.assetsDesc">Logotyper, färger, typsnitt och bildmaterial</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Influencer Profile -->
+        <div id="influencerProfile" style="display: none;">
+            <div class="cover-section">
+                <div class="cover-image">📸</div>
+                <div class="profile-header">
+                    <div class="profile-avatar">EL</div>
+                    <div class="profile-info">
+                        <h1 class="profile-name">
+                            Emma Lindqvist
+                            <span class="badge badge-gold">⭐ Gold</span>
+                        </h1>
+                        <p class="profile-handle">@emmalindqvist</p>
+                        <p class="profile-bio" data-i18n="influencer.bio">Resebloggare och content creator med passion för skandinavisk design och boutique-hotell. Jag skapar autentiskt innehåll som inspirerar till att utforska nya platser.</p>
+                        <div class="profile-meta">
+                            <span class="meta-item">📍 Stockholm, Sverige</span>
+                            <span class="meta-item">📊 125K följare</span>
+                            <span class="meta-item">⭐ 4.9 rating</span>
+                        </div>
+                    </div>
+                    <div class="profile-actions">
+                        <button class="btn btn-primary" data-i18n="influencer.sendProposal">Skicka förslag</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-row">
+                <div class="stat-box">
+                    <div class="stat-value">125K</div>
+                    <div class="stat-label" data-i18n="influencer.followers">Följare</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">4.2%</div>
+                    <div class="stat-label" data-i18n="influencer.engagement">Engagement rate</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">18</div>
+                    <div class="stat-label" data-i18n="influencer.completedDeals">Genomförda deals</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">4.9</div>
+                    <div class="stat-label" data-i18n="influencer.avgRating">Snittbetyg</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title" data-i18n="influencer.availability">Tillgänglighet</h2>
+                </div>
+                <div class="card-body">
+                    <div class="availability">
+                        <span class="availability-dot"></span>
+                        <span class="availability-text" data-i18n="influencer.availableNow">Tillgänglig för nya samarbeten</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title" data-i18n="influencer.niches">Nischer</h2>
+                </div>
+                <div class="card-body">
+                    <div class="tags">
+                        <span class="tag">Lifestyle</span>
+                        <span class="tag">Resor</span>
+                        <span class="tag">Boutique-hotell</span>
+                        <span class="tag">Design</span>
+                        <span class="tag">Mat & Dryck</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title" data-i18n="influencer.portfolio">Portfolio</h2>
+                </div>
+                <div class="card-body">
+                    <div class="portfolio-grid">
+                        <div class="portfolio-item">🏨</div>
+                        <div class="portfolio-item">🌅</div>
+                        <div class="portfolio-item">🍽️</div>
+                        <div class="portfolio-item">🛋️</div>
+                        <div class="portfolio-item">🌊</div>
+                        <div class="portfolio-item">☕</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Translations
+        const translations = {
+            sv: {
+                nav: { back: 'Tillbaka' },
+                hotel: {
+                    bio: 'Stockholms mest ikoniska hotell sedan 1874. Vi erbjuder en unik kombination av historisk elegans och modern lyx, beläget vid vattnet med utsikt över Kungliga slottet.',
+                    contact: 'Kontakta',
+                    activeRequests: 'Aktiva förfrågningar',
+                    completedCollabs: 'Genomförda samarbeten',
+                    avgRating: 'Snittbetyg från influencers',
+                    rooms: 'Rum',
+                    activeRequestsTitle: 'Aktiva content requests',
+                    brandAssets: 'Brand Assets',
+                    downloadAssets: 'Ladda ner brand kit',
+                    assetsDesc: 'Logotyper, färger, typsnitt och bildmaterial'
+                },
+                influencer: {
+                    bio: 'Resebloggare och content creator med passion för skandinavisk design och boutique-hotell. Jag skapar autentiskt innehåll som inspirerar till att utforska nya platser.',
+                    sendProposal: 'Skicka förslag',
+                    followers: 'Följare',
+                    engagement: 'Engagement rate',
+                    completedDeals: 'Genomförda deals',
+                    avgRating: 'Snittbetyg',
+                    availability: 'Tillgänglighet',
+                    availableNow: 'Tillgänglig för nya samarbeten',
+                    niches: 'Nischer',
+                    portfolio: 'Portfolio'
+                },
+                status: { active: 'Aktiv' }
+            },
+            en: {
+                nav: { back: 'Back' },
+                hotel: {
+                    bio: "Stockholm's most iconic hotel since 1874. We offer a unique combination of historic elegance and modern luxury, located by the water with views of the Royal Palace.",
+                    contact: 'Contact',
+                    activeRequests: 'Active requests',
+                    completedCollabs: 'Completed collaborations',
+                    avgRating: 'Avg rating from influencers',
+                    rooms: 'Rooms',
+                    activeRequestsTitle: 'Active content requests',
+                    brandAssets: 'Brand Assets',
+                    downloadAssets: 'Download brand kit',
+                    assetsDesc: 'Logos, colors, fonts and image assets'
+                },
+                influencer: {
+                    bio: 'Travel blogger and content creator with a passion for Scandinavian design and boutique hotels. I create authentic content that inspires exploring new places.',
+                    sendProposal: 'Send proposal',
+                    followers: 'Followers',
+                    engagement: 'Engagement rate',
+                    completedDeals: 'Completed deals',
+                    avgRating: 'Avg rating',
+                    availability: 'Availability',
+                    availableNow: 'Available for new collaborations',
+                    niches: 'Niches',
+                    portfolio: 'Portfolio'
+                },
+                status: { active: 'Active' }
+            }
+        };
+
+        function getNestedValue(obj, path) {
+            return path.split('.').reduce((acc, part) => acc && acc[part], obj);
+        }
+
+        function applyTranslations(lang) {
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                const translation = getNestedValue(translations[lang], key);
+                if (translation) {
+                    el.textContent = translation;
+                }
+            });
+        }
+
+        function initTheme() {
+            const saved = localStorage.getItem('stayfindr-theme') || 'light';
+            document.documentElement.setAttribute('data-theme', saved);
+            updateThemeIcon(saved);
+        }
+
+        function updateThemeIcon(theme) {
+            const icon = document.getElementById('themeIcon');
+            icon.textContent = theme === 'light' ? '☀️' : '🌙';
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('stayfindr-theme', next);
+            updateThemeIcon(next);
+        }
+
+        function initLang() {
+            const saved = localStorage.getItem('stayfindr-lang') || 'sv';
+            document.getElementById('langSelect').value = saved;
+            applyTranslations(saved);
+        }
+
+        function changeLang(lang) {
+            localStorage.setItem('stayfindr-lang', lang);
+            applyTranslations(lang);
+        }
+
+        // Initialize profile based on URL parameter
+        function initProfile() {
+            const params = new URLSearchParams(window.location.search);
+            const type = params.get('type') || 'influencer';
+
+            const hotelProfile = document.getElementById('hotelProfile');
+            const influencerProfile = document.getElementById('influencerProfile');
+            const backBtn = document.getElementById('backBtn');
+
+            if (type === 'hotel') {
+                hotelProfile.style.display = 'block';
+                influencerProfile.style.display = 'none';
+                backBtn.href = 'influencer-dashboard.html';
+                document.title = 'Grand Hotel Stockholm - STAYFINDR';
+            } else {
+                hotelProfile.style.display = 'none';
+                influencerProfile.style.display = 'block';
+                backBtn.href = 'hotel-dashboard.html';
+                document.title = 'Emma Lindqvist - STAYFINDR';
+            }
+        }
+
+        document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+        document.getElementById('langSelect').addEventListener('change', (e) => changeLang(e.target.value));
+
+        initTheme();
+        initLang();
+        initProfile();
+    </script>
+</body>
+</html>
