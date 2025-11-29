@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="sv" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skicka förslag - STAYFINDR</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F9FAFB;
+            --text-primary: #111827;
+            --text-secondary: #6B7280;
+            --border: #E5E7EB;
+            --accent: #111827;
+            --accent-hover: #374151;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+            --info: #3B82F6;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #111827;
+            --bg-secondary: #1F2937;
+            --text-primary: #F9FAFB;
+            --text-secondary: #9CA3AF;
+            --border: #374151;
+            --accent: #F9FAFB;
+            --accent-hover: #E5E7EB;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-left: 24px;
+            border-left: 1px solid var(--border);
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .user-handle {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .ranking-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 8px;
+            background: var(--accent);
+            color: var(--bg-primary);
+            border-radius: 2px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .lang-select {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 8px 12px;
+            font-size: 13px;
+            font-family: inherit;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        .theme-toggle {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 2px;
+            font-size: 14px;
+            font-weight: 500;
+            font-family: inherit;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+        }
+
+        .btn-ghost:hover {
+            color: var(--text-primary);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            border: 1px solid var(--accent);
+            color: var(--bg-primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            border-color: var(--accent-hover);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--bg-secondary);
+        }
+
+        .btn-block {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* Layout */
+        .layout {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: calc(100vh - 65px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 240px;
+            background: var(--bg-primary);
+            border-right: 1px solid var(--border);
+            padding: 24px 0;
+            flex-shrink: 0;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 24px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .sidebar-nav a:hover {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        .sidebar-nav a.active {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border-right: 2px solid var(--accent);
+        }
+
+        .sidebar-nav .nav-icon {
+            font-size: 18px;
+        }
+
+        /* Main Content */
+        .main {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .breadcrumb a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--text-primary);
+        }
+
+        .breadcrumb-separator {
+            color: var(--text-secondary);
+        }
+
+        .breadcrumb-current {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* Content Layout */
+        .content-layout {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 32px;
+        }
+
+        /* Hotel Info Sidebar */
+        .hotel-sidebar {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 24px;
+            height: fit-content;
+            position: sticky;
+            top: 89px;
+        }
+
+        .hotel-cover {
+            width: 100%;
+            height: 160px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .hotel-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .hotel-location {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .hotel-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .hotel-tag {
+            padding: 4px 10px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .request-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 16px;
+        }
+
+        .request-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .request-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .request-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Form Card */
+        .form-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+        }
+
+        .form-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .form-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .form-body {
+            padding: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .form-hint {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 6px;
+        }
+
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 12px 14px;
+            font-size: 14px;
+            font-family: inherit;
+            color: var(--text-primary);
+        }
+
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .input-with-suffix {
+            position: relative;
+        }
+
+        .input-suffix {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .input-with-suffix .form-input {
+            padding-right: 60px;
+        }
+
+        /* Info Box */
+        .info-box {
+            display: flex;
+            gap: 12px;
+            background: rgba(59, 130, 246, 0.05);
+            border: 1px solid var(--info);
+            border-radius: 2px;
+            padding: 16px;
+            margin-top: 24px;
+        }
+
+        .info-box-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .info-box-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-primary);
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
+        }
+
+        .footer-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-links a {
+            font-size: 14px;
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar {
+                display: none;
+            }
+
+            .content-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .hotel-sidebar {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .user-info {
+                display: none;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <div class="header-left">
+                <a href="index.html" class="logo">STAYFINDR</a>
+                <div class="user-info">
+                    <div class="user-avatar">📸</div>
+                    <div class="user-details">
+                        <span class="user-name">
+                            Emma Lindqvist
+                            <span class="ranking-badge">Gold</span>
+                        </span>
+                        <span class="user-handle">@emmalindqvist</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <select class="lang-select" id="langSelect">
+                    <option value="sv">SV</option>
+                    <option value="en">EN</option>
+                </select>
+                <button class="theme-toggle" id="themeToggle" title="Byt tema">
+                    <span id="themeIcon">☀️</span>
+                </button>
+                <a href="index.html" class="btn btn-ghost" data-i18n="nav.logout">Logga ut</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Layout -->
+    <div class="layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <nav>
+                <ul class="sidebar-nav">
+                    <li>
+                        <a href="influencer-dashboard.html">
+                            <span class="nav-icon">📊</span>
+                            <span data-i18n="sidebar.overview">Översikt</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="active">
+                            <span class="nav-icon">🏨</span>
+                            <span data-i18n="sidebar.findHotels">Hitta hotell</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="nav-icon">🤝</span>
+                            <span data-i18n="sidebar.myCollabs">Mina samarbeten</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="content-studio.html">
+                            <span class="nav-icon">🎬</span>
+                            <span data-i18n="sidebar.contentStudio">Content Studio</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="profile.html?type=influencer">
+                            <span class="nav-icon">👤</span>
+                            <span data-i18n="sidebar.myProfile">Min profil</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb">
+                <a href="#" data-i18n="proposal.breadcrumbFindHotels">Hitta hotell</a>
+                <span class="breadcrumb-separator">→</span>
+                <a href="#">Grand Hôtel</a>
+                <span class="breadcrumb-separator">→</span>
+                <span class="breadcrumb-current" data-i18n="proposal.title">Skicka förslag</span>
+            </nav>
+
+            <div class="content-layout">
+                <!-- Hotel Info Sidebar -->
+                <div class="hotel-sidebar">
+                    <div class="hotel-cover">🏨</div>
+                    <h2 class="hotel-name">Grand Hôtel Stockholm</h2>
+                    <p class="hotel-location">Stockholm, Sverige</p>
+                    <div class="hotel-tags">
+                        <span class="hotel-tag">Luxury</span>
+                        <span class="hotel-tag">5-stjärnigt</span>
+                        <span class="hotel-tag">Historiskt</span>
+                    </div>
+
+                    <div class="request-card">
+                        <div class="request-label" data-i18n="proposal.contentRequest">Content request</div>
+                        <div class="request-title">Julkampanj för Instagram</div>
+                        <div class="request-desc">Vi söker influencers för att skapa magiskt julcontent från vårt hotell. 1 Reel + 3-5 Stories som visar hotellets juldekorationer, spa och restauranger.</div>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <div class="form-card">
+                    <div class="form-header">
+                        <h1 class="form-title" data-i18n="proposal.yourProposal">DITT FÖRSLAG</h1>
+                    </div>
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="form-label" data-i18n="proposal.yourPrice">Pris ($)</label>
+                            <input type="number" class="form-input" value="350" min="0">
+                            <div class="form-hint"><span data-i18n="proposal.hotelBudget">Hotellens budget</span>: $200-500</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" data-i18n="proposal.deliveryTime">Leveranstid</label>
+                            <div class="input-with-suffix">
+                                <input type="number" class="form-input" value="5" min="1">
+                                <span class="input-suffix" data-i18n="proposal.days">dagar</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" data-i18n="proposal.messageToHotel">Meddelande till hotellet</label>
+                            <textarea class="form-textarea" placeholder="Beskriv varför du är rätt för detta samarbete..." data-i18n-placeholder="proposal.messagePlaceholder">Hej! Jag har 24K följare inom travel och skulle älska att skapa content för er julkampanj. Jag har tidigare arbetat med liknande lyxhotell och har erfarenhet av att skapa magiskt vintercontent. Min stil passar perfekt för er varumärkesidentitet.</textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" data-i18n="proposal.portfolioExamples">Portfolio-exempel (valfritt)</label>
+                            <select class="form-select">
+                                <option value="" data-i18n="proposal.selectFromPortfolio">Välj från portfolio</option>
+                                <option value="1">Nobis Hotel - Sommarkampanj 2024</option>
+                                <option value="2">Hotel Rival - Restaurang Review</option>
+                                <option value="3">At Six Hotel - Art & Design</option>
+                            </select>
+                        </div>
+
+                        <button class="btn btn-primary btn-block" data-i18n="proposal.sendProposal">SKICKA FÖRSLAG</button>
+
+                        <div class="info-box">
+                            <span class="info-box-icon">💡</span>
+                            <span class="info-box-text" data-i18n="proposal.noChargeUntilFunded">Du debiteras inte förrän hotellet accepterar och deal är funded.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-text">© 2025 STAYFINDR. <span data-i18n="footer.rights">Alla rättigheter förbehållna.</span></div>
+            <div class="footer-links">
+                <a href="#" data-i18n="footer.terms">Villkor</a>
+                <a href="#" data-i18n="footer.privacy">Integritet</a>
+                <a href="#" data-i18n="footer.contact">Kontakt</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Translations
+        const translations = {
+            sv: {
+                nav: { logout: 'Logga ut' },
+                sidebar: {
+                    overview: 'Översikt',
+                    findHotels: 'Hitta hotell',
+                    myCollabs: 'Mina samarbeten',
+                    contentStudio: 'Content Studio',
+                    myProfile: 'Min profil'
+                },
+                proposal: {
+                    title: 'Skicka förslag',
+                    breadcrumbFindHotels: 'Hitta hotell',
+                    yourProposal: 'DITT FÖRSLAG',
+                    yourPrice: 'Pris ($)',
+                    hotelBudget: 'Hotellens budget',
+                    deliveryTime: 'Leveranstid',
+                    days: 'dagar',
+                    messageToHotel: 'Meddelande till hotellet',
+                    messagePlaceholder: 'Beskriv varför du är rätt för detta samarbete...',
+                    portfolioExamples: 'Portfolio-exempel (valfritt)',
+                    selectFromPortfolio: 'Välj från portfolio',
+                    sendProposal: 'SKICKA FÖRSLAG',
+                    noChargeUntilFunded: 'Du debiteras inte förrän hotellet accepterar och deal är funded.',
+                    contentRequest: 'Content request'
+                },
+                footer: {
+                    rights: 'Alla rättigheter förbehållna.',
+                    terms: 'Villkor',
+                    privacy: 'Integritet',
+                    contact: 'Kontakt'
+                }
+            },
+            en: {
+                nav: { logout: 'Log out' },
+                sidebar: {
+                    overview: 'Overview',
+                    findHotels: 'Find hotels',
+                    myCollabs: 'My collaborations',
+                    contentStudio: 'Content Studio',
+                    myProfile: 'My profile'
+                },
+                proposal: {
+                    title: 'Send proposal',
+                    breadcrumbFindHotels: 'Find hotels',
+                    yourProposal: 'YOUR PROPOSAL',
+                    yourPrice: 'Price ($)',
+                    hotelBudget: 'Hotel budget',
+                    deliveryTime: 'Delivery time',
+                    days: 'days',
+                    messageToHotel: 'Message to hotel',
+                    messagePlaceholder: 'Describe why you are right for this collaboration...',
+                    portfolioExamples: 'Portfolio examples (optional)',
+                    selectFromPortfolio: 'Select from portfolio',
+                    sendProposal: 'SEND PROPOSAL',
+                    noChargeUntilFunded: "You won't be charged until the hotel accepts and deal is funded.",
+                    contentRequest: 'Content request'
+                },
+                footer: {
+                    rights: 'All rights reserved.',
+                    terms: 'Terms',
+                    privacy: 'Privacy',
+                    contact: 'Contact'
+                }
+            }
+        };
+
+        function getNestedValue(obj, path) {
+            return path.split('.').reduce((acc, part) => acc && acc[part], obj);
+        }
+
+        function applyTranslations(lang) {
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                const translation = getNestedValue(translations[lang], key);
+                if (translation) {
+                    el.textContent = translation;
+                }
+            });
+
+            // Update placeholders
+            const textarea = document.querySelector('.form-textarea');
+            if (textarea) {
+                textarea.placeholder = translations[lang].proposal.messagePlaceholder;
+            }
+
+            // Update select
+            const portfolioSelect = document.querySelector('.form-select');
+            if (portfolioSelect) {
+                portfolioSelect.options[0].text = translations[lang].proposal.selectFromPortfolio;
+            }
+        }
+
+        function initTheme() {
+            const saved = localStorage.getItem('stayfindr-theme') || 'light';
+            document.documentElement.setAttribute('data-theme', saved);
+            updateThemeIcon(saved);
+        }
+
+        function updateThemeIcon(theme) {
+            const icon = document.getElementById('themeIcon');
+            icon.textContent = theme === 'light' ? '☀️' : '🌙';
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('stayfindr-theme', next);
+            updateThemeIcon(next);
+        }
+
+        function initLang() {
+            const saved = localStorage.getItem('stayfindr-lang') || 'sv';
+            document.getElementById('langSelect').value = saved;
+            applyTranslations(saved);
+        }
+
+        function changeLang(lang) {
+            localStorage.setItem('stayfindr-lang', lang);
+            applyTranslations(lang);
+        }
+
+        document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+        document.getElementById('langSelect').addEventListener('change', (e) => changeLang(e.target.value));
+
+        initTheme();
+        initLang();
+    </script>
+</body>
+</html>

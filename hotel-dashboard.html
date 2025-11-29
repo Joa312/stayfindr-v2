@@ -437,6 +437,96 @@
             cursor: pointer;
         }
 
+        /* Review Card */
+        .review-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .review-card:hover {
+            background: var(--bg-secondary);
+        }
+
+        .review-card:last-child {
+            border-bottom: none;
+        }
+
+        .review-avatar {
+            width: 48px;
+            height: 48px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .review-info {
+            flex: 1;
+        }
+
+        .review-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .review-subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .review-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: rgba(245, 158, 11, 0.1);
+            border-radius: 2px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--warning);
+        }
+
+        /* Content Gallery */
+        .content-gallery {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            padding: 20px;
+        }
+
+        .content-thumb {
+            aspect-ratio: 1;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .content-thumb:hover {
+            border-color: var(--accent);
+        }
+
+        /* Stats additions */
+        .stat-change.warning {
+            color: var(--warning);
+        }
+
         /* Responsive */
         @media (max-width: 1024px) {
             .sidebar {
@@ -547,6 +637,52 @@
                     <div class="stat-label" data-i18n="stats.completedDeals">Genomförda deals</div>
                     <div class="stat-value">24</div>
                     <div class="stat-change">+8 <span data-i18n="stats.thisYear">i år</span></div>
+                </div>
+            </div>
+
+            <!-- Waiting for Review -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title" data-i18n="dashboard.waitingForReview">Väntar på granskning</h2>
+                    <a href="#" class="btn btn-outline btn-sm" data-i18n="deals.viewAll">Visa alla</a>
+                </div>
+                <div class="card-body">
+                    <a href="review-delivery.html" class="review-card">
+                        <div class="review-avatar">📸</div>
+                        <div class="review-info">
+                            <div class="review-title">Emma Lindström — Julkampanj för Instagram</div>
+                            <div class="review-subtitle">1 Reel + 3 Stories levererat 12 dec 2025</div>
+                        </div>
+                        <span class="review-badge">⏰ <span data-i18n="dashboard.autoApproves">Auto-godkänns om</span> 7 dagar</span>
+                    </a>
+                    <a href="review-delivery.html" class="review-card">
+                        <div class="review-avatar">🎥</div>
+                        <div class="review-info">
+                            <div class="review-title">Marcus Berg — Spa Weekend Content</div>
+                            <div class="review-subtitle">2 Reels levererat 10 dec 2025</div>
+                        </div>
+                        <span class="review-badge">⏰ <span data-i18n="dashboard.autoApproves">Auto-godkänns om</span> 5 dagar</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Approved Content -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title" data-i18n="dashboard.approvedContent">Godkänt content</h2>
+                    <a href="#" class="btn btn-outline btn-sm" data-i18n="deals.viewAll">Visa alla</a>
+                </div>
+                <div class="card-body">
+                    <div class="content-gallery">
+                        <div class="content-thumb">🎬</div>
+                        <div class="content-thumb">📸</div>
+                        <div class="content-thumb">📸</div>
+                        <div class="content-thumb">🎬</div>
+                        <div class="content-thumb">📸</div>
+                        <div class="content-thumb">📸</div>
+                        <div class="content-thumb">🎬</div>
+                        <div class="content-thumb">📸</div>
+                    </div>
                 </div>
             </div>
 
@@ -694,7 +830,13 @@
                 dashboard: {
                     title: 'Dashboard',
                     subtitle: 'Välkommen tillbaka, Grand Hotel Stockholm',
-                    newRequest: '+ Skapa ny förfrågan'
+                    newRequest: '+ Skapa ny förfrågan',
+                    waitingForReview: 'Väntar på granskning',
+                    approvedContent: 'Godkänt content',
+                    autoApproves: 'Auto-godkänns om'
+                },
+                deals: {
+                    viewAll: 'Visa alla'
                 },
                 stats: {
                     activeRequests: 'Aktiva förfrågningar',
@@ -742,7 +884,13 @@
                 dashboard: {
                     title: 'Dashboard',
                     subtitle: 'Welcome back, Grand Hotel Stockholm',
-                    newRequest: '+ Create new request'
+                    newRequest: '+ Create new request',
+                    waitingForReview: 'Waiting for review',
+                    approvedContent: 'Approved content',
+                    autoApproves: 'Auto-approves in'
+                },
+                deals: {
+                    viewAll: 'View all'
                 },
                 stats: {
                     activeRequests: 'Active requests',
