@@ -58,6 +58,42 @@ const hotelsData = [
     seeking_ugc: true,
     active_requests: 2,
     match_score: 88
+  },
+  {
+    id: "hotel_sthlm_004",
+    name: "Nobis Hotel Stockholm",
+    address: "Norrmalmstorg 2-4, 111 86 Stockholm",
+    phone: "+46 8 614 10 00",
+    email: "reservation@nobishotel.se",
+    website: "https://nobishotel.se",
+    image: "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&h=600&fit=crop",
+    rooms: 201,
+    stars: 5,
+    category: "luxury",
+    description_sv: "Prisbelönt lyxhotell i två ikoniska 1800-talsbyggnader vid Norrmalmstorg. Känt för nordisk design, Michelin-nära matupplevelser och centralt läge.",
+    description_en: "Award-winning luxury hotel in two iconic 19th-century buildings on Norrmalmstorg. Known for its Nordic design, Michelin-adjacent dining, and central location.",
+    is_verified: true,
+    seeking_ugc: true,
+    active_requests: 2,
+    match_score: 89
+  },
+  {
+    id: "hotel_sthlm_005",
+    name: "Miss Clara by Nobis",
+    address: "Sveavägen 48, 111 34 Stockholm",
+    phone: "+46 8 440 67 00",
+    email: "reservation@missclarahotel.com",
+    website: "https://missclarahotel.com",
+    image: "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800&h=600&fit=crop",
+    rooms: 92,
+    stars: 4,
+    category: "boutique",
+    description_sv: "Charmigt boutiquehotell i en tidigare flickskola från 1910. Jugendarkitektur möter modern skandinavisk design i hjärtat av Stockholm.",
+    description_en: "Charming boutique hotel in a former girls' school from 1910. Art Nouveau architecture meets modern Scandinavian design in the heart of Stockholm.",
+    is_verified: true,
+    seeking_ugc: true,
+    active_requests: 1,
+    match_score: 87
   }
 ];
 

@@ -4,9 +4,9 @@ const StayfindrMarketplace = () => {
   // Sample data
   const hotels = [
     { id: 1, name: 'Grand Hôtel Stockholm', category: 'luxury', city: 'Stockholm', is_verified: true, is_active: true },
-    { id: 2, name: 'Fotografiska Hotel', category: 'boutique', city: 'Stockholm', is_verified: true, is_active: true },
+    { id: 2, name: 'Nobis Hotel Stockholm', category: 'luxury', city: 'Stockholm', is_verified: true, is_active: true },
     { id: 3, name: 'Ett Hem', category: 'boutique', city: 'Stockholm', is_verified: true, is_active: false },
-    { id: 4, name: 'Clarion Hotel Post', category: 'chain', city: 'Göteborg', is_verified: false, is_active: true },
+    { id: 4, name: 'Miss Clara by Nobis', category: 'boutique', city: 'Stockholm', is_verified: true, is_active: true },
   ];
 
   const influencers = [

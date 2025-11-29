@@ -443,7 +443,7 @@
         /* Hotel Grid */
         .hotel-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 16px;
             padding: 20px;
         }
@@ -590,6 +590,12 @@
                 grid-template-columns: 1fr;
             }
 
+            .hotel-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 900px) {
             .hotel-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -832,14 +838,27 @@
                         </a>
                         <a href="profile.html?type=hotel" class="hotel-card-mini">
                             <div class="hotel-card-image">
-                                <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=400&h=300&fit=crop" alt="Bank Hotel" loading="lazy">
+                                <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400&h=300&fit=crop" alt="Nobis Hotel Stockholm" loading="lazy">
                             </div>
                             <div class="hotel-card-info">
-                                <h4>Bank Hotel</h4>
+                                <h4>Nobis Hotel Stockholm</h4>
+                                <p>Stockholm, Sverige</p>
+                                <div class="hotel-card-tags">
+                                    <span class="tag category">Luxury</span>
+                                    <span class="tag match">89% match</span>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="profile.html?type=hotel" class="hotel-card-mini">
+                            <div class="hotel-card-image">
+                                <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400&h=300&fit=crop" alt="Miss Clara by Nobis" loading="lazy">
+                            </div>
+                            <div class="hotel-card-info">
+                                <h4>Miss Clara by Nobis</h4>
                                 <p>Stockholm, Sverige</p>
                                 <div class="hotel-card-tags">
                                     <span class="tag category">Boutique</span>
-                                    <span class="tag match">88% match</span>
+                                    <span class="tag match">87% match</span>
                                 </div>
                             </div>
                         </a>
