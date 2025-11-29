@@ -3,6 +3,64 @@
  * Theme, language, and translation utilities
  */
 
+// Hotel Data
+const hotelsData = [
+  {
+    id: "hotel_sthlm_001",
+    name: "Grand Hôtel Stockholm",
+    address: "Södra Blasieholmshamnen 8, Stockholm",
+    phone: "+46 8 679 35 00",
+    email: "info@grandhotel.se",
+    website: "https://grandhotel.se",
+    image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=600&fit=crop",
+    rooms: 278,
+    stars: 5,
+    category: "luxury",
+    description_sv: "Stockholms ikoniska lyxhotell sedan 1874, beläget vid vattnet mittemot Kungliga Slottet.",
+    description_en: "Stockholm's iconic luxury hotel since 1874, located on the waterfront opposite the Royal Palace.",
+    is_verified: true,
+    seeking_ugc: true,
+    active_requests: 3,
+    match_score: 94
+  },
+  {
+    id: "hotel_sthlm_002",
+    name: "Ett Hem",
+    address: "Sköldungagatan 2, Stockholm",
+    phone: "+46 8 20 05 90",
+    email: "kitchen@etthem.se",
+    website: "https://www.etthem.se",
+    image: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800&h=600&fit=crop",
+    rooms: 25,
+    stars: 5,
+    category: "boutique",
+    description_sv: "Skandinaviens mest omtalade boutiquehotell. Design av Ilse Crawford.",
+    description_en: "Scandinavia's most talked-about boutique hotel. Designed by Ilse Crawford.",
+    is_verified: true,
+    seeking_ugc: true,
+    active_requests: 1,
+    match_score: 91
+  },
+  {
+    id: "hotel_sthlm_003",
+    name: "Bank Hotel",
+    address: "Arsenalsgatan 6, Stockholm",
+    phone: "+46 8 598 58 000",
+    email: "frontdesk@bankhotel.se",
+    website: "https://bankhotel.se",
+    image: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800&h=600&fit=crop",
+    rooms: 115,
+    stars: 5,
+    category: "boutique",
+    description_sv: "Art Deco-inspirerat boutiquehotell i en historisk bankbyggnad.",
+    description_en: "Art Deco-inspired boutique hotel in a historic bank building.",
+    is_verified: true,
+    seeking_ugc: true,
+    active_requests: 2,
+    match_score: 88
+  }
+];
+
 // CSS Variables for theming (reference only - actual CSS is in each HTML file)
 const cssVariables = {
     light: {
@@ -657,6 +715,7 @@ if (document.readyState === 'loading') {
 // Export for module usage
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
+        hotelsData,
         translations,
         cssVariables,
         getNestedValue,
