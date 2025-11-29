@@ -55,7 +55,7 @@
         }
 
         .header-inner {
-            max-width: 1000px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 16px 24px;
             display: flex;
@@ -156,11 +156,65 @@
             background: var(--bg-secondary);
         }
 
+        /* Layout */
+        .layout {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: calc(100vh - 65px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 240px;
+            background: var(--bg-primary);
+            border-right: 1px solid var(--border);
+            padding: 24px 0;
+            flex-shrink: 0;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 24px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .sidebar-nav a:hover {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        .sidebar-nav a.active {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border-right: 2px solid var(--accent);
+        }
+
+        .sidebar-nav .nav-icon {
+            font-size: 18px;
+        }
+
+        /* Main Content */
+        .main {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+        }
+
         /* Profile Container */
         .profile-container {
             max-width: 1000px;
             margin: 0 auto;
-            padding: 24px;
         }
 
         /* Cover Section */
@@ -456,6 +510,12 @@
         }
 
         /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar {
+                display: none;
+            }
+        }
+
         @media (max-width: 768px) {
             .profile-header {
                 flex-direction: column;
@@ -507,8 +567,44 @@
         </div>
     </header>
 
-    <!-- Profile Container -->
-    <div class="profile-container">
+    <!-- Layout -->
+    <div class="layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <nav>
+                <ul class="sidebar-nav">
+                    <li>
+                        <a href="find-hotels.html">
+                            <span class="nav-icon">🏨</span>
+                            <span data-i18n="sidebar.findHotels">Find hotels</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="influencer-dashboard.html">
+                            <span class="nav-icon">💼</span>
+                            <span data-i18n="sidebar.myCollabs">My collaborations</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="content-studio.html">
+                            <span class="nav-icon">🎬</span>
+                            <span data-i18n="sidebar.contentStudio">Content Studio</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="profile.html?type=influencer" class="active">
+                            <span class="nav-icon">👤</span>
+                            <span data-i18n="sidebar.myProfile">My profile</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Profile Container -->
+            <div class="profile-container">
         <!-- Hotel Profile -->
         <div id="hotelProfile" style="display: none;">
             <div class="cover-section">
@@ -685,6 +781,8 @@
                 </div>
             </div>
         </div>
+            </div>
+        </main>
     </div>
 
     <script>
@@ -692,6 +790,12 @@
         const translations = {
             sv: {
                 nav: { back: 'Tillbaka' },
+                sidebar: {
+                    findHotels: 'Hitta hotell',
+                    myCollabs: 'Mina samarbeten',
+                    contentStudio: 'Content Studio',
+                    myProfile: 'Min profil'
+                },
                 hotel: {
                     bio: 'Stockholms mest ikoniska hotell sedan 1874. Vi erbjuder en unik kombination av historisk elegans och modern lyx, beläget vid vattnet med utsikt över Kungliga slottet.',
                     contact: 'Kontakta',
@@ -720,6 +824,12 @@
             },
             en: {
                 nav: { back: 'Back' },
+                sidebar: {
+                    findHotels: 'Find hotels',
+                    myCollabs: 'My collaborations',
+                    contentStudio: 'Content Studio',
+                    myProfile: 'My profile'
+                },
                 hotel: {
                     bio: "Stockholm's most iconic hotel since 1874. We offer a unique combination of historic elegance and modern luxury, located by the water with views of the Royal Palace.",
                     contact: 'Contact',
