@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="sv" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find Hotels - Stayfindr</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* CSS Variables */
+    :root {
+      --bg-primary: #FFFFFF;
+      --bg-secondary: #F9FAFB;
+      --bg-card: #FFFFFF;
+      --bg-hover: #F3F4F6;
+      --text-primary: #111827;
+      --text-secondary: #6B7280;
+      --text-muted: #9CA3AF;
+      --border: #E5E7EB;
+      --border-hover: #D1D5DB;
+      --accent: #111827;
+    }
+
+    [data-theme="dark"] {
+      --bg-primary: #111827;
+      --bg-secondary: #1F2937;
+      --bg-card: #1F2937;
+      --bg-hover: #374151;
+      --text-primary: #F9FAFB;
+      --text-secondary: #9CA3AF;
+      --text-muted: #6B7280;
+      --border: #374151;
+      --border-hover: #4B5563;
+      --accent: #F9FAFB;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.5;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .theme-toggle {
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 6px 10px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    [data-theme="light"] .icon-moon { display: none; }
+    [data-theme="dark"] .icon-sun { display: none; }
+
+    .lang-switch {
+      display: flex;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .lang-btn {
+      padding: 6px 10px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: var(--bg-primary);
+      color: var(--text-secondary);
+      border: none;
+      cursor: pointer;
+    }
+
+    .lang-btn.active {
+      background: var(--accent);
+      color: var(--bg-primary);
+    }
+
+    /* Layout */
+    .layout {
+      display: flex;
+      min-height: calc(100vh - 65px);
+    }
+
+    .sidebar {
+      width: 240px;
+      background: var(--bg-secondary);
+      border-right: 1px solid var(--border);
+      padding: 24px 0;
+      flex-shrink: 0;
+    }
+
+    .sidebar-nav {
+      list-style: none;
+    }
+
+    .sidebar-nav a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 24px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .sidebar-nav a:hover {
+      background: var(--bg-hover);
+      color: var(--text-primary);
+    }
+
+    .sidebar-nav a.active {
+      background: var(--bg-hover);
+      color: var(--text-primary);
+      font-weight: 600;
+      border-right: 2px solid var(--accent);
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 32px;
+      overflow-y: auto;
+    }
+
+    /* Page Header */
+    .page-header {
+      margin-bottom: 32px;
+    }
+
+    .page-header h1 {
+      font-size: 1.75rem;
+      margin-bottom: 8px;
+    }
+
+    .page-header p {
+      color: var(--text-secondary);
+    }
+
+    /* Search & Filters */
+    .search-filters {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .search-input {
+      flex: 1;
+      min-width: 250px;
+      padding: 12px 16px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      color: var(--text-primary);
+      font-size: 0.875rem;
+    }
+
+    .search-input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .filter-tab {
+      padding: 8px 16px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-tab:hover {
+      border-color: var(--border-hover);
+      color: var(--text-primary);
+    }
+
+    .filter-tab.active {
+      background: var(--accent);
+      color: var(--bg-primary);
+      border-color: var(--accent);
+    }
+
+    /* Hotels Grid */
+    .hotels-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 24px;
+    }
+
+    /* Hotel Card */
+    .hotel-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .hotel-card:hover {
+      border-color: var(--border-hover);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .hotel-card-image {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      background: var(--bg-secondary);
+    }
+
+    .hotel-card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hotel-badge {
+      position: absolute;
+      padding: 4px 8px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 2px;
+    }
+
+    .hotel-badge.verified {
+      top: 12px;
+      left: 12px;
+      background: #F59E0B;
+      color: #000;
+    }
+
+    .hotel-badge.seeking-ugc {
+      top: 12px;
+      right: 12px;
+      background: var(--accent);
+      color: var(--bg-primary);
+    }
+
+    .hotel-card-content {
+      padding: 20px;
+    }
+
+    .hotel-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .hotel-card-header h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .category-tag {
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      border-radius: 2px;
+      white-space: nowrap;
+    }
+
+    .category-tag.luxury {
+      background: rgba(245, 158, 11, 0.15);
+      color: #F59E0B;
+    }
+
+    .category-tag.boutique {
+      background: rgba(59, 130, 246, 0.15);
+      color: #3B82F6;
+    }
+
+    .hotel-stars {
+      color: #F59E0B;
+      font-size: 0.875rem;
+      margin-bottom: 12px;
+    }
+
+    .hotel-description {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    /* Contact Info */
+    .hotel-contact {
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+      margin-bottom: 16px;
+    }
+
+    .contact-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 10px;
+      font-size: 0.875rem;
+    }
+
+    .contact-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .contact-row .icon {
+      flex-shrink: 0;
+      width: 20px;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    .contact-row .value {
+      color: var(--text-secondary);
+    }
+
+    .contact-row a {
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    .contact-row a:hover {
+      text-decoration: underline;
+    }
+
+    /* Hotel Footer */
+    .hotel-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .active-requests {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    .active-requests strong {
+      color: var(--text-primary);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 20px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg-primary);
+      border: 1px solid var(--accent);
+    }
+
+    .btn-primary:hover {
+      opacity: 0.9;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-hover);
+      border-color: var(--border-hover);
+    }
+
+    /* User Menu */
+    .user-menu {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .user-avatar {
+      width: 32px;
+      height: 32px;
+      background: var(--bg-hover);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.875rem;
+    }
+
+    .user-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .user-name {
+      font-weight: 600;
+      font-size: 0.875rem;
+    }
+
+    .user-handle {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .user-badge {
+      padding: 2px 8px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: #F59E0B;
+      color: #000;
+      border-radius: 2px;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .sidebar {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .user-menu .user-info {
+        display: none;
+      }
+
+      .hotels-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <a href="index.html" class="logo">STAYFINDR</a>
+    </div>
+    <div class="header-right">
+      <div class="user-menu">
+        <div class="user-avatar">👤</div>
+        <div class="user-info">
+          <span class="user-name">Emma Lindqvist</span>
+          <span class="user-handle">@emmalindqvist</span>
+        </div>
+        <span class="user-badge">★ Gold</span>
+      </div>
+      <div class="header-controls">
+        <div class="lang-switch">
+          <button class="lang-btn active" data-lang="sv" onclick="setLanguage('sv')">SV</button>
+          <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
+        </div>
+        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+          <span class="icon-sun">☀️</span>
+          <span class="icon-moon">🌙</span>
+        </button>
+      </div>
+      <a href="index.html" class="btn btn-secondary" data-i18n="btn_logout">Log out</a>
+    </div>
+  </header>
+
+  <div class="layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <ul class="sidebar-nav">
+        <li><a href="find-hotels.html" class="active">🏨 <span data-i18n="nav_find_hotels">Find hotels</span></a></li>
+        <li><a href="influencer-dashboard.html">💼 <span data-i18n="nav_my_collaborations">My collaborations</span></a></li>
+        <li><a href="content-studio.html">🎬 <span data-i18n="content_studio">Content Studio</span></a></li>
+        <li><a href="profile.html?type=influencer">👤 <span data-i18n="nav_my_profile">My profile</span></a></li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="page-header">
+        <h1 data-i18n="nav_find_hotels">Find hotels</h1>
+        <p data-i18n="find_hotels_subtitle">Discover hotels looking for content creators</p>
+      </div>
+
+      <!-- Search & Filters -->
+      <div class="search-filters">
+        <input type="text" class="search-input" placeholder="Search hotels..." data-i18n-placeholder="search_hotels">
+        <div class="filter-tabs">
+          <button class="filter-tab active" data-i18n="filter_all">All</button>
+          <button class="filter-tab" data-i18n="filter_luxury">Luxury</button>
+          <button class="filter-tab" data-i18n="filter_boutique">Boutique</button>
+          <button class="filter-tab" data-i18n="filter_budget">Budget</button>
+          <button class="filter-tab" data-i18n="filter_chain">Chain</button>
+        </div>
+      </div>
+
+      <!-- Hotels Grid -->
+      <div class="hotels-grid">
+        <!-- Grand Hôtel Stockholm -->
+        <div class="hotel-card">
+          <div class="hotel-card-image">
+            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=600&fit=crop"
+                 alt="Grand Hôtel Stockholm"
+                 loading="lazy">
+            <span class="hotel-badge verified">★ Verified</span>
+            <span class="hotel-badge seeking-ugc" data-i18n="seeking_ugc">Seeking UGC</span>
+          </div>
+          <div class="hotel-card-content">
+            <div class="hotel-card-header">
+              <h3>Grand Hôtel Stockholm</h3>
+              <span class="category-tag luxury">Luxury</span>
+            </div>
+            <div class="hotel-stars">★★★★★ • 278 rooms</div>
+            <p class="hotel-description" data-i18n="hotel_001_desc">
+              Stockholm's iconic luxury hotel since 1874, located on the waterfront opposite the Royal Palace. Home to Nobel laureates and international celebrities.
+            </p>
+
+            <div class="hotel-contact">
+              <div class="contact-row">
+                <span class="icon">📍</span>
+                <span class="value">Södra Blasieholmshamnen 8, 103 27 Stockholm</span>
+              </div>
+              <div class="contact-row">
+                <span class="icon">📞</span>
+                <a href="tel:+4686793500">+46 8 679 35 00</a>
+              </div>
+              <div class="contact-row">
+                <span class="icon">✉️</span>
+                <a href="mailto:info@grandhotel.se">info@grandhotel.se</a>
+              </div>
+              <div class="contact-row">
+                <span class="icon">🌐</span>
+                <a href="https://grandhotel.se" target="_blank" rel="noopener">grandhotel.se</a>
+              </div>
+            </div>
+
+            <div class="hotel-card-footer">
+              <span class="active-requests"><strong>3</strong> active requests</span>
+              <a href="create-proposal.html?hotel=hotel_sthlm_001" class="btn btn-primary" data-i18n="send_proposal">Send proposal</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ett Hem -->
+        <div class="hotel-card">
+          <div class="hotel-card-image">
+            <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800&h=600&fit=crop"
+                 alt="Ett Hem"
+                 loading="lazy">
+            <span class="hotel-badge verified">★ Verified</span>
+            <span class="hotel-badge seeking-ugc" data-i18n="seeking_ugc">Seeking UGC</span>
+          </div>
+          <div class="hotel-card-content">
+            <div class="hotel-card-header">
+              <h3>Ett Hem</h3>
+              <span class="category-tag boutique">Boutique</span>
+            </div>
+            <div class="hotel-stars">★★★★★ • 25 rooms</div>
+            <p class="hotel-description" data-i18n="hotel_002_desc">
+              Scandinavia's most talked-about boutique hotel. Three interconnected 1910s townhouses transformed into a home away from home, designed by Ilse Crawford.
+            </p>
+
+            <div class="hotel-contact">
+              <div class="contact-row">
+                <span class="icon">📍</span>
+                <span class="value">Sköldungagatan 2, 114 27 Stockholm</span>
+              </div>
+              <div class="contact-row">
+                <span class="icon">📞</span>
+                <a href="tel:+4682005090">+46 8 20 05 90</a>
+              </div>
+              <div class="contact-row">
+                <span class="icon">✉️</span>
+                <a href="mailto:kitchen@etthem.se">kitchen@etthem.se</a>
+              </div>
+              <div class="contact-row">
+                <span class="icon">🌐</span>
+                <a href="https://www.etthem.se" target="_blank" rel="noopener">etthem.se</a>
+              </div>
+            </div>
+
+            <div class="hotel-card-footer">
+              <span class="active-requests"><strong>1</strong> active request</span>
+              <a href="create-proposal.html?hotel=hotel_sthlm_002" class="btn btn-primary" data-i18n="send_proposal">Send proposal</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bank Hotel -->
+        <div class="hotel-card">
+          <div class="hotel-card-image">
+            <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800&h=600&fit=crop"
+                 alt="Bank Hotel"
+                 loading="lazy">
+            <span class="hotel-badge verified">★ Verified</span>
+            <span class="hotel-badge seeking-ugc" data-i18n="seeking_ugc">Seeking UGC</span>
+          </div>
+          <div class="hotel-card-content">
+            <div class="hotel-card-header">
+              <h3>Bank Hotel</h3>
+              <span class="category-tag boutique">Boutique</span>
+            </div>
+            <div class="hotel-stars">★★★★★ • 115 rooms</div>
+            <p class="hotel-description" data-i18n="hotel_003_desc">
+              Art Deco-inspired boutique hotel in a historic bank building on Stockholm's waterfront. Famous for its rooftop bars and Bonnie's restaurant.
+            </p>
+
+            <div class="hotel-contact">
+              <div class="contact-row">
+                <span class="icon">📍</span>
+                <span class="value">Arsenalsgatan 6, 111 47 Stockholm</span>
+              </div>
+              <div class="contact-row">
+                <span class="icon">📞</span>
+                <a href="tel:+46859858000">+46 8 598 58 000</a>
+              </div>
+              <div class="contact-row">
+                <span class="icon">✉️</span>
+                <a href="mailto:frontdesk@bankhotel.se">frontdesk@bankhotel.se</a>
+              </div>
+              <div class="contact-row">
+                <span class="icon">🌐</span>
+                <a href="https://bankhotel.se" target="_blank" rel="noopener">bankhotel.se</a>
+              </div>
+            </div>
+
+            <div class="hotel-card-footer">
+              <span class="active-requests"><strong>2</strong> active requests</span>
+              <a href="create-proposal.html?hotel=hotel_sthlm_003" class="btn btn-primary" data-i18n="send_proposal">Send proposal</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="shared.js"></script>
+  <script>
+    initTheme();
+    initLang();
+
+    // Language switcher functionality
+    function setLanguage(lang) {
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+      changeLang(lang);
+    }
+
+    // Filter tabs functionality
+    document.querySelectorAll('.filter-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
