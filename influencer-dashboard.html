@@ -508,6 +508,78 @@
             border-radius: 2px;
         }
 
+        /* Hotel Card Mini with Images */
+        .hotel-card-mini {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            overflow: hidden;
+            text-decoration: none;
+            display: block;
+            transition: all 0.2s;
+        }
+
+        .hotel-card-mini:hover {
+            border-color: var(--accent);
+        }
+
+        .hotel-card-mini .hotel-card-image {
+            width: 100%;
+            height: 160px;
+            overflow: hidden;
+        }
+
+        .hotel-card-mini .hotel-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hotel-card-mini .hotel-card-info {
+            padding: 12px;
+        }
+
+        .hotel-card-mini h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0 0 4px 0;
+            color: var(--text-primary);
+        }
+
+        .hotel-card-mini p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin: 0 0 8px 0;
+        }
+
+        .hotel-card-tags {
+            display: flex;
+            gap: 8px;
+        }
+
+        .tag {
+            padding: 2px 8px;
+            font-size: 0.75rem;
+            border-radius: 2px;
+        }
+
+        .tag.category {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+        }
+
+        .tag.match {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10B981;
+        }
+
+        /* Escrow Badge */
+        .escrow-badge {
+            font-size: 0.75rem;
+            color: #10B981;
+            margin-left: 8px;
+        }
+
         /* Responsive */
         @media (max-width: 1024px) {
             .sidebar {
@@ -634,8 +706,8 @@
                 </div>
                 <div class="stat-card">
                     <div class="stat-label" data-i18n="stats.totalEarnings">Total intjäning</div>
-                    <div class="stat-value">€4,850</div>
-                    <div class="stat-change">+€1,200 <span data-i18n="stats.thisMonth">denna månad</span></div>
+                    <div class="stat-value">$4,850</div>
+                    <div class="stat-change">+$1,200 <span data-i18n="stats.thisMonth">denna månad</span></div>
                 </div>
             </div>
 
@@ -686,7 +758,7 @@
                             </tr>
                             <tr class="clickable-row" onclick="window.location='deal-flow.html'">
                                 <td>
-                                    <strong>Nobis Hotel</strong>
+                                    <strong>Ett Hem</strong>
                                     <div style="font-size: 12px; color: var(--text-secondary);">Spa Weekend Package</div>
                                 </td>
                                 <td>
@@ -700,7 +772,7 @@
                             </tr>
                             <tr class="clickable-row" onclick="window.location='deal-flow.html'">
                                 <td>
-                                    <strong>Hotel Rival</strong>
+                                    <strong>Bank Hotel</strong>
                                     <div style="font-size: 12px; color: var(--text-secondary);">Restaurang Review</div>
                                 </td>
                                 <td>
@@ -738,36 +810,42 @@
                 </div>
                 <div class="card-body">
                     <div class="hotel-grid">
-                        <a href="profile.html?type=hotel" class="hotel-card">
-                            <div class="hotel-cover">🏨</div>
-                            <div class="hotel-card-body">
-                                <div class="hotel-card-name">Hotel Diplomat</div>
-                                <div class="hotel-card-location">Stockholm, Sverige</div>
-                                <div class="hotel-card-meta">
-                                    <span class="hotel-card-tag">Lifestyle</span>
-                                    <span class="match-badge">92% match</span>
+                        <a href="profile.html?type=hotel" class="hotel-card-mini">
+                            <div class="hotel-card-image">
+                                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop" alt="Grand Hôtel Stockholm" loading="lazy">
+                            </div>
+                            <div class="hotel-card-info">
+                                <h4>Grand Hôtel Stockholm</h4>
+                                <p>Stockholm, Sverige</p>
+                                <div class="hotel-card-tags">
+                                    <span class="tag category">Luxury</span>
+                                    <span class="tag match">94% match</span>
                                 </div>
                             </div>
                         </a>
-                        <a href="profile.html?type=hotel" class="hotel-card">
-                            <div class="hotel-cover">🌊</div>
-                            <div class="hotel-card-body">
-                                <div class="hotel-card-name">Lydmar Hotel</div>
-                                <div class="hotel-card-location">Stockholm, Sverige</div>
-                                <div class="hotel-card-meta">
-                                    <span class="hotel-card-tag">Boutique</span>
-                                    <span class="match-badge">88% match</span>
+                        <a href="profile.html?type=hotel" class="hotel-card-mini">
+                            <div class="hotel-card-image">
+                                <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=400&h=300&fit=crop" alt="Ett Hem" loading="lazy">
+                            </div>
+                            <div class="hotel-card-info">
+                                <h4>Ett Hem</h4>
+                                <p>Stockholm, Sverige</p>
+                                <div class="hotel-card-tags">
+                                    <span class="tag category">Boutique</span>
+                                    <span class="tag match">91% match</span>
                                 </div>
                             </div>
                         </a>
-                        <a href="profile.html?type=hotel" class="hotel-card">
-                            <div class="hotel-cover">🎨</div>
-                            <div class="hotel-card-body">
-                                <div class="hotel-card-name">Miss Clara by Nobis</div>
-                                <div class="hotel-card-location">Stockholm, Sverige</div>
-                                <div class="hotel-card-meta">
-                                    <span class="hotel-card-tag">Design</span>
-                                    <span class="match-badge">85% match</span>
+                        <a href="profile.html?type=hotel" class="hotel-card-mini">
+                            <div class="hotel-card-image">
+                                <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=400&h=300&fit=crop" alt="Bank Hotel" loading="lazy">
+                            </div>
+                            <div class="hotel-card-info">
+                                <h4>Bank Hotel</h4>
+                                <p>Stockholm, Sverige</p>
+                                <div class="hotel-card-tags">
+                                    <span class="tag category">Boutique</span>
+                                    <span class="tag match">88% match</span>
                                 </div>
                             </div>
                         </a>
