@@ -345,6 +345,22 @@ const translations = {
             awaitingPayment: 'Väntar på betalning',
             viewDeal: 'Visa deal',
             autoApproves: 'Auto-godkänns om'
+        },
+
+        // Find Hotels page
+        findHotels: {
+            title: 'Hitta hotell',
+            subtitle: 'Upptäck hotell som söker innehållsskapare',
+            searchPlaceholder: 'Sök hotell...',
+            sendProposal: 'Skicka förslag',
+            filterAll: 'Alla',
+            filterLuxury: 'Lyx',
+            filterBoutique: 'Boutique',
+            filterBudget: 'Budget',
+            filterChain: 'Kedja',
+            seekingUgc: 'Söker UGC',
+            activeRequests: 'aktiva förfrågningar',
+            activeRequest: 'aktiv förfrågning'
         }
     },
 
@@ -602,6 +618,22 @@ const translations = {
             awaitingPayment: 'Awaiting payment',
             viewDeal: 'View deal',
             autoApproves: 'Auto-approves in'
+        },
+
+        // Find Hotels page
+        findHotels: {
+            title: 'Find hotels',
+            subtitle: 'Discover hotels looking for content creators',
+            searchPlaceholder: 'Search hotels...',
+            sendProposal: 'Send proposal',
+            filterAll: 'All',
+            filterLuxury: 'Luxury',
+            filterBoutique: 'Boutique',
+            filterBudget: 'Budget',
+            filterChain: 'Chain',
+            seekingUgc: 'Seeking UGC',
+            activeRequests: 'active requests',
+            activeRequest: 'active request'
         }
     }
 };
