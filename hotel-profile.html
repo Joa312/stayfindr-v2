@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="sv" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Hotel - STAYFINDR</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F9FAFB;
+            --text-primary: #111827;
+            --text-secondary: #6B7280;
+            --border: #E5E7EB;
+            --accent: #111827;
+            --accent-hover: #374151;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #111827;
+            --bg-secondary: #1F2937;
+            --text-primary: #F9FAFB;
+            --text-secondary: #9CA3AF;
+            --border: #374151;
+            --accent: #F9FAFB;
+            --accent-hover: #E5E7EB;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .hotel-name {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding-left: 24px;
+            border-left: 1px solid var(--border);
+        }
+
+        .hotel-avatar {
+            width: 32px;
+            height: 32px;
+            background: var(--accent);
+            color: var(--bg-primary);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .hotel-info span {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .lang-select {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 8px 12px;
+            font-size: 13px;
+            font-family: inherit;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        .theme-toggle {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 2px;
+            font-size: 14px;
+            font-weight: 500;
+            font-family: inherit;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+        }
+
+        .btn-ghost:hover {
+            color: var(--text-primary);
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border);
+        }
+
+        /* Layout */
+        .layout {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: calc(100vh - 65px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 240px;
+            background: var(--bg-primary);
+            border-right: 1px solid var(--border);
+            padding: 24px 0;
+            flex-shrink: 0;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 24px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .sidebar-nav a:hover {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        .sidebar-nav a.active {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border-right: 2px solid var(--accent);
+        }
+
+        .sidebar-nav .nav-icon {
+            font-size: 18px;
+        }
+
+        /* Main Content */
+        .main {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 24px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .hero-content {
+            padding: 24px;
+        }
+
+        .hero-badges {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 2px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .badge-luxury {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .badge-verified {
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            color: #FFFFFF;
+        }
+
+        .hero-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .hero-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .hero-stars {
+            color: var(--warning);
+            letter-spacing: 2px;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            margin-bottom: 24px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        /* Contact Info */
+        .contact-list {
+            list-style: none;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .contact-item:last-child {
+            border-bottom: none;
+        }
+
+        .contact-icon {
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .contact-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .contact-link:hover {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        /* About */
+        .about-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .stat-card {
+            background: var(--bg-secondary);
+            border-radius: 2px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Grid layout */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        /* Action section */
+        .action-section {
+            margin-top: 24px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar {
+                display: none;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hotel-name {
+                display: none;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <div class="header-left">
+                <a href="index.html" class="logo">STAYFINDR</a>
+                <div class="hotel-name">
+                    <div class="hotel-avatar">GH</div>
+                    <div class="hotel-info">
+                        <span>Grand Hotel Stockholm</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <select class="lang-select" id="langSelect">
+                    <option value="sv">SV</option>
+                    <option value="en">EN</option>
+                </select>
+                <button class="theme-toggle" id="themeToggle" title="Byt tema">
+                    <span id="themeIcon">☀️</span>
+                </button>
+                <a href="index.html" class="btn btn-ghost" data-i18n="nav.logout">Logga ut</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Layout -->
+    <div class="layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <nav>
+                <ul class="sidebar-nav">
+                    <li>
+                        <a href="hotel-dashboard.html" data-i18n-title="sidebar.overview">
+                            <span class="nav-icon">📊</span>
+                            <span data-i18n="sidebar.overview">Översikt</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="hotel-profile.html" class="active" data-i18n-title="sidebar.myHotel">
+                            <span class="nav-icon">🏨</span>
+                            <span data-i18n="sidebar.myHotel">Mitt hotell</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="hotel-requests.html" data-i18n-title="sidebar.requests">
+                            <span class="nav-icon">📋</span>
+                            <span data-i18n="sidebar.requests">Mina förfrågningar</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="hotel-influencers.html" data-i18n-title="sidebar.influencers">
+                            <span class="nav-icon">👥</span>
+                            <span data-i18n="sidebar.influencers">Influencers</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="hotel-settings.html" data-i18n-title="sidebar.settings">
+                            <span class="nav-icon">⚙️</span>
+                            <span data-i18n="sidebar.settings">Inställningar</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Hero Section -->
+            <div class="hero">
+                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&h=400&fit=crop" alt="Grand Hôtel Stockholm" class="hero-image">
+                <div class="hero-content">
+                    <div class="hero-badges">
+                        <span class="badge badge-luxury">Luxury</span>
+                        <span class="badge badge-verified">★ Verified</span>
+                    </div>
+                    <h1 class="hero-title">Grand Hôtel Stockholm</h1>
+                    <div class="hero-meta">
+                        <span class="hero-stars">★★★★★</span>
+                        <span>278 rum</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <!-- Contact Info -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title" data-i18n="profile.contactInfo">Kontaktinfo</h2>
+                    </div>
+                    <div class="card-body">
+                        <ul class="contact-list">
+                            <li class="contact-item">
+                                <span class="contact-icon">📍</span>
+                                <span class="contact-link">Södra Blasieholmshamnen 8, 103 27 Stockholm</span>
+                            </li>
+                            <li class="contact-item">
+                                <span class="contact-icon">📞</span>
+                                <a href="tel:+46867935300" class="contact-link">+46 8 679 35 00</a>
+                            </li>
+                            <li class="contact-item">
+                                <span class="contact-icon">✉️</span>
+                                <a href="mailto:info@grandhotel.se" class="contact-link">info@grandhotel.se</a>
+                            </li>
+                            <li class="contact-item">
+                                <span class="contact-icon">🌐</span>
+                                <a href="https://grandhotel.se" target="_blank" rel="noopener noreferrer" class="contact-link">grandhotel.se</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- About -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title" data-i18n="profile.about">Om hotellet</h2>
+                    </div>
+                    <div class="card-body">
+                        <p class="about-text">Stockholm's iconic luxury hotel since 1874, located on the waterfront opposite the Royal Palace. Home to Nobel laureates and international celebrities.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title" data-i18n="profile.stats">Statistik</h2>
+                </div>
+                <div class="card-body">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-value">5</div>
+                            <div class="stat-label" data-i18n="stats.activeRequests">Active requests</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">3</div>
+                            <div class="stat-label" data-i18n="stats.ongoingCollabs">Ongoing collaborations</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">24</div>
+                            <div class="stat-label" data-i18n="stats.completedDeals">Completed deals</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">$12,400</div>
+                            <div class="stat-label" data-i18n="stats.totalSpent">Total spent on UGC</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action -->
+            <div class="action-section">
+                <button class="btn btn-secondary" data-i18n="profile.editProfile">Edit profile</button>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Translations
+        const translations = {
+            sv: {
+                nav: { logout: 'Logga ut' },
+                sidebar: {
+                    overview: 'Översikt',
+                    myHotel: 'Mitt hotell',
+                    requests: 'Mina förfrågningar',
+                    influencers: 'Influencers',
+                    settings: 'Inställningar'
+                },
+                profile: {
+                    contactInfo: 'Kontaktinfo',
+                    about: 'Om hotellet',
+                    stats: 'Statistik',
+                    editProfile: 'Redigera profil'
+                },
+                stats: {
+                    activeRequests: 'Aktiva förfrågningar',
+                    ongoingCollabs: 'Pågående samarbeten',
+                    completedDeals: 'Genomförda deals',
+                    totalSpent: 'Totalt spenderat på UGC'
+                }
+            },
+            en: {
+                nav: { logout: 'Log out' },
+                sidebar: {
+                    overview: 'Overview',
+                    myHotel: 'My hotel',
+                    requests: 'My requests',
+                    influencers: 'Influencers',
+                    settings: 'Settings'
+                },
+                profile: {
+                    contactInfo: 'Contact info',
+                    about: 'About the hotel',
+                    stats: 'Statistics',
+                    editProfile: 'Edit profile'
+                },
+                stats: {
+                    activeRequests: 'Active requests',
+                    ongoingCollabs: 'Ongoing collaborations',
+                    completedDeals: 'Completed deals',
+                    totalSpent: 'Total spent on UGC'
+                }
+            }
+        };
+
+        function getNestedValue(obj, path) {
+            return path.split('.').reduce((acc, part) => acc && acc[part], obj);
+        }
+
+        function applyTranslations(lang) {
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                const translation = getNestedValue(translations[lang], key);
+                if (translation) {
+                    el.textContent = translation;
+                }
+            });
+        }
+
+        function initTheme() {
+            const saved = localStorage.getItem('stayfindr-theme') || 'light';
+            document.documentElement.setAttribute('data-theme', saved);
+            updateThemeIcon(saved);
+        }
+
+        function updateThemeIcon(theme) {
+            const icon = document.getElementById('themeIcon');
+            icon.textContent = theme === 'light' ? '☀️' : '🌙';
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('stayfindr-theme', next);
+            updateThemeIcon(next);
+        }
+
+        function initLang() {
+            const saved = localStorage.getItem('stayfindr-lang') || 'sv';
+            document.getElementById('langSelect').value = saved;
+            applyTranslations(saved);
+        }
+
+        function changeLang(lang) {
+            localStorage.setItem('stayfindr-lang', lang);
+            applyTranslations(lang);
+        }
+
+        document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+        document.getElementById('langSelect').addEventListener('change', (e) => changeLang(e.target.value));
+
+        initTheme();
+        initLang();
+    </script>
+</body>
+</html>
