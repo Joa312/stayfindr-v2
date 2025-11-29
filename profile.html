@@ -509,10 +509,173 @@
             color: var(--text-secondary);
         }
 
+        /* Profile Avatar Image */
+        .profile-avatar-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 2px;
+            object-fit: cover;
+            border: 3px solid var(--bg-primary);
+            margin-top: -60px;
+            flex-shrink: 0;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-card .stat-value {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .stat-card .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        /* Contact Info */
+        .contact-info {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .contact-info h3 {
+            margin-bottom: 16px;
+            font-size: 1rem;
+        }
+
+        .contact-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 0;
+        }
+
+        .contact-row .icon {
+            font-size: 1rem;
+        }
+
+        .contact-row a {
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .contact-row a:hover {
+            text-decoration: underline;
+        }
+
+        /* About, Services, Portfolio Sections */
+        .about-section, .services-section, .portfolio-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .about-section h3, .services-section h3, .portfolio-section h3 {
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+
+        .about-section p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Service Tags */
+        .service-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .service-tags .tag {
+            background: var(--bg-hover, var(--bg-primary));
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 8px 12px;
+            font-size: 0.875rem;
+        }
+
+        /* Portfolio Grid Enhanced */
+        .portfolio-section .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .portfolio-section .portfolio-item {
+            position: relative;
+        }
+
+        .portfolio-section .portfolio-item img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 2px;
+        }
+
+        .portfolio-label {
+            display: block;
+            margin-top: 8px;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* Badge Verified */
+        .badge-verified {
+            background: #DBEAFE;
+            color: #1D4ED8;
+        }
+
+        /* Button Secondary */
+        .btn-secondary {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-hover, #E5E7EB);
+        }
+
+        /* Section Title */
+        .section-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
         /* Responsive */
         @media (max-width: 1024px) {
             .sidebar {
                 display: none;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
@@ -524,6 +687,10 @@
             }
 
             .profile-avatar {
+                margin-top: -50px;
+            }
+
+            .profile-avatar-img {
                 margin-top: -50px;
             }
 
@@ -540,7 +707,12 @@
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            .portfolio-grid {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .portfolio-grid,
+            .portfolio-section .portfolio-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
@@ -699,18 +871,17 @@
             <div class="cover-section">
                 <div class="cover-image">📸</div>
                 <div class="profile-header">
-                    <div class="profile-avatar">EL</div>
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop" alt="Emma Lindqvist" class="profile-avatar-img">
                     <div class="profile-info">
                         <h1 class="profile-name">
                             Emma Lindqvist
-                            <span class="badge badge-gold">⭐ Gold</span>
+                            <span class="badge badge-gold">★ Gold Creator</span>
+                            <span class="badge badge-verified">✓ Verified</span>
                         </h1>
                         <p class="profile-handle">@emmalindqvist</p>
-                        <p class="profile-bio" data-i18n="influencer.bio">Resebloggare och content creator med passion för skandinavisk design och boutique-hotell. Jag skapar autentiskt innehåll som inspirerar till att utforska nya platser.</p>
+                        <p class="profile-bio">Lifestyle & Resor</p>
                         <div class="profile-meta">
                             <span class="meta-item">📍 Stockholm, Sverige</span>
-                            <span class="meta-item">📊 125K följare</span>
-                            <span class="meta-item">⭐ 4.9 rating</span>
                         </div>
                     </div>
                     <div class="profile-actions">
@@ -719,67 +890,112 @@
                 </div>
             </div>
 
-            <div class="stats-row">
-                <div class="stat-box">
-                    <div class="stat-value">125K</div>
-                    <div class="stat-label" data-i18n="influencer.followers">Följare</div>
+            <!-- Platform Stats -->
+            <p class="section-title">Platform Stats</p>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-value">125K</span>
+                    <span class="stat-label">Instagram</span>
                 </div>
-                <div class="stat-box">
-                    <div class="stat-value">4.2%</div>
-                    <div class="stat-label" data-i18n="influencer.engagement">Engagement rate</div>
+                <div class="stat-card">
+                    <span class="stat-value">89K</span>
+                    <span class="stat-label">TikTok</span>
                 </div>
-                <div class="stat-box">
-                    <div class="stat-value">18</div>
-                    <div class="stat-label" data-i18n="influencer.completedDeals">Genomförda deals</div>
+                <div class="stat-card">
+                    <span class="stat-value">45K</span>
+                    <span class="stat-label">YouTube</span>
                 </div>
-                <div class="stat-box">
-                    <div class="stat-value">4.9</div>
-                    <div class="stat-label" data-i18n="influencer.avgRating">Snittbetyg</div>
+                <div class="stat-card">
+                    <span class="stat-value">4.8%</span>
+                    <span class="stat-label">Engagement</span>
                 </div>
             </div>
 
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title" data-i18n="influencer.availability">Tillgänglighet</h2>
+            <!-- Collaboration Stats -->
+            <p class="section-title">Collaboration Stats</p>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-value">24</span>
+                    <span class="stat-label">Completed deals</span>
                 </div>
-                <div class="card-body">
-                    <div class="availability">
-                        <span class="availability-dot"></span>
-                        <span class="availability-text" data-i18n="influencer.availableNow">Tillgänglig för nya samarbeten</span>
+                <div class="stat-card">
+                    <span class="stat-value">4.9</span>
+                    <span class="stat-label">Avg rating</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value">$4,850</span>
+                    <span class="stat-label">Total earnings</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value">98%</span>
+                    <span class="stat-label">Response rate</span>
+                </div>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="contact-info">
+                <h3>Contact & Social</h3>
+                <div class="contact-row">
+                    <span class="icon">📍</span>
+                    <span>Stockholm, Sverige</span>
+                </div>
+                <div class="contact-row">
+                    <span class="icon">✉️</span>
+                    <a href="mailto:emma@emmalindqvist.se">emma@emmalindqvist.se</a>
+                </div>
+                <div class="contact-row">
+                    <span class="icon">📸</span>
+                    <a href="https://instagram.com/emmalindqvist" target="_blank">@emmalindqvist</a>
+                </div>
+                <div class="contact-row">
+                    <span class="icon">🎵</span>
+                    <a href="https://tiktok.com/@emmalindqvist" target="_blank">@emmalindqvist</a>
+                </div>
+                <div class="contact-row">
+                    <span class="icon">🌐</span>
+                    <a href="https://emmalindqvist.se" target="_blank">emmalindqvist.se</a>
+                </div>
+            </div>
+
+            <!-- About Me -->
+            <div class="about-section">
+                <h3>About me</h3>
+                <p>Travel and lifestyle content creator based in Stockholm. I specialize in luxury hotel experiences, spa retreats, and Nordic design. My content focuses on authentic storytelling that resonates with audiences seeking premium travel inspiration.</p>
+            </div>
+
+            <!-- Content Types -->
+            <div class="services-section">
+                <h3>Content I create</h3>
+                <div class="service-tags">
+                    <span class="tag">📹 Instagram Reels</span>
+                    <span class="tag">📸 Photo packages</span>
+                    <span class="tag">🎬 TikTok videos</span>
+                    <span class="tag">📝 Blog reviews</span>
+                    <span class="tag">📖 Instagram Stories</span>
+                </div>
+            </div>
+
+            <!-- Portfolio -->
+            <div class="portfolio-section">
+                <h3>Recent work</h3>
+                <div class="portfolio-grid">
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=300&h=300&fit=crop" alt="Grand Hôtel project">
+                        <span class="portfolio-label">Grand Hôtel Stockholm</span>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=300&h=300&fit=crop" alt="Ett Hem project">
+                        <span class="portfolio-label">Ett Hem</span>
+                    </div>
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=300&h=300&fit=crop" alt="Bank Hotel project">
+                        <span class="portfolio-label">Bank Hotel</span>
                     </div>
                 </div>
             </div>
 
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title" data-i18n="influencer.niches">Nischer</h2>
-                </div>
-                <div class="card-body">
-                    <div class="tags">
-                        <span class="tag">Lifestyle</span>
-                        <span class="tag">Resor</span>
-                        <span class="tag">Boutique-hotell</span>
-                        <span class="tag">Design</span>
-                        <span class="tag">Mat & Dryck</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title" data-i18n="influencer.portfolio">Portfolio</h2>
-                </div>
-                <div class="card-body">
-                    <div class="portfolio-grid">
-                        <div class="portfolio-item">🏨</div>
-                        <div class="portfolio-item">🌅</div>
-                        <div class="portfolio-item">🍽️</div>
-                        <div class="portfolio-item">🛋️</div>
-                        <div class="portfolio-item">🌊</div>
-                        <div class="portfolio-item">☕</div>
-                    </div>
-                </div>
-            </div>
+            <!-- Edit Profile Button -->
+            <button class="btn btn-secondary">Edit profile</button>
         </div>
             </div>
         </main>
