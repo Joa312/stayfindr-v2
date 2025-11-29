@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="sv" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Studio - STAYFINDR</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F9FAFB;
+            --text-primary: #111827;
+            --text-secondary: #6B7280;
+            --border: #E5E7EB;
+            --accent: #111827;
+            --accent-hover: #374151;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #111827;
+            --bg-secondary: #1F2937;
+            --text-primary: #F9FAFB;
+            --text-secondary: #9CA3AF;
+            --border: #374151;
+            --accent: #F9FAFB;
+            --accent-hover: #E5E7EB;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-left: 24px;
+            border-left: 1px solid var(--border);
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .user-handle {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .ranking-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 8px;
+            background: var(--accent);
+            color: var(--bg-primary);
+            border-radius: 2px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .lang-select {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 8px 12px;
+            font-size: 13px;
+            font-family: inherit;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        .theme-toggle {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 2px;
+            font-size: 14px;
+            font-weight: 500;
+            font-family: inherit;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+        }
+
+        .btn-ghost:hover {
+            color: var(--text-primary);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            border: 1px solid var(--accent);
+            color: var(--bg-primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            border-color: var(--accent-hover);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--bg-secondary);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn:disabled:hover {
+            background: transparent;
+        }
+
+        /* Layout */
+        .layout {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: calc(100vh - 65px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 240px;
+            background: var(--bg-primary);
+            border-right: 1px solid var(--border);
+            padding: 24px 0;
+            flex-shrink: 0;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 24px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .sidebar-nav a:hover {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        .sidebar-nav a.active {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border-right: 2px solid var(--accent);
+        }
+
+        .sidebar-nav .nav-icon {
+            font-size: 18px;
+        }
+
+        /* Main Content */
+        .main {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .breadcrumb a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--text-primary);
+        }
+
+        .breadcrumb-separator {
+            color: var(--text-secondary);
+        }
+
+        .breadcrumb-current {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* Hero Section */
+        .page-hero {
+            margin-bottom: 32px;
+        }
+
+        .page-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .page-subtitle {
+            font-size: 15px;
+            color: var(--text-secondary);
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 32px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .section-number {
+            width: 28px;
+            height: 28px;
+            background: var(--accent);
+            color: var(--bg-primary);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .cards-grid-4 {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        /* Card */
+        .card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 24px;
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .card-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+
+        .form-select {
+            width: 100%;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 10px 12px;
+            font-size: 14px;
+            font-family: inherit;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        /* Dropzone */
+        .dropzone {
+            border: 2px dashed var(--border);
+            border-radius: 2px;
+            padding: 32px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .dropzone:hover {
+            border-color: var(--accent);
+            background: var(--bg-secondary);
+        }
+
+        .dropzone-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .dropzone-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .dropzone-hint {
+            font-size: 12px;
+            color: var(--text-secondary);
+            opacity: 0.7;
+        }
+
+        /* Image Grid */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .image-placeholder {
+            aspect-ratio: 1;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--text-secondary);
+        }
+
+        /* Tool Card */
+        .tool-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tool-logo {
+            width: 48px;
+            height: 48px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .tool-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .tool-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            flex: 1;
+        }
+
+        .tool-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
+        }
+
+        .tool-badge {
+            display: inline-flex;
+            padding: 4px 10px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .tool-badge-free {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .tool-link {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-primary);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .tool-link:hover {
+            text-decoration: underline;
+        }
+
+        .tool-link.disabled {
+            color: var(--text-secondary);
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        /* Tooltip */
+        .tooltip-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip-wrapper:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .tooltip {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: var(--bg-primary);
+            padding: 6px 10px;
+            border-radius: 2px;
+            font-size: 12px;
+            white-space: nowrap;
+            margin-bottom: 8px;
+            transition: all 0.2s;
+        }
+
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -4px;
+            border-width: 4px;
+            border-style: solid;
+            border-color: var(--accent) transparent transparent transparent;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-primary);
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
+        }
+
+        .footer-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-links a {
+            font-size: 14px;
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .cards-grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                display: none;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .user-info {
+                display: none;
+            }
+
+            .cards-grid-4 {
+                grid-template-columns: 1fr;
+            }
+
+            .image-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <div class="header-left">
+                <a href="index.html" class="logo">STAYFINDR</a>
+                <div class="user-info">
+                    <div class="user-avatar">📸</div>
+                    <div class="user-details">
+                        <span class="user-name">
+                            Emma Lindqvist
+                            <span class="ranking-badge">Gold</span>
+                        </span>
+                        <span class="user-handle">@emmalindqvist</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <select class="lang-select" id="langSelect">
+                    <option value="sv">SV</option>
+                    <option value="en">EN</option>
+                </select>
+                <button class="theme-toggle" id="themeToggle" title="Byt tema">
+                    <span id="themeIcon">☀️</span>
+                </button>
+                <a href="index.html" class="btn btn-ghost" data-i18n="nav.logout">Logga ut</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Layout -->
+    <div class="layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <nav>
+                <ul class="sidebar-nav">
+                    <li>
+                        <a href="influencer-dashboard.html">
+                            <span class="nav-icon">📊</span>
+                            <span data-i18n="sidebar.overview">Översikt</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="nav-icon">🏨</span>
+                            <span data-i18n="sidebar.findHotels">Hitta hotell</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="nav-icon">🤝</span>
+                            <span data-i18n="sidebar.myCollabs">Mina samarbeten</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="content-studio.html" class="active">
+                            <span class="nav-icon">🎬</span>
+                            <span data-i18n="sidebar.contentStudio">Content Studio</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="profile.html?type=influencer">
+                            <span class="nav-icon">👤</span>
+                            <span data-i18n="sidebar.myProfile">Min profil</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb">
+                <a href="influencer-dashboard.html" data-i18n="breadcrumb.dashboard">Dashboard</a>
+                <span class="breadcrumb-separator">→</span>
+                <span class="breadcrumb-current" data-i18n="contentStudio.title">Content Studio</span>
+            </nav>
+
+            <!-- Hero -->
+            <div class="page-hero">
+                <h1 class="page-title" data-i18n="contentStudio.title">Content Studio</h1>
+                <p class="page-subtitle" data-i18n="contentStudio.subtitle">Skapa professionellt innehåll med AI-verktyg</p>
+            </div>
+
+            <!-- Step 1: Choose Material -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">1</span>
+                    <h2 class="section-title" data-i18n="contentStudio.chooseMaterial">Välj material</h2>
+                </div>
+
+                <div class="cards-grid">
+                    <!-- Brand Assets Card -->
+                    <div class="card">
+                        <div class="card-icon">📁</div>
+                        <h3 class="card-title" data-i18n="contentStudio.brandAssets">Hotellens Brand Assets</h3>
+                        <p class="card-desc" data-i18n="contentStudio.brandAssetsDesc">Hämta godkänt material från hotellets marknadsföringsmapp</p>
+
+                        <div class="form-group">
+                            <select class="form-select" id="hotelSelect">
+                                <option value="" data-i18n="contentStudio.selectHotel">Välj hotell</option>
+                                <option value="grand">Grand Hôtel</option>
+                                <option value="fotografiska">Fotografiska</option>
+                                <option value="etthem">Ett Hem</option>
+                            </select>
+                        </div>
+
+                        <button class="btn btn-outline" data-i18n="contentStudio.browseMaterial">Bläddra material</button>
+
+                        <div class="image-grid">
+                            <div class="image-placeholder">🖼️</div>
+                            <div class="image-placeholder">🖼️</div>
+                            <div class="image-placeholder">🖼️</div>
+                            <div class="image-placeholder">🖼️</div>
+                        </div>
+                    </div>
+
+                    <!-- Upload Own Card -->
+                    <div class="card">
+                        <div class="card-icon">⬆️</div>
+                        <h3 class="card-title" data-i18n="contentStudio.uploadOwn">Ladda upp eget</h3>
+                        <p class="card-desc" data-i18n="contentStudio.uploadOwnDesc">Använd dina egna foton och videoklipp</p>
+
+                        <div class="dropzone">
+                            <div class="dropzone-icon">📤</div>
+                            <div class="dropzone-text" data-i18n="contentStudio.dragFiles">Dra filer hit eller klicka för att välja</div>
+                            <div class="dropzone-hint">JPG, PNG, MP4, MOV (max 100MB)</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 2: Create with AI -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">2</span>
+                    <h2 class="section-title" data-i18n="contentStudio.createWithAI">Skapa med AI</h2>
+                </div>
+
+                <div class="cards-grid cards-grid-4">
+                    <!-- Nim.video -->
+                    <div class="tool-card">
+                        <div class="tool-logo">NIM</div>
+                        <h3 class="tool-title">Nim.video</h3>
+                        <p class="tool-desc" data-i18n="contentStudio.nimDesc">Skapa AI-genererade videor från dina bilder</p>
+                        <div class="tool-footer">
+                            <span class="tool-badge" data-i18n="contentStudio.badgeVideo">Video</span>
+                            <a href="https://nim.video" target="_blank" rel="noopener" class="tool-link"><span data-i18n="contentStudio.openTool">Öppna</span> Nim →</a>
+                        </div>
+                    </div>
+
+                    <!-- Speel -->
+                    <div class="tool-card">
+                        <div class="tool-logo">SPEEL</div>
+                        <h3 class="tool-title">Speel</h3>
+                        <p class="tool-desc" data-i18n="contentStudio.speelDesc">Automatisera innehållsskapande för sociala medier</p>
+                        <div class="tool-footer">
+                            <span class="tool-badge" data-i18n="contentStudio.badgeSocial">Social</span>
+                            <a href="https://speel.ai" target="_blank" rel="noopener" class="tool-link"><span data-i18n="contentStudio.openTool">Öppna</span> Speel →</a>
+                        </div>
+                    </div>
+
+                    <!-- Superscale.ai -->
+                    <div class="tool-card">
+                        <div class="tool-logo" style="font-size: 9px;">SUPERSCALE</div>
+                        <h3 class="tool-title">Superscale.ai</h3>
+                        <p class="tool-desc" data-i18n="contentStudio.superscaleDesc">Skala upp och förbättra bildkvalitet med AI</p>
+                        <div class="tool-footer">
+                            <span class="tool-badge" data-i18n="contentStudio.badgeImages">Bilder</span>
+                            <a href="https://superscale.ai" target="_blank" rel="noopener" class="tool-link"><span data-i18n="contentStudio.openTool">Öppna</span> Superscale →</a>
+                        </div>
+                    </div>
+
+                    <!-- Stayfindr Templates -->
+                    <div class="tool-card">
+                        <div class="tool-logo" style="font-size: 24px; background: transparent; border: none;">🎨</div>
+                        <h3 class="tool-title">Stayfindr Templates</h3>
+                        <p class="tool-desc" data-i18n="contentStudio.templatesDesc">Färdiga mallar för Instagram Stories och Reels</p>
+                        <div class="tool-footer">
+                            <span class="tool-badge tool-badge-free" data-i18n="contentStudio.badgeFree">Gratis</span>
+                            <span class="tooltip-wrapper">
+                                <span class="tool-link disabled" data-i18n="contentStudio.viewTemplates">Visa mallar</span>
+                                <span class="tooltip" data-i18n="contentStudio.comingSoon">Kommer snart</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 3: Deliver to Hotel -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">3</span>
+                    <h2 class="section-title" data-i18n="contentStudio.deliverToHotel">Leverera till hotell</h2>
+                </div>
+
+                <div class="card">
+                    <p class="card-desc" data-i18n="contentStudio.deliverDesc">När ditt innehåll är klart, ladda upp det här för granskning</p>
+
+                    <div class="form-group">
+                        <select class="form-select" id="collaborationSelect">
+                            <option value="" data-i18n="contentStudio.selectCollaboration">Välj samarbete</option>
+                            <option value="1">Grand Hotel Stockholm - Sommarkampanj 2024</option>
+                            <option value="2">Nobis Hotel - Spa Weekend Package</option>
+                            <option value="3">Hotel Rival - Restaurang Review</option>
+                        </select>
+                    </div>
+
+                    <div class="dropzone" style="margin-bottom: 16px;">
+                        <div class="dropzone-icon">📤</div>
+                        <div class="dropzone-text" data-i18n="contentStudio.dragFiles">Dra filer hit eller klicka för att välja</div>
+                        <div class="dropzone-hint">JPG, PNG, MP4, MOV (max 100MB)</div>
+                    </div>
+
+                    <button class="btn btn-primary" disabled data-i18n="contentStudio.submitForReview">Skicka för granskning</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-text">© 2024 STAYFINDR. <span data-i18n="footer.rights">Alla rättigheter förbehållna.</span></div>
+            <div class="footer-links">
+                <a href="#" data-i18n="footer.terms">Villkor</a>
+                <a href="#" data-i18n="footer.privacy">Integritet</a>
+                <a href="#" data-i18n="footer.contact">Kontakt</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Translations
+        const translations = {
+            sv: {
+                nav: { logout: 'Logga ut' },
+                sidebar: {
+                    overview: 'Översikt',
+                    findHotels: 'Hitta hotell',
+                    myCollabs: 'Mina samarbeten',
+                    contentStudio: 'Content Studio',
+                    myProfile: 'Min profil'
+                },
+                breadcrumb: {
+                    dashboard: 'Dashboard'
+                },
+                contentStudio: {
+                    title: 'Content Studio',
+                    subtitle: 'Skapa professionellt innehåll med AI-verktyg',
+                    chooseMaterial: 'Välj material',
+                    brandAssets: 'Hotellens Brand Assets',
+                    brandAssetsDesc: 'Hämta godkänt material från hotellets marknadsföringsmapp',
+                    selectHotel: 'Välj hotell',
+                    browseMaterial: 'Bläddra material',
+                    uploadOwn: 'Ladda upp eget',
+                    uploadOwnDesc: 'Använd dina egna foton och videoklipp',
+                    dragFiles: 'Dra filer hit eller klicka för att välja',
+                    createWithAI: 'Skapa med AI',
+                    nimDesc: 'Skapa AI-genererade videor från dina bilder',
+                    speelDesc: 'Automatisera innehållsskapande för sociala medier',
+                    superscaleDesc: 'Skala upp och förbättra bildkvalitet med AI',
+                    templatesDesc: 'Färdiga mallar för Instagram Stories och Reels',
+                    openTool: 'Öppna',
+                    viewTemplates: 'Visa mallar',
+                    badgeVideo: 'Video',
+                    badgeSocial: 'Social',
+                    badgeImages: 'Bilder',
+                    badgeFree: 'Gratis',
+                    comingSoon: 'Kommer snart',
+                    deliverToHotel: 'Leverera till hotell',
+                    deliverDesc: 'När ditt innehåll är klart, ladda upp det här för granskning',
+                    selectCollaboration: 'Välj samarbete',
+                    submitForReview: 'Skicka för granskning'
+                },
+                footer: {
+                    rights: 'Alla rättigheter förbehållna.',
+                    terms: 'Villkor',
+                    privacy: 'Integritet',
+                    contact: 'Kontakt'
+                }
+            },
+            en: {
+                nav: { logout: 'Log out' },
+                sidebar: {
+                    overview: 'Overview',
+                    findHotels: 'Find hotels',
+                    myCollabs: 'My collaborations',
+                    contentStudio: 'Content Studio',
+                    myProfile: 'My profile'
+                },
+                breadcrumb: {
+                    dashboard: 'Dashboard'
+                },
+                contentStudio: {
+                    title: 'Content Studio',
+                    subtitle: 'Create professional content with AI tools',
+                    chooseMaterial: 'Choose material',
+                    brandAssets: 'Hotel Brand Assets',
+                    brandAssetsDesc: "Access approved material from the hotel's marketing folder",
+                    selectHotel: 'Select hotel',
+                    browseMaterial: 'Browse material',
+                    uploadOwn: 'Upload your own',
+                    uploadOwnDesc: 'Use your own photos and video clips',
+                    dragFiles: 'Drag files here or click to select',
+                    createWithAI: 'Create with AI',
+                    nimDesc: 'Create AI-generated videos from your images',
+                    speelDesc: 'Automate content creation for social media',
+                    superscaleDesc: 'Upscale and enhance image quality with AI',
+                    templatesDesc: 'Ready-made templates for Instagram Stories and Reels',
+                    openTool: 'Open',
+                    viewTemplates: 'View templates',
+                    badgeVideo: 'Video',
+                    badgeSocial: 'Social',
+                    badgeImages: 'Images',
+                    badgeFree: 'Free',
+                    comingSoon: 'Coming soon',
+                    deliverToHotel: 'Deliver to hotel',
+                    deliverDesc: 'When your content is ready, upload it here for review',
+                    selectCollaboration: 'Select collaboration',
+                    submitForReview: 'Submit for review'
+                },
+                footer: {
+                    rights: 'All rights reserved.',
+                    terms: 'Terms',
+                    privacy: 'Privacy',
+                    contact: 'Contact'
+                }
+            }
+        };
+
+        function getNestedValue(obj, path) {
+            return path.split('.').reduce((acc, part) => acc && acc[part], obj);
+        }
+
+        function applyTranslations(lang) {
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                const translation = getNestedValue(translations[lang], key);
+                if (translation) {
+                    el.textContent = translation;
+                }
+            });
+
+            // Update select placeholders
+            const hotelSelect = document.getElementById('hotelSelect');
+            const collabSelect = document.getElementById('collaborationSelect');
+            if (hotelSelect) {
+                hotelSelect.options[0].text = translations[lang].contentStudio.selectHotel;
+            }
+            if (collabSelect) {
+                collabSelect.options[0].text = translations[lang].contentStudio.selectCollaboration;
+            }
+        }
+
+        function initTheme() {
+            const saved = localStorage.getItem('stayfindr-theme') || 'light';
+            document.documentElement.setAttribute('data-theme', saved);
+            updateThemeIcon(saved);
+        }
+
+        function updateThemeIcon(theme) {
+            const icon = document.getElementById('themeIcon');
+            icon.textContent = theme === 'light' ? '☀️' : '🌙';
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('stayfindr-theme', next);
+            updateThemeIcon(next);
+        }
+
+        function initLang() {
+            const saved = localStorage.getItem('stayfindr-lang') || 'sv';
+            document.getElementById('langSelect').value = saved;
+            applyTranslations(saved);
+        }
+
+        function changeLang(lang) {
+            localStorage.setItem('stayfindr-lang', lang);
+            applyTranslations(lang);
+        }
+
+        document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+        document.getElementById('langSelect').addEventListener('change', (e) => changeLang(e.target.value));
+
+        initTheme();
+        initLang();
+    </script>
+</body>
+</html>
