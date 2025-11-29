@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="sv" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deal #SF-2025-001847 - STAYFINDR</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F9FAFB;
+            --text-primary: #111827;
+            --text-secondary: #6B7280;
+            --border: #E5E7EB;
+            --accent: #111827;
+            --accent-hover: #374151;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+            --info: #3B82F6;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #111827;
+            --bg-secondary: #1F2937;
+            --text-primary: #F9FAFB;
+            --text-secondary: #9CA3AF;
+            --border: #374151;
+            --accent: #F9FAFB;
+            --accent-hover: #E5E7EB;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-left: 24px;
+            border-left: 1px solid var(--border);
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .user-handle {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .ranking-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 8px;
+            background: var(--accent);
+            color: var(--bg-primary);
+            border-radius: 2px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .lang-select {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 8px 12px;
+            font-size: 13px;
+            font-family: inherit;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        .theme-toggle {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 2px;
+            font-size: 14px;
+            font-weight: 500;
+            font-family: inherit;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+        }
+
+        .btn-ghost:hover {
+            color: var(--text-primary);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            border: 1px solid var(--accent);
+            color: var(--bg-primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            border-color: var(--accent-hover);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--bg-secondary);
+        }
+
+        /* Layout */
+        .layout {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: calc(100vh - 65px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 240px;
+            background: var(--bg-primary);
+            border-right: 1px solid var(--border);
+            padding: 24px 0;
+            flex-shrink: 0;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 24px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .sidebar-nav a:hover {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        .sidebar-nav a.active {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border-right: 2px solid var(--accent);
+        }
+
+        .sidebar-nav .nav-icon {
+            font-size: 18px;
+        }
+
+        /* Main Content */
+        .main {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .breadcrumb a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--text-primary);
+        }
+
+        .breadcrumb-separator {
+            color: var(--text-secondary);
+        }
+
+        .breadcrumb-current {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* Deal Overview Card */
+        .deal-overview {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .deal-parties {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 8px;
+        }
+
+        .deal-parties-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .deal-title {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .deal-meta {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .deal-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 2px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--success);
+        }
+
+        .deal-deadline {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .deal-deadline strong {
+            color: var(--text-primary);
+        }
+
+        /* Escrow Card */
+        .escrow-card {
+            background: rgba(16, 185, 129, 0.05);
+            border: 1px solid var(--success);
+            border-radius: 2px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .escrow-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .escrow-icon {
+            font-size: 24px;
+        }
+
+        .escrow-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .escrow-amount {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .escrow-amount strong {
+            color: var(--text-primary);
+            font-size: 18px;
+        }
+
+        .escrow-breakdown {
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .escrow-breakdown-title {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .escrow-line {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            padding: 4px 0;
+        }
+
+        .escrow-line-label {
+            color: var(--text-secondary);
+        }
+
+        .escrow-line-value {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .escrow-line-value.highlight {
+            color: var(--success);
+        }
+
+        /* Status Stepper */
+        .stepper {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .stepper-track {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .stepper-track::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--border);
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+
+        .stepper-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            z-index: 2;
+            background: var(--bg-primary);
+            padding: 0 8px;
+        }
+
+        .stepper-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 2px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .stepper-step.completed .stepper-dot {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        .stepper-step.active .stepper-dot {
+            background: var(--success);
+            border-color: var(--success);
+            color: white;
+        }
+
+        .stepper-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-align: center;
+            max-width: 80px;
+        }
+
+        .stepper-step.active .stepper-label {
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        .stepper-step.completed .stepper-label {
+            color: var(--text-primary);
+        }
+
+        /* Grid Layout */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        /* Card */
+        .card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+        }
+
+        .card-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        /* Agreement Details */
+        .agreement-line {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .agreement-line:last-child {
+            border-bottom: none;
+        }
+
+        .agreement-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .agreement-value {
+            font-size: 14px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .agreement-signatures {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .signature-line {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            padding: 4px 0;
+        }
+
+        .signature-check {
+            color: var(--success);
+        }
+
+        /* Messages */
+        .messages-container {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .message {
+            display: flex;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .message:last-child {
+            border-bottom: none;
+        }
+
+        .message-avatar {
+            width: 36px;
+            height: 36px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .message-content {
+            flex: 1;
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .message-author {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .message-time {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .message-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .message-input-container {
+            display: flex;
+            gap: 12px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+            margin-top: 16px;
+        }
+
+        .message-input {
+            flex: 1;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 10px 14px;
+            font-size: 14px;
+            font-family: inherit;
+            color: var(--text-primary);
+        }
+
+        .message-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        /* Actions */
+        .actions-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 24px;
+            margin-top: 24px;
+        }
+
+        .actions-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-primary);
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
+        }
+
+        .footer-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-links a {
+            font-size: 14px;
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar {
+                display: none;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stepper-label {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .user-info {
+                display: none;
+            }
+
+            .deal-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <div class="header-left">
+                <a href="index.html" class="logo">STAYFINDR</a>
+                <div class="user-info">
+                    <div class="user-avatar">📸</div>
+                    <div class="user-details">
+                        <span class="user-name">
+                            Emma Lindqvist
+                            <span class="ranking-badge">Gold</span>
+                        </span>
+                        <span class="user-handle">@emmalindqvist</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <select class="lang-select" id="langSelect">
+                    <option value="sv">SV</option>
+                    <option value="en">EN</option>
+                </select>
+                <button class="theme-toggle" id="themeToggle" title="Byt tema">
+                    <span id="themeIcon">☀️</span>
+                </button>
+                <a href="index.html" class="btn btn-ghost" data-i18n="nav.logout">Logga ut</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Layout -->
+    <div class="layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <nav>
+                <ul class="sidebar-nav">
+                    <li>
+                        <a href="influencer-dashboard.html">
+                            <span class="nav-icon">📊</span>
+                            <span data-i18n="sidebar.overview">Översikt</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="nav-icon">🏨</span>
+                            <span data-i18n="sidebar.findHotels">Hitta hotell</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="active">
+                            <span class="nav-icon">🤝</span>
+                            <span data-i18n="sidebar.myCollabs">Mina samarbeten</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="content-studio.html">
+                            <span class="nav-icon">🎬</span>
+                            <span data-i18n="sidebar.contentStudio">Content Studio</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="profile.html?type=influencer">
+                            <span class="nav-icon">👤</span>
+                            <span data-i18n="sidebar.myProfile">Min profil</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb">
+                <a href="influencer-dashboard.html" data-i18n="breadcrumb.dashboard">Dashboard</a>
+                <span class="breadcrumb-separator">→</span>
+                <a href="#" data-i18n="dealFlow.breadcrumbCollabs">Mina samarbeten</a>
+                <span class="breadcrumb-separator">→</span>
+                <span class="breadcrumb-current">Deal #SF-2025-001847</span>
+            </nav>
+
+            <!-- Deal Overview -->
+            <div class="deal-overview">
+                <div class="deal-parties">
+                    <span class="deal-parties-text">Grand Hôtel Stockholm ↔ Emma Lindström</span>
+                </div>
+                <div class="deal-title">"Julkampanj för Instagram"</div>
+                <div class="deal-meta">
+                    <span class="deal-status">🟢 Funded — <span data-i18n="dealFlow.workCanBegin">Arbete kan börja</span></span>
+                    <span class="deal-deadline"><strong data-i18n="dealFlow.deadline">Deadline</strong>: 15 december 2025 (16 <span data-i18n="dealFlow.daysLeft">dagar kvar</span>)</span>
+                </div>
+            </div>
+
+            <!-- Escrow Card -->
+            <div class="escrow-card">
+                <div class="escrow-header">
+                    <span class="escrow-icon">💰</span>
+                    <span class="escrow-title" data-i18n="dealFlow.paymentSecured">BETALNING SÄKRAD</span>
+                </div>
+                <div class="escrow-amount">
+                    <strong>$350</strong> <span data-i18n="dealFlow.paymentSecuredDesc">hålls av Stayfindr tills leverans godkänns</span>
+                </div>
+                <div class="escrow-breakdown">
+                    <div class="escrow-breakdown-title" data-i18n="dealFlow.uponApproval">Vid godkännande:</div>
+                    <div class="escrow-line">
+                        <span class="escrow-line-label" data-i18n="dealFlow.platformFee">Stayfindr avgift</span>
+                        <span class="escrow-line-value">$20</span>
+                    </div>
+                    <div class="escrow-line">
+                        <span class="escrow-line-label" data-i18n="dealFlow.youReceive">Du får</span>
+                        <span class="escrow-line-value highlight">$330</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status Stepper -->
+            <div class="stepper">
+                <div class="stepper-track">
+                    <div class="stepper-step completed">
+                        <div class="stepper-dot">✓</div>
+                        <span class="stepper-label" data-i18n="dealStatus.proposed">Förslag</span>
+                    </div>
+                    <div class="stepper-step completed">
+                        <div class="stepper-dot">✓</div>
+                        <span class="stepper-label" data-i18n="dealStatus.accepted">Accepterat</span>
+                    </div>
+                    <div class="stepper-step active">
+                        <div class="stepper-dot">💰</div>
+                        <span class="stepper-label" data-i18n="dealStatus.funded">Funded</span>
+                    </div>
+                    <div class="stepper-step">
+                        <div class="stepper-dot">4</div>
+                        <span class="stepper-label" data-i18n="dealStatus.inProgress">Pågår</span>
+                    </div>
+                    <div class="stepper-step">
+                        <div class="stepper-dot">5</div>
+                        <span class="stepper-label" data-i18n="dealStatus.delivered">Levererat</span>
+                    </div>
+                    <div class="stepper-step">
+                        <div class="stepper-dot">6</div>
+                        <span class="stepper-label" data-i18n="dealStatus.approved">Godkänt</span>
+                    </div>
+                    <div class="stepper-step">
+                        <div class="stepper-dot">7</div>
+                        <span class="stepper-label" data-i18n="dealStatus.paid">Betalt</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Grid -->
+            <div class="content-grid">
+                <!-- Agreement Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title" data-i18n="dealFlow.agreedTerms">ÖVERENSKOMMET</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="agreement-line">
+                            <span class="agreement-label" data-i18n="dealFlow.contentType">Content</span>
+                            <span class="agreement-value">1 Reel + 3 Stories</span>
+                        </div>
+                        <div class="agreement-line">
+                            <span class="agreement-label" data-i18n="dealFlow.price">Pris</span>
+                            <span class="agreement-value">$350</span>
+                        </div>
+                        <div class="agreement-line">
+                            <span class="agreement-label" data-i18n="dealFlow.deadline">Deadline</span>
+                            <span class="agreement-value">15 december 2025</span>
+                        </div>
+                        <div class="agreement-line">
+                            <span class="agreement-label" data-i18n="dealFlow.usageRights">Användning</span>
+                            <span class="agreement-value" data-i18n="dealFlow.bothParties">Båda parter fritt</span>
+                        </div>
+
+                        <div class="agreement-signatures">
+                            <div class="signature-line">
+                                <span class="signature-check">☑</span>
+                                Emma <span data-i18n="dealFlow.acceptedOn">accepterade</span> 29 nov 2025, 14:32
+                            </div>
+                            <div class="signature-line">
+                                <span class="signature-check">☑</span>
+                                Grand Hôtel <span data-i18n="dealFlow.acceptedOn">accepterade</span> 29 nov 2025, 15:01
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Messages Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title" data-i18n="dealFlow.messages">Meddelanden</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="messages-container">
+                            <div class="message">
+                                <div class="message-avatar">🏨</div>
+                                <div class="message-content">
+                                    <div class="message-header">
+                                        <span class="message-author">Grand Hôtel</span>
+                                        <span class="message-time">29 nov, 15:05</span>
+                                    </div>
+                                    <div class="message-text">Perfekt! Vi ser fram emot att se ditt content. Kontakta receptionen när du vill boka din vistelse.</div>
+                                </div>
+                            </div>
+                            <div class="message">
+                                <div class="message-avatar">📸</div>
+                                <div class="message-content">
+                                    <div class="message-header">
+                                        <span class="message-author">Emma Lindström</span>
+                                        <span class="message-time">29 nov, 15:30</span>
+                                    </div>
+                                    <div class="message-text">Tack! Jag planerar att besöka er 5-7 december. Passar det?</div>
+                                </div>
+                            </div>
+                            <div class="message">
+                                <div class="message-avatar">🏨</div>
+                                <div class="message-content">
+                                    <div class="message-header">
+                                        <span class="message-author">Grand Hôtel</span>
+                                        <span class="message-time">29 nov, 16:12</span>
+                                    </div>
+                                    <div class="message-text">Det passar utmärkt! Vi har reserverat ett rum med utsikt över Strömmen.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="message-input-container">
+                            <input type="text" class="message-input" placeholder="Skriv meddelande..." data-i18n-placeholder="dealFlow.writeMessage">
+                            <button class="btn btn-primary" data-i18n="dealFlow.sendMessage">Skicka</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="actions-card">
+                <div class="actions-title">Nästa steg</div>
+                <a href="content-studio.html" class="btn btn-primary" data-i18n="dealFlow.goToContentStudio">Gå till Content Studio →</a>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-text">© 2025 STAYFINDR. <span data-i18n="footer.rights">Alla rättigheter förbehållna.</span></div>
+            <div class="footer-links">
+                <a href="#" data-i18n="footer.terms">Villkor</a>
+                <a href="#" data-i18n="footer.privacy">Integritet</a>
+                <a href="#" data-i18n="footer.contact">Kontakt</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Translations
+        const translations = {
+            sv: {
+                nav: { logout: 'Logga ut' },
+                sidebar: {
+                    overview: 'Översikt',
+                    findHotels: 'Hitta hotell',
+                    myCollabs: 'Mina samarbeten',
+                    contentStudio: 'Content Studio',
+                    myProfile: 'Min profil'
+                },
+                breadcrumb: { dashboard: 'Dashboard' },
+                dealFlow: {
+                    breadcrumbCollabs: 'Mina samarbeten',
+                    paymentSecured: 'BETALNING SÄKRAD',
+                    paymentSecuredDesc: 'hålls av Stayfindr tills leverans godkänns',
+                    uponApproval: 'Vid godkännande:',
+                    platformFee: 'Stayfindr avgift',
+                    youReceive: 'Du får',
+                    agreedTerms: 'ÖVERENSKOMMET',
+                    contentType: 'Content',
+                    price: 'Pris',
+                    deadline: 'Deadline',
+                    usageRights: 'Användning',
+                    bothParties: 'Båda parter fritt',
+                    acceptedOn: 'accepterade',
+                    messages: 'Meddelanden',
+                    writeMessage: 'Skriv meddelande...',
+                    sendMessage: 'Skicka',
+                    goToContentStudio: 'Gå till Content Studio →',
+                    daysLeft: 'dagar kvar',
+                    workCanBegin: 'Arbete kan börja'
+                },
+                dealStatus: {
+                    proposed: 'Förslag',
+                    accepted: 'Accepterat',
+                    funded: 'Funded',
+                    inProgress: 'Pågår',
+                    delivered: 'Levererat',
+                    approved: 'Godkänt',
+                    paid: 'Betalt'
+                },
+                footer: {
+                    rights: 'Alla rättigheter förbehållna.',
+                    terms: 'Villkor',
+                    privacy: 'Integritet',
+                    contact: 'Kontakt'
+                }
+            },
+            en: {
+                nav: { logout: 'Log out' },
+                sidebar: {
+                    overview: 'Overview',
+                    findHotels: 'Find hotels',
+                    myCollabs: 'My collaborations',
+                    contentStudio: 'Content Studio',
+                    myProfile: 'My profile'
+                },
+                breadcrumb: { dashboard: 'Dashboard' },
+                dealFlow: {
+                    breadcrumbCollabs: 'My collaborations',
+                    paymentSecured: 'PAYMENT SECURED',
+                    paymentSecuredDesc: 'held by Stayfindr until delivery is approved',
+                    uponApproval: 'Upon approval:',
+                    platformFee: 'Stayfindr fee',
+                    youReceive: 'You receive',
+                    agreedTerms: 'AGREED TERMS',
+                    contentType: 'Content',
+                    price: 'Price',
+                    deadline: 'Deadline',
+                    usageRights: 'Usage',
+                    bothParties: 'Both parties freely',
+                    acceptedOn: 'accepted',
+                    messages: 'Messages',
+                    writeMessage: 'Write message...',
+                    sendMessage: 'Send',
+                    goToContentStudio: 'Go to Content Studio →',
+                    daysLeft: 'days left',
+                    workCanBegin: 'Work can begin'
+                },
+                dealStatus: {
+                    proposed: 'Proposal',
+                    accepted: 'Accepted',
+                    funded: 'Funded',
+                    inProgress: 'In progress',
+                    delivered: 'Delivered',
+                    approved: 'Approved',
+                    paid: 'Paid'
+                },
+                footer: {
+                    rights: 'All rights reserved.',
+                    terms: 'Terms',
+                    privacy: 'Privacy',
+                    contact: 'Contact'
+                }
+            }
+        };
+
+        function getNestedValue(obj, path) {
+            return path.split('.').reduce((acc, part) => acc && acc[part], obj);
+        }
+
+        function applyTranslations(lang) {
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                const translation = getNestedValue(translations[lang], key);
+                if (translation) {
+                    el.textContent = translation;
+                }
+            });
+
+            // Update placeholders
+            const messageInput = document.querySelector('.message-input');
+            if (messageInput) {
+                messageInput.placeholder = translations[lang].dealFlow.writeMessage;
+            }
+        }
+
+        function initTheme() {
+            const saved = localStorage.getItem('stayfindr-theme') || 'light';
+            document.documentElement.setAttribute('data-theme', saved);
+            updateThemeIcon(saved);
+        }
+
+        function updateThemeIcon(theme) {
+            const icon = document.getElementById('themeIcon');
+            icon.textContent = theme === 'light' ? '☀️' : '🌙';
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('stayfindr-theme', next);
+            updateThemeIcon(next);
+        }
+
+        function initLang() {
+            const saved = localStorage.getItem('stayfindr-lang') || 'sv';
+            document.getElementById('langSelect').value = saved;
+            applyTranslations(saved);
+        }
+
+        function changeLang(lang) {
+            localStorage.setItem('stayfindr-lang', lang);
+            applyTranslations(lang);
+        }
+
+        document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+        document.getElementById('langSelect').addEventListener('change', (e) => changeLang(e.target.value));
+
+        initTheme();
+        initLang();
+    </script>
+</body>
+</html>

@@ -402,6 +402,44 @@
             color: var(--success);
         }
 
+        .status-funded {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .status-delivered {
+            background: rgba(139, 92, 246, 0.1);
+            color: #8B5CF6;
+        }
+
+        .payment-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 2px;
+            margin-left: 8px;
+        }
+
+        .payment-funded {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .payment-pending {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .table tr.clickable-row {
+            cursor: pointer;
+        }
+
+        .table tr.clickable-row:hover td {
+            background: var(--bg-secondary);
+        }
+
         /* Hotel Grid */
         .hotel-grid {
             display: grid;
@@ -632,48 +670,59 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr class="clickable-row" onclick="window.location='deal-flow.html'">
                                 <td>
-                                    <strong>Grand Hotel Stockholm</strong>
-                                    <div style="font-size: 12px; color: var(--text-secondary);">Sommarkampanj 2024</div>
+                                    <strong>Grand Hôtel Stockholm</strong>
+                                    <div style="font-size: 12px; color: var(--text-secondary);">Julkampanj för Instagram</div>
                                 </td>
-                                <td><span class="status status-in-progress" data-i18n="status.inProgress">Pågår</span></td>
-                                <td>2024-02-15</td>
                                 <td>
-                                    <a href="profile.html?type=hotel" class="btn btn-outline btn-sm" data-i18n="action.view">Visa</a>
+                                    <span class="status status-funded" data-i18n="dealStatus.funded">Funded</span>
+                                    <span class="payment-badge payment-funded">💰</span>
+                                </td>
+                                <td>2025-12-15</td>
+                                <td>
+                                    <a href="deal-flow.html" class="btn btn-outline btn-sm" data-i18n="action.view">Visa</a>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr class="clickable-row" onclick="window.location='deal-flow.html'">
                                 <td>
                                     <strong>Nobis Hotel</strong>
                                     <div style="font-size: 12px; color: var(--text-secondary);">Spa Weekend Package</div>
                                 </td>
-                                <td><span class="status status-content-submitted" data-i18n="status.contentSubmitted">Content inskickat</span></td>
-                                <td>2024-02-01</td>
                                 <td>
-                                    <a href="profile.html?type=hotel" class="btn btn-outline btn-sm" data-i18n="action.view">Visa</a>
+                                    <span class="status status-delivered" data-i18n="dealStatus.delivered">Levererat</span>
+                                    <span class="payment-badge payment-funded">💰</span>
+                                </td>
+                                <td>2025-12-01</td>
+                                <td>
+                                    <a href="deal-flow.html" class="btn btn-outline btn-sm" data-i18n="action.view">Visa</a>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr class="clickable-row" onclick="window.location='deal-flow.html'">
                                 <td>
                                     <strong>Hotel Rival</strong>
                                     <div style="font-size: 12px; color: var(--text-secondary);">Restaurang Review</div>
                                 </td>
-                                <td><span class="status status-proposal-sent" data-i18n="status.proposalSent">Förslag skickat</span></td>
-                                <td>2024-02-20</td>
                                 <td>
-                                    <a href="profile.html?type=hotel" class="btn btn-outline btn-sm" data-i18n="action.view">Visa</a>
+                                    <span class="status status-proposal-sent" data-i18n="dealStatus.proposed">Förslag skickat</span>
+                                    <span class="payment-badge payment-pending">⏳</span>
+                                </td>
+                                <td>2025-12-20</td>
+                                <td>
+                                    <a href="deal-flow.html" class="btn btn-outline btn-sm" data-i18n="action.view">Visa</a>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr class="clickable-row" onclick="window.location='deal-flow.html'">
                                 <td>
                                     <strong>At Six Hotel</strong>
                                     <div style="font-size: 12px; color: var(--text-secondary);">Art & Design Campaign</div>
                                 </td>
-                                <td><span class="status status-completed" data-i18n="status.completed">Genomförd</span></td>
-                                <td>2024-01-15</td>
                                 <td>
-                                    <a href="profile.html?type=hotel" class="btn btn-outline btn-sm" data-i18n="action.view">Visa</a>
+                                    <span class="status status-completed" data-i18n="dealStatus.paid">Betalt</span>
+                                </td>
+                                <td>2025-11-15</td>
+                                <td>
+                                    <a href="deal-flow.html" class="btn btn-outline btn-sm" data-i18n="action.view">Visa</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -777,6 +826,13 @@
                     contentSubmitted: 'Content inskickat',
                     completed: 'Genomförd'
                 },
+                dealStatus: {
+                    proposed: 'Förslag skickat',
+                    funded: 'Funded',
+                    inProgress: 'Pågår',
+                    delivered: 'Levererat',
+                    paid: 'Betalt'
+                },
                 action: {
                     view: 'Visa'
                 }
@@ -826,6 +882,13 @@
                     inProgress: 'In progress',
                     contentSubmitted: 'Content submitted',
                     completed: 'Completed'
+                },
+                dealStatus: {
+                    proposed: 'Proposal sent',
+                    funded: 'Funded',
+                    inProgress: 'In progress',
+                    delivered: 'Delivered',
+                    paid: 'Paid'
                 },
                 action: {
                     view: 'View'

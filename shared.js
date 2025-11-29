@@ -203,6 +203,90 @@ const translations = {
             terms: 'Villkor',
             privacy: 'Integritet',
             contact: 'Kontakt'
+        },
+
+        // Deal Flow
+        dealFlow: {
+            title: 'Samarbetsöversikt',
+            breadcrumbCollabs: 'Mina samarbeten',
+            paymentSecured: 'Betalning säkrad',
+            paymentSecuredDesc: 'hålls av Stayfindr tills leverans godkänns',
+            uponApproval: 'Vid godkännande',
+            platformFee: 'Stayfindr avgift',
+            youReceive: 'Du får',
+            agreedTerms: 'Överenskommet',
+            contentType: 'Content',
+            price: 'Pris',
+            deadline: 'Deadline',
+            usageRights: 'Användning',
+            bothParties: 'Båda parter fritt',
+            acceptedOn: 'accepterade',
+            messages: 'Meddelanden',
+            writeMessage: 'Skriv meddelande...',
+            sendMessage: 'Skicka',
+            goToContentStudio: 'Gå till Content Studio',
+            daysLeft: 'dagar kvar',
+            workCanBegin: 'Arbete kan börja'
+        },
+
+        // Proposal
+        proposal: {
+            title: 'Skicka förslag',
+            breadcrumbFindHotels: 'Hitta hotell',
+            yourProposal: 'Ditt förslag',
+            yourPrice: 'Pris ($)',
+            hotelBudget: 'Hotellens budget',
+            deliveryTime: 'Leveranstid',
+            days: 'dagar',
+            messageToHotel: 'Meddelande till hotellet',
+            messagePlaceholder: 'Beskriv varför du är rätt för detta samarbete...',
+            portfolioExamples: 'Portfolio-exempel (valfritt)',
+            selectFromPortfolio: 'Välj från portfolio',
+            sendProposal: 'Skicka förslag',
+            noChargeUntilFunded: 'Du debiteras inte förrän hotellet accepterar och deal är funded',
+            contentRequest: 'Content request'
+        },
+
+        // Review Delivery
+        reviewDelivery: {
+            title: 'Granska leverans',
+            breadcrumbCollabs: 'Samarbeten',
+            deliveredContent: 'Levererat content',
+            download: 'Ladda ner',
+            escrowHeld: 'hålls i escrow',
+            autoApproveIn: 'Auto-godkännande om',
+            approve: 'Godkänn',
+            requestRevision: 'Begär revision',
+            revisionFeedback: 'Ange vad som behöver ändras',
+            usageRightsNote: 'Du och influencern får båda använda detta material fritt i er marknadsföring',
+            deliveredOn: 'Levererat'
+        },
+
+        // Status
+        dealStatus: {
+            proposed: 'Förslag skickat',
+            negotiating: 'Förhandling',
+            accepted: 'Accepterat',
+            funded: 'Funded',
+            inProgress: 'Pågår',
+            delivered: 'Levererat',
+            revisionRequested: 'Revision begärd',
+            approved: 'Godkänt',
+            paid: 'Betalt',
+            cancelled: 'Avbrutet',
+            disputed: 'Tvist'
+        },
+
+        // Dashboard additions
+        dashboardExtra: {
+            waitingForReview: 'Väntar på granskning',
+            approvedContent: 'Godkänt content',
+            createNewContent: 'Skapa nytt innehåll',
+            paymentStatus: 'Betalningsstatus',
+            escrowFunded: 'Escrow på plats',
+            awaitingPayment: 'Väntar på betalning',
+            viewDeal: 'Visa deal',
+            autoApproves: 'Auto-godkänns om'
         }
     },
 
@@ -376,6 +460,90 @@ const translations = {
             terms: 'Terms',
             privacy: 'Privacy',
             contact: 'Contact'
+        },
+
+        // Deal Flow
+        dealFlow: {
+            title: 'Collaboration overview',
+            breadcrumbCollabs: 'My collaborations',
+            paymentSecured: 'Payment secured',
+            paymentSecuredDesc: 'held by Stayfindr until delivery is approved',
+            uponApproval: 'Upon approval',
+            platformFee: 'Stayfindr fee',
+            youReceive: 'You receive',
+            agreedTerms: 'Agreed terms',
+            contentType: 'Content',
+            price: 'Price',
+            deadline: 'Deadline',
+            usageRights: 'Usage',
+            bothParties: 'Both parties freely',
+            acceptedOn: 'accepted',
+            messages: 'Messages',
+            writeMessage: 'Write message...',
+            sendMessage: 'Send',
+            goToContentStudio: 'Go to Content Studio',
+            daysLeft: 'days left',
+            workCanBegin: 'Work can begin'
+        },
+
+        // Proposal
+        proposal: {
+            title: 'Send proposal',
+            breadcrumbFindHotels: 'Find hotels',
+            yourProposal: 'Your proposal',
+            yourPrice: 'Price ($)',
+            hotelBudget: 'Hotel budget',
+            deliveryTime: 'Delivery time',
+            days: 'days',
+            messageToHotel: 'Message to hotel',
+            messagePlaceholder: 'Describe why you are right for this collaboration...',
+            portfolioExamples: 'Portfolio examples (optional)',
+            selectFromPortfolio: 'Select from portfolio',
+            sendProposal: 'Send proposal',
+            noChargeUntilFunded: "You won't be charged until the hotel accepts and deal is funded",
+            contentRequest: 'Content request'
+        },
+
+        // Review Delivery
+        reviewDelivery: {
+            title: 'Review delivery',
+            breadcrumbCollabs: 'Collaborations',
+            deliveredContent: 'Delivered content',
+            download: 'Download',
+            escrowHeld: 'held in escrow',
+            autoApproveIn: 'Auto-approval in',
+            approve: 'Approve',
+            requestRevision: 'Request revision',
+            revisionFeedback: 'Specify what needs to be changed',
+            usageRightsNote: 'You and the influencer may both use this material freely in your marketing',
+            deliveredOn: 'Delivered'
+        },
+
+        // Status
+        dealStatus: {
+            proposed: 'Proposal sent',
+            negotiating: 'Negotiating',
+            accepted: 'Accepted',
+            funded: 'Funded',
+            inProgress: 'In progress',
+            delivered: 'Delivered',
+            revisionRequested: 'Revision requested',
+            approved: 'Approved',
+            paid: 'Paid',
+            cancelled: 'Cancelled',
+            disputed: 'Disputed'
+        },
+
+        // Dashboard additions
+        dashboardExtra: {
+            waitingForReview: 'Waiting for review',
+            approvedContent: 'Approved content',
+            createNewContent: 'Create new content',
+            paymentStatus: 'Payment status',
+            escrowFunded: 'Escrow funded',
+            awaitingPayment: 'Awaiting payment',
+            viewDeal: 'View deal',
+            autoApproves: 'Auto-approves in'
         }
     }
 };
