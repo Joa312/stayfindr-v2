@@ -610,6 +610,284 @@
                 display: none;
             }
         }
+
+        /* Mobile Layout (max-width: 640px) */
+        @media (max-width: 640px) {
+            /* 1. HEADER - Compact and clean */
+            .header-inner {
+                padding: 12px 16px;
+            }
+
+            .logo {
+                font-size: 1.125rem;
+            }
+
+            .header-actions {
+                gap: 8px;
+            }
+
+            .lang-select {
+                padding: 6px 8px;
+                font-size: 0.75rem;
+            }
+
+            .theme-toggle {
+                width: 32px;
+                height: 32px;
+                font-size: 14px;
+            }
+
+            .btn-ghost {
+                padding: 6px 8px;
+                font-size: 0.75rem;
+            }
+
+            .btn-logout-text {
+                display: none;
+            }
+
+            /* 2. NAVIGATION - Bottom fixed bar */
+            .sidebar {
+                display: block;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                height: auto;
+                background: var(--bg-primary);
+                border-top: 1px solid var(--border);
+                border-right: none;
+                padding: 0;
+                z-index: 100;
+            }
+
+            .sidebar nav {
+                width: 100%;
+            }
+
+            .sidebar-nav {
+                display: flex;
+                justify-content: space-around;
+                padding: 8px 0;
+                width: 100%;
+            }
+
+            .sidebar-nav li {
+                flex: 1;
+            }
+
+            .sidebar-nav a {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 4px;
+                padding: 8px 4px;
+                font-size: 0.625rem;
+                border-right: none;
+                text-align: center;
+            }
+
+            .sidebar-nav a .nav-icon {
+                font-size: 1.25rem;
+            }
+
+            .sidebar-nav a.active {
+                border-right: none;
+                background: transparent;
+                color: var(--text-primary);
+            }
+
+            .sidebar-nav a.active::after {
+                display: none;
+            }
+
+            /* Hide full label, show short label on mobile */
+            .sidebar-nav .nav-label-full {
+                display: none;
+            }
+
+            .sidebar-nav .nav-label-short {
+                display: block;
+            }
+
+            /* Add padding to main content for bottom nav */
+            .main {
+                padding: 16px;
+                padding-bottom: 100px;
+            }
+
+            .layout {
+                min-height: calc(100vh - 57px);
+            }
+
+            /* 3. HIDE page header on mobile */
+            .page-header {
+                display: none;
+            }
+
+            /* Mobile CTA button after stats */
+            .mobile-cta {
+                display: block;
+                width: 100%;
+                margin-bottom: 16px;
+                text-align: center;
+            }
+
+            .mobile-cta .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            /* 4. STATS - Compact 2x2 grid */
+            .stats-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+                margin-bottom: 16px;
+            }
+
+            .stat-card {
+                padding: 12px;
+                text-align: center;
+            }
+
+            .stat-value {
+                font-size: 1.25rem;
+                font-weight: 700;
+            }
+
+            .stat-label {
+                font-size: 0.625rem;
+                color: var(--text-secondary);
+            }
+
+            .stat-change {
+                font-size: 0.625rem;
+            }
+
+            /* Hide Content Studio CTA on mobile (moved to nav) */
+            .content-studio-cta {
+                display: none;
+            }
+
+            /* 5. DEALS TABLE - Compact card view */
+            .card {
+                margin-bottom: 16px;
+            }
+
+            .card-header {
+                padding: 12px 16px;
+            }
+
+            .card-title {
+                font-size: 14px;
+            }
+
+            .table thead {
+                display: none;
+            }
+
+            .table tbody {
+                display: block;
+            }
+
+            .table tbody tr {
+                display: block;
+                background: var(--bg-primary);
+                border: 1px solid var(--border);
+                border-radius: 2px;
+                padding: 12px;
+                margin-bottom: 8px;
+            }
+
+            .table tbody tr:hover td {
+                background: transparent;
+            }
+
+            .table td {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 4px 0;
+                border: none;
+            }
+
+            .table td::before {
+                content: attr(data-label);
+                font-size: 0.75rem;
+                color: var(--text-secondary);
+                font-weight: 500;
+            }
+
+            .table td:first-child {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .table td:first-child::before {
+                display: none;
+            }
+
+            .table td:last-child {
+                margin-top: 8px;
+                justify-content: flex-end;
+            }
+
+            .table td:last-child::before {
+                display: none;
+            }
+
+            /* 6. RECOMMENDED HOTELS - Horizontal scroll */
+            .hotel-grid {
+                display: flex;
+                overflow-x: auto;
+                gap: 12px;
+                padding: 16px;
+                padding-bottom: 8px;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .hotel-grid::-webkit-scrollbar {
+                display: none;
+            }
+
+            .hotel-card-mini {
+                min-width: 260px;
+                flex-shrink: 0;
+                scroll-snap-align: start;
+            }
+
+            .hotel-card-mini .hotel-card-image {
+                height: 140px;
+            }
+
+            /* Adjust button sizes */
+            .btn-sm {
+                padding: 6px 12px;
+                font-size: 0.75rem;
+            }
+
+            .btn-outline.btn-sm {
+                padding: 6px 12px;
+            }
+        }
+
+        /* Desktop: hide mobile elements */
+        @media (min-width: 641px) {
+            .mobile-cta {
+                display: none;
+            }
+
+            .sidebar-nav .nav-label-short {
+                display: none;
+            }
+
+            .sidebar-nav .nav-label-full {
+                display: block;
+            }
+        }
     </style>
 </head>
 <body>
@@ -638,39 +916,43 @@
                 <button class="theme-toggle" id="themeToggle" title="Byt tema">
                     <span id="themeIcon">☀️</span>
                 </button>
-                <a href="index.html" class="btn btn-ghost" data-i18n="nav.logout">Logga ut</a>
+                <a href="index.html" class="btn btn-ghost"><span class="btn-logout-text" data-i18n="nav.logout">Logga ut</span><span class="btn-logout-icon" style="display:none;">↩</span></a>
             </div>
         </div>
     </header>
 
     <!-- Layout -->
     <div class="layout">
-        <!-- Sidebar -->
+        <!-- Sidebar / Bottom Nav -->
         <aside class="sidebar">
             <nav>
                 <ul class="sidebar-nav">
                     <li>
                         <a href="find-hotels.html">
                             <span class="nav-icon">🏨</span>
-                            <span data-i18n="sidebar.findHotels">Hitta hotell</span>
+                            <span class="nav-label-full" data-i18n="sidebar.findHotels">Hitta hotell</span>
+                            <span class="nav-label-short">Hotell</span>
                         </a>
                     </li>
                     <li>
                         <a href="influencer-dashboard.html" class="active">
                             <span class="nav-icon">💼</span>
-                            <span data-i18n="sidebar.myCollabs">Mina samarbeten</span>
+                            <span class="nav-label-full" data-i18n="sidebar.myCollabs">Mina samarbeten</span>
+                            <span class="nav-label-short">Deals</span>
                         </a>
                     </li>
                     <li>
                         <a href="content-studio.html">
                             <span class="nav-icon">🎬</span>
-                            <span data-i18n="sidebar.contentStudio">Content Studio</span>
+                            <span class="nav-label-full" data-i18n="sidebar.contentStudio">Content Studio</span>
+                            <span class="nav-label-short">Studio</span>
                         </a>
                     </li>
                     <li>
                         <a href="profile.html?type=influencer">
                             <span class="nav-icon">👤</span>
-                            <span data-i18n="sidebar.myProfile">Min profil</span>
+                            <span class="nav-label-full" data-i18n="sidebar.myProfile">Min profil</span>
+                            <span class="nav-label-short">Profil</span>
                         </a>
                     </li>
                 </ul>
@@ -706,8 +988,13 @@
                 </div>
             </div>
 
+            <!-- Mobile CTA - Browse all hotels -->
+            <div class="mobile-cta">
+                <a href="find-hotels.html" class="btn btn-primary" data-i18n="dashboard.browseAll">Bläddra alla hotell</a>
+            </div>
+
             <!-- Content Studio CTA -->
-            <div class="card" style="margin-bottom: 24px;">
+            <div class="card content-studio-cta" style="margin-bottom: 24px;">
                 <div style="display: flex; align-items: center; justify-content: space-between; padding: 20px;">
                     <div style="display: flex; align-items: center; gap: 16px;">
                         <div style="width: 48px; height: 48px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 2px; display: flex; align-items: center; justify-content: center; font-size: 24px;">🎬</div>
@@ -738,57 +1025,57 @@
                         </thead>
                         <tbody>
                             <tr class="clickable-row" onclick="window.location='deal-flow.html'">
-                                <td>
+                                <td data-label="">
                                     <strong>Grand Hôtel Stockholm</strong>
                                     <div style="font-size: 12px; color: var(--text-secondary);">Julkampanj för Instagram</div>
                                 </td>
-                                <td>
+                                <td data-label="Status">
                                     <span class="status status-funded" data-i18n="dealStatus.funded">Funded</span>
                                     <span class="payment-badge payment-funded">💰</span>
                                 </td>
-                                <td>2025-12-15</td>
-                                <td>
+                                <td data-label="Deadline">2025-12-15</td>
+                                <td data-label="">
                                     <a href="deal-flow.html" class="btn btn-outline btn-sm" data-i18n="action.view">Visa</a>
                                 </td>
                             </tr>
                             <tr class="clickable-row" onclick="window.location='deal-flow.html'">
-                                <td>
+                                <td data-label="">
                                     <strong>Ett Hem</strong>
                                     <div style="font-size: 12px; color: var(--text-secondary);">Spa Weekend Package</div>
                                 </td>
-                                <td>
+                                <td data-label="Status">
                                     <span class="status status-delivered" data-i18n="dealStatus.delivered">Levererat</span>
                                     <span class="payment-badge payment-funded">💰</span>
                                 </td>
-                                <td>2025-12-01</td>
-                                <td>
+                                <td data-label="Deadline">2025-12-01</td>
+                                <td data-label="">
                                     <a href="deal-flow.html" class="btn btn-outline btn-sm" data-i18n="action.view">Visa</a>
                                 </td>
                             </tr>
                             <tr class="clickable-row" onclick="window.location='deal-flow.html'">
-                                <td>
+                                <td data-label="">
                                     <strong>Bank Hotel</strong>
                                     <div style="font-size: 12px; color: var(--text-secondary);">Restaurang Review</div>
                                 </td>
-                                <td>
+                                <td data-label="Status">
                                     <span class="status status-proposal-sent" data-i18n="dealStatus.proposed">Förslag skickat</span>
                                     <span class="payment-badge payment-pending">⏳</span>
                                 </td>
-                                <td>2025-12-20</td>
-                                <td>
+                                <td data-label="Deadline">2025-12-20</td>
+                                <td data-label="">
                                     <a href="deal-flow.html" class="btn btn-outline btn-sm" data-i18n="action.view">Visa</a>
                                 </td>
                             </tr>
                             <tr class="clickable-row" onclick="window.location='deal-flow.html'">
-                                <td>
+                                <td data-label="">
                                     <strong>At Six Hotel</strong>
                                     <div style="font-size: 12px; color: var(--text-secondary);">Art & Design Campaign</div>
                                 </td>
-                                <td>
+                                <td data-label="Status">
                                     <span class="status status-completed" data-i18n="dealStatus.paid">Betalt</span>
                                 </td>
-                                <td>2025-11-15</td>
-                                <td>
+                                <td data-label="Deadline">2025-11-15</td>
+                                <td data-label="">
                                     <a href="deal-flow.html" class="btn btn-outline btn-sm" data-i18n="action.view">Visa</a>
                                 </td>
                             </tr>

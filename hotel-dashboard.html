@@ -549,6 +549,284 @@
                 display: none;
             }
         }
+
+        /* Mobile Layout (max-width: 640px) */
+        @media (max-width: 640px) {
+            /* 1. HEADER - Compact */
+            .header-inner {
+                padding: 12px 16px;
+            }
+
+            .logo {
+                font-size: 1.125rem;
+            }
+
+            .header-actions {
+                gap: 8px;
+            }
+
+            .lang-select {
+                padding: 6px 8px;
+                font-size: 0.75rem;
+            }
+
+            .theme-toggle {
+                width: 32px;
+                height: 32px;
+                font-size: 14px;
+            }
+
+            .btn-ghost {
+                padding: 6px 8px;
+                font-size: 0.75rem;
+            }
+
+            .btn-logout-text {
+                display: none;
+            }
+
+            /* 2. NAVIGATION - Bottom fixed bar */
+            .sidebar {
+                display: block;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                height: auto;
+                background: var(--bg-primary);
+                border-top: 1px solid var(--border);
+                border-right: none;
+                padding: 0;
+                z-index: 100;
+            }
+
+            .sidebar nav {
+                width: 100%;
+            }
+
+            .sidebar-nav {
+                display: flex;
+                justify-content: space-around;
+                padding: 8px 0;
+                width: 100%;
+            }
+
+            .sidebar-nav li {
+                flex: 1;
+            }
+
+            .sidebar-nav a {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 4px;
+                padding: 8px 4px;
+                font-size: 0.625rem;
+                border-right: none;
+                text-align: center;
+            }
+
+            .sidebar-nav a .nav-icon {
+                font-size: 1.25rem;
+            }
+
+            .sidebar-nav a.active {
+                border-right: none;
+                background: transparent;
+                color: var(--text-primary);
+            }
+
+            /* Hide full label, show short label on mobile */
+            .sidebar-nav .nav-label-full {
+                display: none;
+            }
+
+            .sidebar-nav .nav-label-short {
+                display: block;
+            }
+
+            /* Add padding to main content for bottom nav */
+            .main {
+                padding: 16px;
+                padding-bottom: 100px;
+            }
+
+            /* 3. HIDE page header on mobile */
+            .page-header {
+                display: none;
+            }
+
+            /* Mobile CTA button */
+            .mobile-cta {
+                display: block;
+                width: 100%;
+                margin-bottom: 16px;
+            }
+
+            .mobile-cta .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            /* 4. STATS - Compact 2x2 grid */
+            .stats-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+                margin-bottom: 16px;
+            }
+
+            .stat-card {
+                padding: 12px;
+                text-align: center;
+            }
+
+            .stat-value {
+                font-size: 1.25rem;
+                font-weight: 700;
+            }
+
+            .stat-label {
+                font-size: 0.625rem;
+                color: var(--text-secondary);
+            }
+
+            .stat-change {
+                font-size: 0.625rem;
+            }
+
+            /* Cards compact */
+            .card {
+                margin-bottom: 16px;
+            }
+
+            .card-header {
+                padding: 12px 16px;
+            }
+
+            .card-title {
+                font-size: 14px;
+            }
+
+            /* Review card compact */
+            .review-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+                padding: 12px 16px;
+            }
+
+            .review-avatar {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+
+            .review-badge {
+                align-self: flex-start;
+                font-size: 11px;
+                padding: 4px 8px;
+            }
+
+            /* Content gallery compact */
+            .content-gallery {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 8px;
+                padding: 12px;
+            }
+
+            .content-thumb {
+                font-size: 24px;
+            }
+
+            /* Table - Card view on mobile */
+            .table thead {
+                display: none;
+            }
+
+            .table tbody {
+                display: block;
+            }
+
+            .table tbody tr {
+                display: block;
+                background: var(--bg-primary);
+                border: 1px solid var(--border);
+                border-radius: 2px;
+                padding: 12px;
+                margin-bottom: 8px;
+            }
+
+            .table tbody tr:hover td {
+                background: transparent;
+            }
+
+            .table td {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 4px 0;
+                border: none;
+            }
+
+            .table td::before {
+                content: attr(data-label);
+                font-size: 0.75rem;
+                color: var(--text-secondary);
+                font-weight: 500;
+            }
+
+            .table td:first-child {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .table td:first-child::before {
+                display: none;
+            }
+
+            .table td:last-child {
+                margin-top: 8px;
+                justify-content: flex-end;
+            }
+
+            .table td:last-child::before {
+                display: none;
+            }
+
+            /* Influencer row compact */
+            .influencer-row {
+                gap: 8px;
+            }
+
+            .influencer-avatar {
+                width: 32px;
+                height: 32px;
+                font-size: 14px;
+            }
+
+            /* Button sizes */
+            .btn-sm {
+                padding: 6px 12px;
+                font-size: 0.75rem;
+            }
+        }
+
+        /* Desktop: hide mobile elements */
+        @media (min-width: 641px) {
+            .mobile-cta {
+                display: none;
+            }
+
+            .sidebar-nav .nav-label-short {
+                display: none;
+            }
+
+            .sidebar-nav .nav-label-full {
+                display: block;
+            }
+        }
     </style>
 </head>
 <body>
@@ -573,45 +851,43 @@
                 <button class="theme-toggle" id="themeToggle" title="Byt tema">
                     <span id="themeIcon">☀️</span>
                 </button>
-                <a href="index.html" class="btn btn-ghost" data-i18n="nav.logout">Logga ut</a>
+                <a href="index.html" class="btn btn-ghost"><span class="btn-logout-text" data-i18n="nav.logout">Logga ut</span></a>
             </div>
         </div>
     </header>
 
     <!-- Layout -->
     <div class="layout">
-        <!-- Sidebar -->
+        <!-- Sidebar / Bottom Nav -->
         <aside class="sidebar">
             <nav>
                 <ul class="sidebar-nav">
                     <li>
                         <a href="hotel-dashboard.html" class="active" data-i18n-title="sidebar.overview">
                             <span class="nav-icon">📊</span>
-                            <span data-i18n="sidebar.overview">Översikt</span>
+                            <span class="nav-label-full" data-i18n="sidebar.overview">Översikt</span>
+                            <span class="nav-label-short">Hem</span>
                         </a>
                     </li>
                     <li>
                         <a href="hotel-profile.html" data-i18n-title="sidebar.myHotel">
                             <span class="nav-icon">🏨</span>
-                            <span data-i18n="sidebar.myHotel">Mitt hotell</span>
+                            <span class="nav-label-full" data-i18n="sidebar.myHotel">Mitt hotell</span>
+                            <span class="nav-label-short">Hotell</span>
                         </a>
                     </li>
                     <li>
                         <a href="hotel-requests.html" data-i18n-title="sidebar.requests">
                             <span class="nav-icon">📋</span>
-                            <span data-i18n="sidebar.requests">Mina förfrågningar</span>
+                            <span class="nav-label-full" data-i18n="sidebar.requests">Mina förfrågningar</span>
+                            <span class="nav-label-short">Requests</span>
                         </a>
                     </li>
                     <li>
                         <a href="hotel-influencers.html" data-i18n-title="sidebar.influencers">
                             <span class="nav-icon">👥</span>
-                            <span data-i18n="sidebar.influencers">Influencers</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="hotel-settings.html" data-i18n-title="sidebar.settings">
-                            <span class="nav-icon">⚙️</span>
-                            <span data-i18n="sidebar.settings">Inställningar</span>
+                            <span class="nav-label-full" data-i18n="sidebar.influencers">Influencers</span>
+                            <span class="nav-label-short">Creators</span>
                         </a>
                     </li>
                 </ul>
@@ -645,6 +921,11 @@
                     <div class="stat-value">24</div>
                     <div class="stat-change">+8 <span data-i18n="stats.thisYear">i år</span></div>
                 </div>
+            </div>
+
+            <!-- Mobile CTA -->
+            <div class="mobile-cta">
+                <button class="btn btn-primary" data-i18n="dashboard.newRequest">+ Skapa ny förfrågan</button>
             </div>
 
             <!-- Waiting for Review -->
