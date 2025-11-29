@@ -784,6 +784,316 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
+
+        /* Mobile Layout (max-width: 640px) */
+        @media (max-width: 640px) {
+            /* 1. HEADER - Compact */
+            .header-inner {
+                padding: 12px 16px;
+            }
+
+            .logo {
+                font-size: 1.125rem;
+            }
+
+            .header-actions {
+                gap: 8px;
+            }
+
+            .lang-select {
+                padding: 6px 8px;
+                font-size: 0.75rem;
+            }
+
+            .theme-toggle {
+                width: 32px;
+                height: 32px;
+                font-size: 14px;
+            }
+
+            .back-btn {
+                font-size: 0.75rem;
+            }
+
+            /* 2. NAVIGATION - Bottom fixed bar */
+            .sidebar {
+                display: block;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                height: auto;
+                background: var(--bg-primary);
+                border-top: 1px solid var(--border);
+                border-right: none;
+                padding: 0;
+                z-index: 100;
+            }
+
+            .sidebar nav {
+                width: 100%;
+            }
+
+            .sidebar-nav {
+                display: flex;
+                justify-content: space-around;
+                padding: 8px 0;
+                width: 100%;
+            }
+
+            .sidebar-nav li {
+                flex: 1;
+            }
+
+            .sidebar-nav a {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 4px;
+                padding: 8px 4px;
+                font-size: 0.625rem;
+                border-right: none;
+                text-align: center;
+            }
+
+            .sidebar-nav a .nav-icon {
+                font-size: 1.25rem;
+            }
+
+            .sidebar-nav a.active {
+                border-right: none;
+                background: transparent;
+                color: var(--text-primary);
+            }
+
+            /* Hide full label, show short label on mobile */
+            .sidebar-nav .nav-label-full {
+                display: none;
+            }
+
+            .sidebar-nav .nav-label-short {
+                display: block;
+            }
+
+            /* Add padding to main content for bottom nav */
+            .main {
+                padding: 16px;
+                padding-bottom: 100px;
+            }
+
+            /* Profile container compact */
+            .profile-container {
+                margin: 0;
+            }
+
+            /* Cover section compact */
+            .cover-image {
+                height: 120px;
+            }
+
+            .cover-image-img {
+                height: 120px;
+            }
+
+            .profile-header {
+                padding: 16px;
+                gap: 12px;
+            }
+
+            .profile-avatar {
+                width: 80px;
+                height: 80px;
+                font-size: 32px;
+                margin-top: -40px;
+            }
+
+            .profile-avatar-img {
+                width: 80px;
+                height: 80px;
+                margin-top: -40px;
+            }
+
+            .profile-name {
+                font-size: 1.25rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .profile-handle {
+                font-size: 0.875rem;
+            }
+
+            .profile-bio {
+                font-size: 0.875rem;
+            }
+
+            .profile-meta {
+                gap: 12px;
+            }
+
+            .meta-item {
+                font-size: 0.75rem;
+            }
+
+            .profile-actions {
+                gap: 8px;
+            }
+
+            .profile-actions .btn {
+                padding: 8px 16px;
+                font-size: 0.875rem;
+            }
+
+            /* Stats compact 2x2 */
+            .stats-grid,
+            .stats-row {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+                margin-bottom: 16px;
+            }
+
+            .stat-card,
+            .stat-box {
+                padding: 12px;
+            }
+
+            .stat-value {
+                font-size: 1.25rem;
+            }
+
+            .stat-label {
+                font-size: 0.625rem;
+            }
+
+            /* Section titles compact */
+            .section-title {
+                font-size: 0.75rem;
+                margin-bottom: 12px;
+            }
+
+            /* Sections compact */
+            .about-section,
+            .services-section,
+            .portfolio-section,
+            .contact-section,
+            .content-types {
+                padding: 16px;
+                margin-bottom: 16px;
+            }
+
+            .about-section h3,
+            .services-section h3,
+            .portfolio-section h3,
+            .contact-section h3,
+            .content-types h3 {
+                font-size: 0.875rem;
+                margin-bottom: 8px;
+            }
+
+            .about-section p {
+                font-size: 0.875rem;
+            }
+
+            /* Content grid compact */
+            .content-grid {
+                gap: 8px;
+            }
+
+            .content-type-card {
+                padding: 12px;
+            }
+
+            .content-icon {
+                font-size: 1.25rem;
+            }
+
+            .content-name {
+                font-size: 0.8125rem;
+            }
+
+            .content-price {
+                font-size: 0.6875rem;
+            }
+
+            /* Social links compact */
+            .social-links {
+                gap: 8px;
+            }
+
+            .social-link {
+                padding: 10px;
+                font-size: 0.875rem;
+            }
+
+            .follower-count {
+                font-size: 0.75rem;
+            }
+
+            /* Portfolio grid compact */
+            .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+
+            .portfolio-overlay {
+                padding: 8px;
+            }
+
+            .portfolio-title {
+                font-size: 0.75rem;
+            }
+
+            .portfolio-type {
+                font-size: 0.625rem;
+            }
+
+            /* Card compact */
+            .card {
+                margin-bottom: 16px;
+            }
+
+            .card-header {
+                padding: 12px 16px;
+            }
+
+            .card-body {
+                padding: 16px;
+            }
+
+            .card-title {
+                font-size: 0.875rem;
+            }
+
+            /* Request items compact */
+            .request-item {
+                padding: 12px 0;
+            }
+
+            .request-info h4 {
+                font-size: 0.875rem;
+            }
+
+            .request-info p {
+                font-size: 0.75rem;
+            }
+
+            .request-status {
+                font-size: 0.6875rem;
+                padding: 3px 8px;
+            }
+        }
+
+        /* Desktop: hide mobile elements */
+        @media (min-width: 641px) {
+            .sidebar-nav .nav-label-short {
+                display: none;
+            }
+
+            .sidebar-nav .nav-label-full {
+                display: block;
+            }
+        }
     </style>
 </head>
 <body>
@@ -809,32 +1119,36 @@
 
     <!-- Layout -->
     <div class="layout">
-        <!-- Sidebar -->
+        <!-- Sidebar / Bottom Nav -->
         <aside class="sidebar">
             <nav>
                 <ul class="sidebar-nav">
                     <li>
                         <a href="find-hotels.html">
                             <span class="nav-icon">🏨</span>
-                            <span data-i18n="sidebar.findHotels">Find hotels</span>
+                            <span class="nav-label-full" data-i18n="sidebar.findHotels">Find hotels</span>
+                            <span class="nav-label-short">Hotell</span>
                         </a>
                     </li>
                     <li>
                         <a href="influencer-dashboard.html">
                             <span class="nav-icon">💼</span>
-                            <span data-i18n="sidebar.myCollabs">My collaborations</span>
+                            <span class="nav-label-full" data-i18n="sidebar.myCollabs">My collaborations</span>
+                            <span class="nav-label-short">Deals</span>
                         </a>
                     </li>
                     <li>
                         <a href="content-studio.html">
                             <span class="nav-icon">🎬</span>
-                            <span data-i18n="sidebar.contentStudio">Content Studio</span>
+                            <span class="nav-label-full" data-i18n="sidebar.contentStudio">Content Studio</span>
+                            <span class="nav-label-short">Studio</span>
                         </a>
                     </li>
                     <li>
                         <a href="profile.html?type=influencer" class="active">
                             <span class="nav-icon">👤</span>
-                            <span data-i18n="sidebar.myProfile">My profile</span>
+                            <span class="nav-label-full" data-i18n="sidebar.myProfile">My profile</span>
+                            <span class="nav-label-short">Profil</span>
                         </a>
                     </li>
                 </ul>
