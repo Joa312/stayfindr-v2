@@ -1,0 +1,472 @@
+/* ============================================
+   STAYFINDR - Shared Responsive Styles
+   ============================================ */
+
+/* ============================================
+   RESPONSIVE DESIGN - TABLET (max-width: 1024px)
+   ============================================ */
+@media (max-width: 1024px) {
+  .layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 12px 0;
+  }
+
+  .sidebar-nav {
+    display: flex;
+    overflow-x: auto;
+    gap: 8px;
+    padding: 0 16px;
+  }
+
+  .sidebar-nav li {
+    flex-shrink: 0;
+  }
+
+  .sidebar-nav a {
+    white-space: nowrap;
+    padding: 8px 16px;
+    border-right: none;
+  }
+
+  .sidebar-nav a.active {
+    border-right: none;
+    border-bottom: 2px solid var(--accent);
+  }
+
+  .main-content,
+  .main {
+    padding: 24px 16px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stats-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hotels-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hotel-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .portfolio-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cards-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .content-gallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .two-col {
+    grid-template-columns: 1fr;
+  }
+
+  .steps-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================
+   RESPONSIVE DESIGN - MOBILE (max-width: 640px)
+   ============================================ */
+@media (max-width: 640px) {
+  /* Header */
+  .header {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 12px 16px;
+  }
+
+  .header-inner {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 12px 16px;
+  }
+
+  .header-left {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .header-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .user-menu {
+    display: none;
+  }
+
+  .user-info {
+    display: none;
+  }
+
+  .hotel-name {
+    display: none;
+  }
+
+  .logo {
+    font-size: 1rem;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  /* Page Header */
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .page-header h1,
+  .page-title {
+    font-size: 1.25rem;
+  }
+
+  /* Stats Grid */
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .stats-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .stat-card,
+  .stat-box {
+    padding: 12px;
+  }
+
+  .stat-value {
+    font-size: 1.25rem;
+  }
+
+  /* Tables */
+  .deals-table,
+  .table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .table th:nth-child(3),
+  .table td:nth-child(3),
+  .table th:nth-child(4),
+  .table td:nth-child(4) {
+    display: none;
+  }
+
+  /* Search & Filters */
+  .search-filters {
+    flex-direction: column;
+  }
+
+  .search-input {
+    min-width: 100%;
+  }
+
+  .filter-tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .filter-tab {
+    flex-shrink: 0;
+  }
+
+  /* Hotel Cards */
+  .hotel-card-content {
+    padding: 16px;
+  }
+
+  .hotel-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .contact-row {
+    font-size: 0.8125rem;
+  }
+
+  .hotel-card-footer {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .hotel-card-footer .btn {
+    width: 100%;
+  }
+
+  /* Hotel Grid (Dashboard) */
+  .hotel-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Portfolio Grid */
+  .portfolio-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  /* Content Grid */
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .content-gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Social Links */
+  .social-link {
+    padding: 10px;
+  }
+
+  /* Buttons */
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .btn-sm {
+    width: auto;
+  }
+
+  .profile-actions {
+    width: 100%;
+  }
+
+  .profile-actions .btn {
+    flex: 1;
+  }
+
+  /* Profile */
+  .profile-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .profile-avatar,
+  .profile-avatar-img {
+    margin-top: -50px;
+  }
+
+  .profile-meta {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .profile-name {
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: 1.5rem;
+  }
+
+  /* Cards Grid */
+  .cards-grid,
+  .cards-grid-4 {
+    grid-template-columns: 1fr;
+  }
+
+  /* Image Grid */
+  .image-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Hero Section */
+  .hero h1 {
+    font-size: 1.75rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .hero-inner {
+    padding: 40px 16px;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-buttons .btn {
+    width: 100%;
+  }
+
+  /* Steps Grid */
+  .steps-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Role Cards */
+  .role-card {
+    padding: 24px;
+  }
+
+  /* Section Headers */
+  .section-header-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  /* Footer */
+  .footer-inner {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .footer-links {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* Review Cards */
+  .review-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .review-badge {
+    align-self: flex-start;
+  }
+
+  /* Cover Section */
+  .cover-image,
+  .cover-image-img {
+    height: 150px;
+  }
+}
+
+/* ============================================
+   RESPONSIVE DESIGN - EXTRA SMALL (max-width: 380px)
+   ============================================ */
+@media (max-width: 380px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-row {
+    grid-template-columns: 1fr;
+  }
+
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .header-controls {
+    gap: 8px;
+  }
+
+  .header-actions {
+    gap: 8px;
+  }
+
+  .lang-btn,
+  .lang-select {
+    padding: 4px 8px;
+    font-size: 0.7rem;
+  }
+
+  .theme-toggle {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+
+  .sidebar-nav {
+    gap: 4px;
+    padding: 0 8px;
+  }
+
+  .sidebar-nav a {
+    padding: 6px 12px;
+    font-size: 0.8125rem;
+  }
+
+  .content-grid {
+    gap: 8px;
+  }
+
+  .content-type-card {
+    padding: 12px;
+  }
+
+  .content-icon {
+    font-size: 1.25rem;
+  }
+
+  .stat-card,
+  .stat-box {
+    padding: 10px;
+  }
+
+  .stat-value {
+    font-size: 1.125rem;
+  }
+
+  .stat-label {
+    font-size: 0.6875rem;
+  }
+}
+
+/* ============================================
+   TOUCH DEVICE IMPROVEMENTS
+   ============================================ */
+@media (hover: none) and (pointer: coarse) {
+  .btn,
+  .filter-tab,
+  .sidebar-nav a,
+  .hotel-card,
+  .social-link {
+    min-height: 44px;
+  }
+
+  .filter-tabs {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .filter-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .sidebar-nav {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .sidebar-nav::-webkit-scrollbar {
+    display: none;
+  }
+}
